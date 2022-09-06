@@ -13,5 +13,5 @@ export class SupplierProduct {
 
   //@ManyToOne(()=> Supplier) arrumo assim que subir tudo;
 
-  //   @ManyToOne(()=> Category) arrumo assim que subir tudo;
+  //@ManyToOne(()=> Category) arrumo assim que subir tudo;
 }
