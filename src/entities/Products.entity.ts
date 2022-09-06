@@ -1,15 +1,14 @@
 import { Entity, Column, PrimaryGeneratedColumn, CreateDateColumn, UpdateDateColumn,OneToMany, Unique, ManyToOne} from 'typeorm'
-/* import ProductsCart from '../entities/productCart.entity.ts' */
-/* import OrderSuppliersProducts from '../entites/OrderSuppliersProducts.entity.ts' */
-/* import Category from '../entities/category.entity.ts' */
+/* import ProductsCart from '../entities/productCart.entity.ts'
+import OrderSuppliersProducts from '../entites/OrderSuppliersProducts.entity.ts'
+import Category from '../entities/category.entity.ts' */
 
-@Entity()
-@Unique(['name'])
+@Entity('products')
 class Products {
     @PrimaryGeneratedColumn('uuid')
     id: string
 
-    @Column()
+    @Column({unique: true})
     name: string
 
     @Column({type: 'decimal', precision: 10, scale: 2})
