@@ -6,9 +6,10 @@ import {
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from "typeorm";
+import SupplierProduct from "./supplierProducts.entity";
 
 @Entity("suppliers")
-export class Supplier {
+class Supplier {
   @PrimaryGeneratedColumn("uuid")
   id: string;
 
@@ -29,4 +30,12 @@ export class Supplier {
 
   @UpdateDateColumn()
   updatedAt: Date;
+
+  @OneToMany(
+    () => SupplierProduct,
+    (supplierProduct) => supplierProduct.supplier
+  )
+  supplierProducts: Supplier;
 }
+
+export default Supplier;

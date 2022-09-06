@@ -1,7 +1,9 @@
 import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from "typeorm";
+import Category from "./categories.entity";
+import Supplier from "./suppliers.entity";
 
 @Entity("supplierProducts")
-export class SupplierProduct {
+class SupplierProduct {
   @PrimaryGeneratedColumn("uuid")
   id: string;
 
@@ -11,7 +13,15 @@ export class SupplierProduct {
   @Column({ type: "decimal", precision: 10, scale: 2 })
   costPrice: number;
 
-  //@ManyToOne(()=> Supplier) arrumo assim que subir tudo;
+  @ManyToOne(() => Supplier, (supplier) => supplier.supplierProducts, {
+    eager: true,
+  })
+  supplier: Supplier[];
 
-  //@ManyToOne(()=> Category) arrumo assim que subir tudo;
+  @ManyToOne(() => Category, (category) => category.supplierProducts, {
+    eager: true,
+  })
+  category: Category;
 }
+
+export default SupplierProduct;
