@@ -2,6 +2,8 @@ import { Entity, Column, PrimaryGeneratedColumn, CreateDateColumn, ManyToOne } f
 import Products from './Products.entity'
 import { SupplierProduct } from './supplierProducts.entity'
 
+//Não megeras na main
+
 @Entity('orderSuppliersProducts')
 class OrderSuppliersProducts {
 
