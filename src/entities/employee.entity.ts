@@ -1,11 +1,8 @@
-import { Entity, Column, PrimaryGeneratedColumn, CreateDateColumn, UpdateDateColumn,OneToMany, Unique} from 'typeorm'
+import { Entity, Column, PrimaryGeneratedColumn, CreateDateColumn, UpdateDateColumn,OneToMany } from 'typeorm'
 import { Exclude } from 'class-transformer'
+import Cart from '../entities/cart.entity.ts'
 
-/* //entities: cart
-import Cart from '../entities/cart.entity.ts' */
-
-@Entity()
-@Unique(['email'])
+@Entity('employee')
 class Employee {
     @PrimaryGeneratedColumn('uuid')
     id: string
@@ -13,7 +10,7 @@ class Employee {
     @Column()
     name: string
 
-    @Column()
+    @Column({unique:true})
     email: string 
 
     @Column()
@@ -32,10 +29,10 @@ class Employee {
     @UpdateDateColumn()
     updatedAt: Date
 
-    /* @OneToMany((type) => Cart, cart => cart.employee, {
+    @OneToMany((type) => Cart, cart => cart.employee, {
         eager: true
     })
-    cart: Cart[] */
+    cart: Cart[]
 }
 
 export default Employee
