@@ -1,47 +1,56 @@
-import { Entity, Column, PrimaryGeneratedColumn, CreateDateColumn, UpdateDateColumn,OneToMany, Unique, ManyToOne} from 'typeorm'
-/* import ProductsCart from '../entities/productCart.entity.ts'
-import OrderSuppliersProducts from '../entites/OrderSuppliersProducts.entity.ts'
-import Category from '../entities/category.entity.ts' */
+import {
+	Entity,
+	Column,
+	PrimaryGeneratedColumn,
+	CreateDateColumn,
+	UpdateDateColumn,
+	OneToMany,
+	Unique,
+	ManyToOne,
+} from "typeorm";
+import Category from "./categories.entity";
+import OrderSuppliersProducts from "./orderSuppliersProducts.entity";
+import ProductsCart from "./productsCart.entity";
 
-@Entity('products')
+@Entity("products")
 class Products {
-    @PrimaryGeneratedColumn('uuid')
-    id: string
+	@PrimaryGeneratedColumn("uuid")
+	id: string;
 
-    @Column({unique: true})
-    name: string
+	@Column({ unique: true })
+	name: string;
 
-    @Column({type: 'decimal', precision: 10, scale: 2})
-    marketPrice: string
+	@Column({ type: "decimal", precision: 10, scale: 2 })
+	marketPrice: string;
 
-    @Column({type: 'integer'})
-    stock: number
+	@Column({ type: "integer" })
+	stock: number;
 
-    @Column({length: '100'})
-    description: string
-    
-    @Column({type: 'decimal', precision: 3, scale: 2, default: '0'})
-    discount: string
-    
-    @CreateDateColumn()
-    createdAt: Date
+	@Column({ length: "100" })
+	description: string;
 
-    @UpdateDateColumn()
-    updatedAt: Date
+	@Column({ type: "decimal", precision: 3, scale: 2, default: "0" })
+	discount: string;
 
-    /* @OneToMany((type) => ProductsCart, productsCart => productsCart.products, {
-        eager: true
-    })
-    productsCart: ProductsCart[] */
+	@CreateDateColumn()
+	createdAt: Date;
 
-    /* @OneToMany((type) => OrderSuppliersProducts, orderSuppliersProducts => orderSuppliersProducts.products, {
-        eager: true
-    })
-    orderSuppliersProducts: OrderSuppliersProducts[] */
+	@UpdateDateColumn()
+	updatedAt: Date;
 
-   /*  @ManyToOne((type) => Category)
-    category: Category */
-   
+	@OneToMany((type) => ProductsCart, (productsCart) => productsCart.product, {
+		eager: true,
+	})
+	productsCart: ProductsCart[];
+
+	@OneToMany(
+		(type) => OrderSuppliersProducts,
+		(orderSuppliersProducts) => orderSuppliersProducts.product
+	)
+	orderSuppliersProducts: OrderSuppliersProducts[];
+
+	@ManyToOne((type) => Category)
+	category: Category;
 }
 
-export default Products
+export default Products;
