@@ -1,5 +1,5 @@
 import { Entity, Column, PrimaryGeneratedColumn, CreateDateColumn, OneToMany, UpdateDateColumn } from 'typeorm'
-import { Cart } from './cart.entity'
+import Cart from './cart.entity'
 
 @Entity('loyaltyCustomer')
 class LoyaltyCustomer {
@@ -30,4 +30,4 @@ class LoyaltyCustomer {
 
 }
 
-export { LoyaltyCustomer }
+export default  LoyaltyCustomer 
