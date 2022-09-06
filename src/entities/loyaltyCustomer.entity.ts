@@ -1,4 +1,5 @@
 import { Entity, Column, PrimaryGeneratedColumn, CreateDateColumn, OneToMany, UpdateDateColumn } from 'typeorm'
+import { Cart } from './cart.entity'
 
 @Entity('loyaltyCustomer')
 class LoyaltyCustomer {
@@ -24,8 +25,8 @@ class LoyaltyCustomer {
   @UpdateDateColumn({ nullable: false })
   updatedAt: Date
 
-  // @OneToMany(() => Cart, cart => cart.loyaltyCustomer)
-  // cart: Cart[]
+  @OneToMany(() => Cart, cart => cart.loyaltyCustomer)
+  cart: Cart[]
 
 }
 
