@@ -16,7 +16,7 @@ class Category {
 	)
 	supplierProducts: SupplierProduct[];
 
-	@OneToMany(() => Products, (supplierProduct) => supplierProduct.category)
+	@OneToMany(() => Products, (products) => products.category)
 	products: Products[];
 }
 
