@@ -376,14 +376,22 @@ O objeto Supplier é definido como:
 
 ---
 
+<<<<<<< HEAD
 ### 8.1. **Criação do Fornecedor**
+=======
+### 1.1. **Criação do Fornecedor**
+>>>>>>> ab715c4 (fixing merge)
 
 ### `/suppliers`
 
 ### Exemplo de Request:
 
 ```
+<<<<<<< HEAD
 POST /suppliers
+=======
+POST /users
+>>>>>>> ab715c4 (fixing merge)
 Host:
 Authorization: Bearer token
 Content-type: application/json
@@ -406,7 +414,11 @@ Content-type: application/json
 name: yup.string().required(),
 email: yup.string().required(),
 cnpj: yup.string().required(),
+<<<<<<< HEAD
 phone: yup.string().email().required(),
+=======
+phone: yup.string().required(),
+>>>>>>> ab715c4 (fixing merge)
 ```
 
 OBS.: Chaves não presentes no schema serão removidas.
@@ -438,7 +450,11 @@ OBS.: Chaves não presentes no schema serão removidas.
 
 ---
 
+<<<<<<< HEAD
 ### 8.2. **Listando Fornecedores**
+=======
+### 1.2. **Listando Fornecedores**
+>>>>>>> ab715c4 (fixing merge)
 
 ### `/suppliers`
 
@@ -483,7 +499,11 @@ Nenhum, o máximo que pode acontecer é retornar uma lista vazia.
 
 ---
 
+<<<<<<< HEAD
 ### 8.3. **Listar Fornecedor por ID**
+=======
+### 1.3. **Listar Fornecedor por ID**
+>>>>>>> ab715c4 (fixing merge)
 
 ### `/suppliers/:id`
 
@@ -534,7 +554,11 @@ Vazio
 
 ---
 
+<<<<<<< HEAD
 ### 8.4. **Atualizar Fornecedor**
+=======
+### 1.4. **Atualizar Fornecedor**
+>>>>>>> ab715c4 (fixing merge)
 
 ### `/suppliers`
 
@@ -565,7 +589,11 @@ Content-type: application/json
 
 ```javascript
 name: yup.string(),
+<<<<<<< HEAD
 email: yup.string().email(),
+=======
+email: yup.string(),
+>>>>>>> ab715c4 (fixing merge)
 cnpj: yup.string(),
 phone: yup.string(),
 ```
@@ -598,7 +626,11 @@ OBS.: Chaves não presentes no schema serão removidas.
 
 ---
 
+<<<<<<< HEAD
 ### 8.5. **Deletar Fornecedor por ID**
+=======
+### 1.5. **Deletar Fornecedor por ID**
+>>>>>>> ab715c4 (fixing merge)
 
 ### `/suppliers/:id`
 

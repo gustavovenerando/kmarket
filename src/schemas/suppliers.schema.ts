@@ -18,5 +18,9 @@ export const supplierUpdateSchema: SchemaOf<ISupplierUpdateRequest> = yup
     name: yup.string(),
     cnpj: yup.string(),
     phone: yup.string(),
+<<<<<<< HEAD
     email: yup.string().email(),
+=======
+    email: yup.string(),
+>>>>>>> ab715c4 (fixing merge)
   });
