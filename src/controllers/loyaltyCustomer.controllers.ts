@@ -23,7 +23,7 @@ export const listLoyaltyCustomersController = async (
 ) => {
   
   const loyaltyCustomer = await listLoyaltyCustomersService();
-  return res.status(201).json(instanceToPlain(loyaltyCustomer));
+  return res.status(200).json(instanceToPlain(loyaltyCustomer));
 };
 
 export const listLoyaltyCustomerController = async (
@@ -34,7 +34,7 @@ export const listLoyaltyCustomerController = async (
   const { id } = req.params
   // const { isActive } = req.employee
   const loyaltyCustomer = await listLoyaltyCustomerService(id);
-  return res.status(201).json(instanceToPlain(loyaltyCustomer));
+  return res.status(200).json(instanceToPlain(loyaltyCustomer));
 };
 
 export const updateLoyaltyCustomersController = async (
@@ -45,7 +45,7 @@ export const updateLoyaltyCustomersController = async (
   const id = req.params.id
   const {email, name, fidelityPoints}: ILoyaltyCustomerUpdateRequest = req.body
   const updatedLoyaltyCustomer = await updateLoyaltyCustomerService(id, {email, name, fidelityPoints})
-  return res.status(201).json(instanceToPlain(updatedLoyaltyCustomer));
+  return res.status(200).json(instanceToPlain(updatedLoyaltyCustomer));
 };
 
 export const softDeleteLoyaltyCustomerController = async (req: Request, res: Response) => {

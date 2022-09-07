@@ -1,42 +1,42 @@
 import {
-	Column,
-	CreateDateColumn,
-	Entity,
-	OneToMany,
-	PrimaryGeneratedColumn,
-	UpdateDateColumn,
+  Column,
+  CreateDateColumn,
+  Entity,
+  OneToMany,
+  PrimaryGeneratedColumn,
+  UpdateDateColumn,
 } from "typeorm";
 import SupplierProduct from "./supplierProducts.entity";
 
 @Entity("suppliers")
 class Supplier {
-	@PrimaryGeneratedColumn("uuid")
-	id: string;
+  @PrimaryGeneratedColumn("uuid")
+  id: string;
 
-	@Column()
-	name: string;
+  @Column()
+  name: string;
 
-	@Column({ type: "integer", unique: true })
-	cnpj: number;
+  @Column({ unique: true })
+  cnpj: string;
 
-	@Column()
-	phone: string;
+  @Column()
+  phone: string;
 
-	@Column({ unique: true })
-	email: string;
+  @Column({ unique: true })
+  email: string;
 
-	@CreateDateColumn()
-	createdAt: Date;
+  @CreateDateColumn()
+  createdAt: Date;
 
-	@UpdateDateColumn()
-	updatedAt: Date;
+  @UpdateDateColumn()
+  updatedAt: Date;
 
-	@OneToMany(
-		() => SupplierProduct,
-		(supplierProduct) => supplierProduct.supplier,
-		{ onDelete: "CASCADE" }
-	)
-	supplierProducts: SupplierProduct[];
+  @OneToMany(
+    () => SupplierProduct,
+    (supplierProduct) => supplierProduct.supplier,
+    { onDelete: "CASCADE" }
+  )
+  supplierProducts: SupplierProduct[];
 }
 
 export default Supplier;
