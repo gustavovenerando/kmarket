@@ -11,8 +11,8 @@ const updateLoyaltyCustomerService = async(id: string, {email, name, fidelityPoi
     const loyaltyCustomers = await loyaltyCustomerRepository.find();
 
     loyaltyCustomers.map((elem) => {
-      if (elem.email === email) {
-        throw new AppError(400, "email alredy exists");
+      if (elem.email === email && elem.id !== id) {
+        throw new AppError(409, "Email already registered.");
       }
     });
 
@@ -21,7 +21,7 @@ const updateLoyaltyCustomerService = async(id: string, {email, name, fidelityPoi
     })
 
     if(!findLoyaltyCustomer){
-        throw new AppError(404, 'Customer not found')
+        throw new AppError(404, 'Customer not found.')
     }
 
     await loyaltyCustomerRepository.update(
@@ -38,7 +38,7 @@ const updateLoyaltyCustomerService = async(id: string, {email, name, fidelityPoi
     })
 
     if(!loyaltyCustomer){
-      throw new AppError(404, 'Customer not found')
+      throw new AppError(404, 'Customer not found.')
     }
 
     return loyaltyCustomer

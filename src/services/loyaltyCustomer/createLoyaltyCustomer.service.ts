@@ -13,7 +13,7 @@ const createLoyaltyCustomerService = async ({
 
   loyaltyCustomers.map((elem) => {
     if (elem.email === email) {
-      throw new AppError(400, "email alredy exists");
+      throw new AppError(409, "Email already registered.");
     }
   });
 

@@ -5,6 +5,7 @@ import { hash } from "bcryptjs";
 
 import AppError from "../../errors/AppError";
 
+<<<<<<< HEAD
 export const createEmployeesService = async ({
   name,
   email,
@@ -18,11 +19,20 @@ export const createEmployeesService = async ({
   const emailAlreadyExists = employees.find(
     (employee) => employee.email === email
   );
+=======
+export const createEmployeesService = async ({name,email,password,isAdm,isActive}: IEmployeeRequest): Promise<Employee> => {
+
+	const employeesRepository = AppDataSource.getRepository(Employee);
+	const employees = await employeesRepository.find();
+
+	const emailAlreadyExists = employees.find((employee) => employee.email === email);
+>>>>>>> 7236ffb85a288193bccc232a918b5d22d31dc197
 
   if (emailAlreadyExists) {
     throw new AppError(400, "Email already exists");
   }
 
+<<<<<<< HEAD
   if (
     name !== undefined ||
     email !== undefined ||
@@ -32,9 +42,15 @@ export const createEmployeesService = async ({
   ) {
     throw new AppError(400, "Required field");
   }
+=======
+	if (name === undefined || email === undefined || password === undefined || isAdm === undefined) {
+		throw new AppError(400, "Required field");
+	}
+>>>>>>> 7236ffb85a288193bccc232a918b5d22d31dc197
 
   const hashPassword = await hash(password, 10);
 
+<<<<<<< HEAD
   const employee = employeesRepository.create({
     name,
     email,
@@ -52,6 +68,17 @@ export const createEmployeesService = async ({
 
   // employeesRepository.create(employee)
   await employeesRepository.save(employee);
+=======
+	const employee = employeesRepository.create({
+		name,
+		email,
+		password: hashPassword,
+		isAdm,
+		isActive
+	});
+
+	await employeesRepository.save(employee);
+>>>>>>> 7236ffb85a288193bccc232a918b5d22d31dc197
 
   return employee;
 };

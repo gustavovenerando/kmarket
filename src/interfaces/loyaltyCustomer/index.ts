@@ -4,8 +4,8 @@ export interface ILoyaltyCustomerRequest {
 }
 
 export interface ILoyaltyCustomerUpdateRequest {
-  name: string;
-	email: string;
-  fidelityPoints: number;
+  name?: string;
+	email?: string;
+  fidelityPoints?: number;
 }
 
