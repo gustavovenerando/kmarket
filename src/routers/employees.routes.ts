@@ -1,19 +1,12 @@
-import { Router } from 'express'
+import { Router } from "express";
 
 //controllers here
-import { createEmployeesController } from '../controllers/employees.controllers'
+import { createEmployeesController } from "../controllers/employees.controllers";
 
 //midleweres here
 
-const routes = Router()
+const employeeRouter = Router();
 
-const employeeRouter = () =>{
-   /*  routes.get('', )
-    routes.get('/:id', ) */
-    routes.post('',createEmployeesController)
-    /* routes.patch('/:id', )
-    routes.delete('/:id', ) */
+employeeRouter.post("", createEmployeesController);
 
-    return routes
-}
-export default employeeRouter
+export default employeeRouter;
