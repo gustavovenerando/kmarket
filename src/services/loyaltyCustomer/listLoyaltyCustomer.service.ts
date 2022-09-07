@@ -13,7 +13,7 @@ const listLoyaltyCustomerService = async (
   });
 
   if (!loyaltyCustomer) {
-    throw new AppError(404, "Customer not found");
+    throw new AppError(404, "Customer not found.");
   }
 
   return loyaltyCustomer;

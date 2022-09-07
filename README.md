@@ -47,13 +47,298 @@
 
 ### 6. /loyaltycustomers
 
+O objeto loyaltyCustomer é definido como:
+
+| Campo          | Tipo    | Descrição                           |
+| -------------- | ------- | ----------------------------------- |
+| id             | string  | Identificador único do cliente.     |
+| name           | string  | O nome do cliente.                  |
+| email          | string  | O e-mail único do cliente.          |
+| fidelityPoints | number  | Os pontos de fidelidade do cliente. |
+| isActive       | boolean | Se ele ainda é um cliente ativo.    |
+| createdAt      | Date    | Data que o cliente foi cadastrado.  |
+| updatedAt      | Date    | Data que o cliente foi atualizado.  |
+
+### Endpoints
+
 | Método | Rota                  | Descrição                                                   | Autorizaçao | Adm |
 | ------ | --------------------- | ----------------------------------------------------------- | ----------- | --- |
+| POST   | /loyaltycustomers     | Criação de um cliente.                                      | X           |     |
 | GET    | /loyaltycustomers     | Lista todos os clientes.                                    | X           |     |
 | GET    | /loyaltycustomers/:id | Lista um cliente usando seu ID como parâmetro.              | X           | X   |
-| POST   | /loyaltycustomers     | Criação de um cliente.                                      | X           |     |
 | PATCH  | /loyaltycustomers/:id | Atualiza os clientes.                                       | X           | X   |
 | DELETE | /loyaltycustomers/:id | Deleta os clientes. Soft delete (mudar isActive para false) | X           | X   |
+
+---
+
+### 6.1. **Criação do Cliente**
+
+### `/loyaltycustomers`
+
+### Exemplo de Request:
+
+```
+POST /loyaltycustomers
+Host:
+Authorization: Bearer token
+Content-type: application/json
+```
+
+### Corpo da Requisição:
+
+```json
+{
+  "name": "Gabriel",
+  "email": "gabriel@mail.com"
+}
+```
+
+### Schema de Validação com Yup:
+
+```javascript
+  name: yup.string().required(),
+  email: yup.string().email().required(),
+```
+
+OBS.: Chaves não presentes no schema serão removidas.
+
+### Exemplo de Response:
+
+```
+201 Created
+```
+
+```json
+{
+  "name": "Gabriel",
+  "email": "gabriel@mail.com",
+  "id": "68ee5317-3d40-4c88-b590-18d5bbfeaec3",
+  "fidelityPoints": 0,
+  "isActive": true,
+  "createdAt": "2022-09-07T20:13:50.871Z",
+  "updatedAt": "2022-09-07T20:13:50.871Z"
+}
+```
+
+### Possíveis Erros:
+
+| Código do Erro | Descrição                 |
+| -------------- | ------------------------- |
+| 409 Conflict   | Email already registered. |
+
+---
+
+### 6.2. **Listando Clientes**
+
+### `/loyaltycustomers`
+
+### Exemplo de Request:
+
+```
+GET /loyaltycustomers
+Host:
+Authorization: Bearer token
+Content-type: application/json
+```
+
+### Corpo da Requisição:
+
+```json
+Vazio
+```
+
+### Exemplo de Response:
+
+```
+200 OK
+```
+
+```json
+[
+  {
+    "id": "43224513-26f4-45a4-a3d9-cd94a6a0be49",
+    "name": "Gabriel",
+    "email": "gabriel@mail.com",
+    "fidelityPoints": 50,
+    "isActive": true,
+    "createdAt": "2022-09-07T16:07:55.888Z",
+    "updatedAt": "2022-09-07T17:45:02.657Z"
+  },
+  {
+    "id": "70a3a183-64c8-45c8-b6d4-bcc876a7be3a",
+    "name": "Gustavo",
+    "email": "gustavo@mail.com",
+    "fidelityPoints": 0,
+    "isActive": false,
+    "createdAt": "2022-09-07T17:39:02.299Z",
+    "updatedAt": "2022-09-07T17:54:36.710Z"
+  }
+]
+```
+
+### Possíveis Erros:
+
+Nenhum, o máximo que pode acontecer é retornar uma lista vazia.
+
+---
+
+### 6.3. **Listar Cliente por ID**
+
+### `/loyaltycustomers/:id`
+
+### Exemplo de Request:
+
+```
+GET /users/:id
+Host:
+Authorization: Bearer token
+Content-type: application/json
+```
+
+### Parâmetros da Requisição:
+
+| Parâmetro         | Tipo   | Descrição                      |
+| ----------------- | ------ | ------------------------------ |
+| loyaltySustomersd | string | Identificador único do Cliente |
+
+### Corpo da Requisição:
+
+```json
+Vazio
+```
+
+### Exemplo de Response:
+
+```
+200 OK
+```
+
+```json
+{
+  "id": "70a3a183-64c8-45c8-b6d4-bcc876a7be3a",
+  "name": "gabriel",
+  "email": "gabriel@mail.com",
+  "fidelityPoints": 0,
+  "isActive": false,
+  "createdAt": "2022-09-07T17:39:02.299Z",
+  "updatedAt": "2022-09-07T17:54:36.710Z"
+}
+```
+
+### Possíveis Erros:
+
+| Código do Erro | Descrição           |
+| -------------- | ------------------- |
+| 404 Not Found  | Customer not found. |
+
+---
+
+### 6.4. **Atualizar Cliente**
+
+### `/loyaltycustomers/:id`
+
+### Exemplo de Request:
+
+```
+PATCH /loyaltycustomers/:id
+Host:
+Authorization: Bearer token
+Content-type: application/json
+```
+
+### Parâmetros da Requisição:
+
+| Parâmetro         | Tipo   | Descrição                      |
+| ----------------- | ------ | ------------------------------ |
+| loyaltyCustomerId | string | Identificador único do cliente |
+
+### Corpo da Requisição:
+
+```json
+{
+  "name": "Matheus"
+}
+```
+
+### Schema de Validação com Yup:
+
+```javascript
+  name: yup.string(),
+  email: yup.string().email(),
+  fidelityPoints: yup.number(),
+```
+
+OBS.: Chaves não presentes no schema serão removidas.
+
+### Exemplo de Response:
+
+```
+200 Ok
+```
+
+```json
+{
+  "id": "70a3a183-64c8-45c8-b6d4-bcc876a7be3a",
+  "name": "Matheus",
+  "email": "gabriel@mail.com",
+  "fidelityPoints": 0,
+  "isActive": false,
+  "createdAt": "2022-09-07T17:39:02.299Z",
+  "updatedAt": "2022-09-07T17:54:36.710Z"
+}
+```
+
+### Possíveis Erros:
+
+| Código do Erro | Descrição                 |
+| -------------- | ------------------------- |
+| 404 Not Found  | Customer not found        |
+| 409 Conflict   | Email already registered. |
+
+---
+
+### 6.5. **Deletar Cliente por ID**
+
+### `/loyaltycustomers/:id`
+
+### Exemplo de Request:
+
+```
+DELETE /loyaltycustomers/:id
+Host:
+Authorization: Bearer Token
+Content-type: application/json
+```
+
+### Parâmetros da Requisição:
+
+| Parâmetro         | Tipo   | Descrição                      |
+| ----------------- | ------ | ------------------------------ |
+| loyaltycustomerId | string | Identificador único do cliente |
+
+### Corpo da Requisição:
+
+```json
+Vazio
+```
+
+### Exemplo de Response:
+
+```
+204 No Content
+```
+
+```json
+No body returned for response
+```
+
+### Possíveis Erros:
+
+| Código do Erro | Descrição           |
+| -------------- | ------------------- |
+| 404 Not Found  | Customer not found. |
+
+---
 
 ### 7. /categories
 
@@ -162,7 +447,7 @@ OBS.: Chaves não presentes no schema serão removidas.
 ```
 GET /suppliers
 Host:
-Authorization: None
+Authorization: Bearer token
 Content-type: application/json
 ```
 
@@ -205,9 +490,9 @@ Nenhum, o máximo que pode acontecer é retornar uma lista vazia.
 ### Exemplo de Request:
 
 ```
-GET /users/:id
+GET /suppliers/:id
 Host:
-Authorization: None
+Authorization: Bearer token
 Content-type: application/json
 ```
 
@@ -256,7 +541,7 @@ Vazio
 ### Exemplo de Request:
 
 ```
-PATCH /suppliers
+PATCH /suppliers/:id
 Host:
 Authorization: Bearer token
 Content-type: application/json
@@ -320,7 +605,7 @@ OBS.: Chaves não presentes no schema serão removidas.
 ### Exemplo de Request:
 
 ```
-DELETE /users/:id
+DELETE /suppliers/:id
 Host:
 Authorization: Bearer Token
 Content-type: application/json

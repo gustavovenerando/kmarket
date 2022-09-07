@@ -21,10 +21,9 @@ supplierRoutes.post(
 );
 supplierRoutes.get("", listSuppliersController);
 supplierRoutes.get("/:id", listSpecificSupplierController);
-supplierRoutes.patch("/:id", updatedSupplierController);
+supplierRoutes.patch("/:id",  validationSchemaMiddleware(supplierUpdateSchema), updatedSupplierController);
 supplierRoutes.delete(
   "/:id",
-  validationSchemaMiddleware(supplierUpdateSchema),
   deleteSupplierController
 );
 
