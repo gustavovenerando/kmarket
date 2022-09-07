@@ -95,14 +95,14 @@
 
 ## Tabela de Conteúdos
 
--   [Visão Geral](#1-visão-geral)
--   [Diagrama ER](#2-diagrama-er)
--   [Início Rápido](#3-início-rápido)
-    -   [Instalando Dependências](#31-instalando-dependências)
-    -   [Variáveis de Ambiente](#32-variáveis-de-ambiente)
-    -   [Migrations](#33-migrations)
--   [Autenticação](#4-autenticação)
--   [Endpoints](#5-endpoints)
+- [Visão Geral](#1-visão-geral)
+- [Diagrama ER](#2-diagrama-er)
+- [Início Rápido](#3-início-rápido)
+  - [Instalando Dependências](#31-instalando-dependências)
+  - [Variáveis de Ambiente](#32-variáveis-de-ambiente)
+  - [Migrations](#33-migrations)
+- [Autenticação](#4-autenticação)
+- [Endpoints](#5-endpoints)
 
 ---
 
@@ -110,12 +110,12 @@
 
 Visão geral do projeto, um pouco das tecnologias usadas.
 
--   [NodeJS](https://nodejs.org/en/)
--   [Express](https://expressjs.com/pt-br/)
--   [TypeScript](https://www.typescriptlang.org/)
--   [PostgreSQL](https://www.postgresql.org/)
--   [TypeORM](https://typeorm.io/)
--   [Yup](https://www.npmjs.com/package/yup)
+- [NodeJS](https://nodejs.org/en/)
+- [Express](https://expressjs.com/pt-br/)
+- [TypeScript](https://www.typescriptlang.org/)
+- [PostgreSQL](https://www.postgresql.org/)
+- [TypeORM](https://typeorm.io/)
+- [Yup](https://www.npmjs.com/package/yup)
 
 A URL base da aplicação:
 http://suaapi.com/v1
@@ -178,13 +178,13 @@ Por enquanto, não foi implementada autenticação.
 
 ### Índice
 
--   [Users](#1-users)
-    -   [POST - /users](#11-criação-de-usuário)
-    -   [GET - /users](#12-listando-usuários)
-    -   [GET - /users/:user_id](#13-listar-usuário-por-id)
--   [Products](#2-products)
--   [Cart](#3-cart)
--   [Users](#4-buys)
+- [Users](#1-users)
+  - [POST - /users](#11-criação-de-usuário)
+  - [GET - /users](#12-listando-usuários)
+  - [GET - /users/:user_id](#13-listar-usuário-por-id)
+- [Products](#2-products)
+- [Cart](#3-cart)
+- [Users](#4-buys)
 
 ---
 
@@ -231,10 +231,10 @@ Content-type: application/json
 
 ```json
 {
-	"name": "eDuArDo",
-	"email": "edu@mail.com",
-	"password": "1234",
-	"isAdm": true
+  "name": "eDuArDo",
+  "email": "edu@mail.com",
+  "password": "1234",
+  "isAdm": true
 }
 ```
 
@@ -275,10 +275,10 @@ OBS.: Chaves não presentes no schema serão removidas.
 
 ```json
 {
-	"id": "9cda28c9-e540-4b2c-bf0c-c90006d37893",
-	"name": "Eduardo",
-	"email": "edu@mail.com",
-	"isAdm": true
+  "id": "9cda28c9-e540-4b2c-bf0c-c90006d37893",
+  "name": "Eduardo",
+  "email": "edu@mail.com",
+  "isAdm": true
 }
 ```
 
@@ -319,12 +319,12 @@ Vazio
 
 ```json
 [
-	{
-		"id": "9cda28c9-e540-4b2c-bf0c-c90006d37893",
-		"name": "Eduardo",
-		"email": "edu@mail.com",
-		"isAdm": true
-	}
+  {
+    "id": "9cda28c9-e540-4b2c-bf0c-c90006d37893",
+    "name": "Eduardo",
+    "email": "edu@mail.com",
+    "isAdm": true
+  }
 ]
 ```
 
@@ -369,10 +369,10 @@ Vazio
 
 ```json
 {
-	"id": "9cda28c9-e540-4b2c-bf0c-c90006d37893",
-	"name": "Eduardo",
-	"email": "edu@mail.com",
-	"isAdm": true
+  "id": "9cda28c9-e540-4b2c-bf0c-c90006d37893",
+  "name": "Eduardo",
+  "email": "edu@mail.com",
+  "isAdm": true
 }
 ```
 
@@ -381,3 +381,245 @@ Vazio
 | Código do Erro | Descrição       |
 | -------------- | --------------- |
 | 404 Not Found  | User not found. |
+
+### 7.1. **Criação de Categoria**
+
+### `/categories`
+
+### Exemplo de Request:
+
+```
+POST /categories
+Host: http://suaapi.com/v1
+Authorization: Yes
+isAdm: Yes
+Content-type: application/json
+```
+
+### Corpo da Requisição:
+
+```json
+{
+  "name": "Bebidas"
+}
+```
+
+### Schema de Validação com Yup:
+
+```javascript
+name: yup
+        .string()
+	.required(),
+```
+
+OBS.: Chaves não presentes no schema serão removidas.
+
+### Exemplo de Response:
+
+```
+201 Created
+```
+
+```json
+{
+  "id": "9cda28c9-e540-4b2c-bf0c-c90006d37893",
+  "name": "Eduardo"
+}
+```
+
+### Possíveis Erros:
+
+| Código do Erro | Descrição                |
+| -------------- | ------------------------ |
+| 409 Conflict   | Name already registered. |
+
+---
+
+### 7.2. **Listando Categorias**
+
+### `/categories`
+
+### Exemplo de Request:
+
+```
+GET /categories
+Host: http://suaapi.com/v1
+Authorization: Yes
+isAdm: None
+Content-type: application/json
+```
+
+### Corpo da Requisição:
+
+```json
+Vazio
+```
+
+### Exemplo de Response:
+
+```
+200 OK
+```
+
+```json
+[
+  {
+    "id": "9cda28c9-e540-4b2c-bf0c-c90006d37893",
+    "name": "Bebidas"
+  },
+  {
+    "id": "9cda28c9-e540-4b2c-bf0c-c90006d37893",
+    "name": "Bebidas"
+  }
+]
+```
+
+### Possíveis Erros:
+
+Nenhum, o máximo que pode acontecer é retornar uma lista vazia.
+
+---
+
+### 7.3. **Listar Categoria por ID**
+
+### `/categories/:idCategory/products`
+
+### Exemplo de Request:
+
+```
+GET /categories/9cda28c9-e540-4b2c-bf0c-c90006d37893/products
+Host: http://suaapi.com/v1
+Authorization: Yes
+isAdm: Yes
+Content-type: application/json
+```
+
+### Parâmetros da Requisição:
+
+| Parâmetro  | Tipo   | Descrição                                   |
+| ---------- | ------ | ------------------------------------------- |
+| idCategory | string | Identificador único da Categoria (Category) |
+
+### Corpo da Requisição:
+
+```json
+Vazio
+```
+
+### Exemplo de Response:
+
+```
+200 OK
+```
+
+```json
+[
+
+	{
+		"id": "9cda28c9-e540-4b2c-bf0c-c90006d37893",
+		"name": "Bebidas",
+		"products":[...array de produtos]
+	}
+]
+```
+
+### Possíveis Erros:
+
+| Código do Erro | Descrição           |
+| -------------- | ------------------- |
+| 404 Not Found  | Category not found. |
+
+### 7.4 **Atualizar Categoria**
+
+### `/categories/:id`
+
+### Exemplo de Request:
+
+```
+PATCH /categories/9cda28c9-e540-4b2c-bf0c-c90006d37893
+Host: http://suaapi.com/v1
+Authorization: Yes
+isAdm: Yes
+Content-type: application/json
+```
+
+### Corpo da Requisição:
+
+```json
+{
+  "name": "Refrigerantes"
+}
+```
+
+### Schema de Validação com Yup:
+
+```javascript
+name: yup
+        .string()
+	.required(),
+```
+
+OBS.: Chaves não presentes no schema serão removidas.
+
+### Exemplo de Response:
+
+### Exemplo de Response:
+
+```
+202 Accepted
+```
+
+```json
+Updated with success
+```
+
+### Possíveis Erros:
+
+| Código do Erro   | Descrição                |
+| ---------------- | ------------------------ |
+| 304 not Modified | Name already in Use.     |
+| 400 bad Request  | Property Name not found. |
+
+---
+
+### 7.5. **Deletando Categoria**
+
+### `/categories/:id`
+
+### Exemplo de Request:
+
+```
+DELETE /categories/9cda28c9-e540-4b2c-bf0c-c90006d37893
+Host: http://suaapi.com/v1
+Authorization: Yes
+isAdm: Yes
+Content-type: application/json
+```
+
+### Parâmetros da Requisição:
+
+| Parâmetro | Tipo   | Descrição                                   |
+| --------- | ------ | ------------------------------------------- |
+| id        | string | Identificador único da Categoria (Category) |
+
+### Corpo da Requisição:
+
+```json
+Vazio
+```
+
+### Exemplo de Response:
+
+```
+202 Accepted
+```
+
+```json
+Deleted with success
+```
+
+### Possíveis Erros:
+
+| Código do Erro | Descrição           |
+| -------------- | ------------------- |
+| 404 Not Found  | Category not found. |
