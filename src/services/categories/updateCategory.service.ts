@@ -12,7 +12,7 @@ const updateCategoryService = async (id: string, name: string) => {
 
   category.name = name;
 
-  categoryRepository.save(category);
+  await categoryRepository.save(category);
 
   return "Updated with success";
 };
