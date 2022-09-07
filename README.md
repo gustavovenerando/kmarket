@@ -2,7 +2,7 @@
 
 ## Endpoints Resumo
 
-### /products
+### 1. /products
 
 | Método | Rota          | Descrição                                      | Autorizaçao | Adm |
 | ------ | ------------- | ---------------------------------------------- | ----------- | --- |
@@ -12,7 +12,7 @@
 | PATCH  | /products/:id | Atualiza os produtos.                          | X           | X   |
 | DELETE | /products/:id | Deleta os produtos.                            | X           | X   |
 
-### /carts
+### 2. /carts
 
 | Método | Rota       | Descrição                                                   | Autorizaçao | Adm |
 | ------ | ---------- | ----------------------------------------------------------- | ----------- | --- |
@@ -21,7 +21,7 @@
 | POST   | /carts     | Criação de um carrinho. Rota deve atualizar fidelity points | X           |     |
 | DELETE | /carts/:id | Deleta o carrinho.                                          | X           | X   |
 
-### /productsCart
+### 3. /productsCart
 
 | Método | Rota                  | Descrição                                                           | Autorizaçao | Adm |
 | ------ | --------------------- | ------------------------------------------------------------------- | ----------- | --- |
@@ -29,7 +29,7 @@
 | POST   | /productsCart/:idCart | Adicionar produtos ao carrinho. Deve atualizar o estoque do produto | X           |     |
 | DELETE | /cart/:id             | Deleta o carrinho. Deve atualizar o estoque do produto              | X           | X   |
 
-### /employees
+### 4. /employees
 
 | Método | Rota           | Descrição                                                       | Autorizaçao | Adm |
 | ------ | -------------- | --------------------------------------------------------------- | ----------- | --- |
@@ -39,13 +39,13 @@
 | PATCH  | /employees/:id | Atualiza os funcionários.                                       | X           | X   |
 | DELETE | /employees/:id | Deleta os funcionários. Soft delete (mudar isActive para false) | X           | X   |
 
-### /login - Somente funcionário faz login
+### 5. /login - Somente funcionário faz login
 
 | Método | Rota   | Descrição                           | Autorizaçao | Adm |
 | ------ | ------ | ----------------------------------- | ----------- | --- |
 | POST   | /login | Faz login do employee e gera token. |             |     |
 
-### /loyaltycustomers
+### 6. /loyaltycustomers
 
 | Método | Rota                  | Descrição                                                   | Autorizaçao | Adm |
 | ------ | --------------------- | ----------------------------------------------------------- | ----------- | --- |
@@ -55,7 +55,7 @@
 | PATCH  | /loyaltycustomers/:id | Atualiza os clientes.                                       | X           | X   |
 | DELETE | /loyaltycustomers/:id | Deleta os clientes. Soft delete (mudar isActive para false) | X           | X   |
 
-### /categories
+### 7. /categories
 
 | Método | Rota                             | Descrição                                                        | Autorizaçao | Adm |
 | ------ | -------------------------------- | ---------------------------------------------------------------- | ----------- | --- |
@@ -65,7 +65,7 @@
 | PATCH  | /categories/:id                  | Atualiza as categorias.                                          | X           | X   |
 | DELETE | /categories/:id                  | Deleta as categorias.                                            | X           | X   |
 
-### /suppliers
+### 8. /suppliers
 
 | Método | Rota           | Descrição                       | Autorizaçao | Adm |
 | ------ | -------------- | ------------------------------- | ----------- | --- |
@@ -75,7 +75,7 @@
 | PATCH  | /suppliers/:id | Atualiza um fornecedores.       | X           | X   |
 | DELETE | /suppliers/:id | Deleta um forncedor especifico. | X           | X   |
 
-### /supplierproducts
+### 9. /supplierproducts
 
 | Método | Rota                  | Descrição                                                            | Autorizaçao | Adm |
 | ------ | --------------------- | -------------------------------------------------------------------- | ----------- | --- |
@@ -83,7 +83,7 @@
 | POST   | /supplierproducts     | Criação de um produto para fornecedor (fornecedor tem este produto). | X           | X   |
 | DELETE | /supplierproducts/:id | Deleta um produto do fornecedor.                                     | X           | X   |
 
-### /orderproducts
+### 10. /orderproducts
 
 | Método | Rota               | Descrição                                    | Autorizaçao | Adm |
 | ------ | ------------------ | -------------------------------------------- | ----------- | --- |
