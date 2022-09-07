@@ -20,20 +20,25 @@ const createCartService = async ({
   });
 
   if (!loyaltyCustomer && loyaltyCustomerId) {
-    throw new AppError(400, "Loyalty Customer not Found.");
+    throw new AppError(404, "Loyalty Customer not Found.");
   }
 
   if (!employee) {
-    throw new AppError(400, "Incorrect parameters.");
+    throw new AppError(404, "Employee not found.");
   }
 
   const cart = new Cart();
   cart.employee = employee;
+  cart.totalPrice = 0;
+
   if (loyaltyCustomer) {
     cart.loyaltyCustomer = loyaltyCustomer;
   }
 
-  const cartCreated = await cartRepository.save(cart);
+  const cartCreated = cartRepository.create(cart);
+  await cartRepository.save(cartCreated);
 
   return cartCreated;
 };
+
+export default createCartService;

@@ -30,9 +30,7 @@
 
 ```
 POST /cart
-Host: http://suaapi.com/v1
-Authorization: Yes
-isAdm: None
+Authorization: Bearer token
 Content-type: application/json
 ```
 
@@ -91,9 +89,7 @@ OBS.: Chaves não presentes no schema serão removidas.
 
 ```
 GET /cart
-Host: http://suaapi.com/v1
-Authorization: Yes
-isAdm: None
+Authorization: Bearer token
 Content-type: application/json
 ```
 
@@ -146,9 +142,7 @@ Nenhum, o máximo que pode acontecer é retornar uma lista vazia.
 
 ```
 GET /cart/9cda28c9-e540-4b2c-bf0c-c90006d37893/products
-Host: http://suaapi.com/v1
-Authorization: Yes
-isAdm: None
+Authorization: Bearer token
 Content-type: application/json
 ```
 
@@ -171,7 +165,7 @@ Vazio
 ```
 
 ```json
-[
+
 
 	{
     "id": "9cda28c9-e540-4b2c-bf0c-c90006d32810",
@@ -182,14 +176,15 @@ Vazio
     "loyaltyCustomerId": {loyaltyCustomer obj},
 	"productsCart": [array de productsCart]
   }
-]
+
 ```
 
 ### Possíveis Erros:
 
-| Código do Erro | Descrição       |
-| -------------- | --------------- |
-| 404 Not Found  | Cart not found. |
+| Código do Erro  | Descrição            |
+| --------------- | -------------------- |
+| 404 Not Found   | Cart not found.      |
+| 400 Bad request | Id format not valid. |
 
 ### 2.4 **Vender Carrinho**
 
@@ -199,9 +194,7 @@ Vazio
 
 ```
 PATCH /cart/9cda28c9-e540-4b2c-bf0c-c90006d37893
-Host: http://suaapi.com/v1
-Authorization: Yes
-isAdm: None
+Authorization: Bearer token
 Content-type: application/json
 ```
 
@@ -214,11 +207,7 @@ Vazio
 ### Exemplo de Response:
 
 ```
-202 Accepted
-```
-
-```json
-Sold with success
+204 No content
 ```
 
 ### Possíveis Erros:
@@ -227,6 +216,7 @@ Sold with success
 | --------------- | ------------------- |
 | 404 not found   | Cart Id not found.  |
 | 400 bad Request | No product in Cart. |
+| 409 Conflict    | Cart already sold.  |
 
 ---
 
@@ -238,9 +228,7 @@ Sold with success
 
 ```
 DELETE /cart/9cda28c9-e540-4b2c-bf0c-c90006d37893
-Host: http://suaapi.com/v1
-Authorization: Yes
-isAdm: Yes
+Authorization: Bearer token
 Content-type: application/json
 ```
 
@@ -754,7 +742,6 @@ O objeto User é definido como:
 
 ```
 POST /users
-Host: http://suaapi.com/v1
 Authorization: None
 Content-type: application/json
 ```
@@ -832,7 +819,6 @@ OBS.: Chaves não presentes no schema serão removidas.
 
 ```
 GET /users
-Host: http://suaapi.com/v1
 Authorization: None
 Content-type: application/json
 ```
@@ -876,7 +862,6 @@ Nenhum, o máximo que pode acontecer é retornar uma lista vazia.
 
 ```
 GET /users/9cda28c9-e540-4b2c-bf0c-c90006d37893
-Host: http://suaapi.com/v1
 Authorization: None
 Content-type: application/json
 ```
@@ -922,9 +907,7 @@ Vazio
 
 ```
 POST /categories
-Host: http://suaapi.com/v1
-Authorization: Yes
-isAdm: Yes
+Authorization: Bearer token
 Content-type: application/json
 ```
 
@@ -975,9 +958,7 @@ OBS.: Chaves não presentes no schema serão removidas.
 
 ```
 GET /categories
-Host: http://suaapi.com/v1
-Authorization: Yes
-isAdm: None
+Authorization: Bearer token
 Content-type: application/json
 ```
 
@@ -1020,9 +1001,7 @@ Nenhum, o máximo que pode acontecer é retornar uma lista vazia.
 
 ```
 GET /categories/9cda28c9-e540-4b2c-bf0c-c90006d37893/products
-Host: http://suaapi.com/v1
-Authorization: Yes
-isAdm: Yes
+Authorization: Bearer token
 Content-type: application/json
 ```
 
@@ -1069,9 +1048,7 @@ Vazio
 
 ```
 PATCH /categories/9cda28c9-e540-4b2c-bf0c-c90006d37893
-Host: http://suaapi.com/v1
-Authorization: Yes
-isAdm: Yes
+Authorization: Bearer token
 Content-type: application/json
 ```
 
@@ -1122,9 +1099,7 @@ Updated with success
 
 ```
 DELETE /categories/9cda28c9-e540-4b2c-bf0c-c90006d37893
-Host: http://suaapi.com/v1
-Authorization: Yes
-isAdm: Yes
+Authorization: Bearer token
 Content-type: application/json
 ```
 

@@ -7,42 +7,42 @@ import Employee from "../../entities/employee.entity";
 import AppDataSource from "../../data-source";
 
 export const createSessionService = async ({
-	email,
-	password,
+  email,
+  password,
 }: IEmployeeLogin): Promise<string> => {
-	const employeeRepository = AppDataSource.getRepository(Employee);
+  const employeeRepository = AppDataSource.getRepository(Employee);
 
-	const employee = await employeeRepository.findOne({
-		where: {
-			email,
-		},
-	});
+  const employee = await employeeRepository.findOne({
+    where: {
+      email,
+    },
+  });
 
-	if (!employee) {
-		throw new AppError(403, "Invalid email or password");
-	}
+  if (!employee) {
+    throw new AppError(403, "Invalid email or password");
+  }
 
-	if (!employee.isActive) {
-		throw new AppError(400, "Invalid employee");
-	}
+  if (!employee.isActive) {
+    throw new AppError(400, "Invalid employee");
+  }
 
-	const matchPassword = await compare(password, employee.password);
+  const matchPassword = await compare(password, employee.password);
 
-	if (!matchPassword) {
-		throw new AppError(403, "Invalid email or password");
-	}
+  if (!matchPassword) {
+    throw new AppError(403, "Invalid email or password");
+  }
 
-	const token = jwt.sign(
-		{
-			isAdm: employee.isAdm,
-			isActive: employee.isActive,
-		},
-		process.env.SECRET_KEY as string,
-		{
-			subject: employee.id,
-			expiresIn: "2h",
-		}
-	);
+  const token = jwt.sign(
+    {
+      isAdm: employee.isAdm,
+      isActive: employee.isActive,
+    },
+    process.env.SECRET_KEY as string,
+    {
+      subject: employee.id,
+      expiresIn: "2h",
+    }
+  );
 
-	return token;
+  return token;
 };
