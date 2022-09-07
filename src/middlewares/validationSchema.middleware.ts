@@ -18,3 +18,5 @@ const validationSchemaMiddleware =
       });
     }
   };
+
+export default validationSchemaMiddleware;

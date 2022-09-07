@@ -67,13 +67,294 @@
 
 ### 8. /suppliers
 
+O objeto Supplier é definido como:
+
+| Campo     | Tipo   | Descrição                             |
+| --------- | ------ | ------------------------------------- |
+| id        | string | Identificador único do fornecedor.    |
+| name      | string | O nome do fornecedor.                 |
+| email     | string | O e-mail único do fornecedor.         |
+| cnpj      | string | O cnpj único do fornecedor.           |
+| phone     | string | Telefone para contato do fornecedor.  |
+| createdAt | Date   | Data que o fornecedor foi cadastrado. |
+| updatedAt | Date   | Data que o fornecedor foi atualizado. |
+
+### Endpoints
+
 | Método | Rota           | Descrição                       | Autorizaçao | Adm |
 | ------ | -------------- | ------------------------------- | ----------- | --- |
+| POST   | /suppliers     | Criação de um fornecedor.       | X           | X   |
 | GET    | /suppliers     | Lista todos os fornecedores.    | X           | X   |
 | GET    | /suppliers/:id | Lista um forncedor especifico.  | X           | X   |
-| POST   | /suppliers     | Criação de um fornecedor.       | X           | X   |
 | PATCH  | /suppliers/:id | Atualiza um fornecedores.       | X           | X   |
 | DELETE | /suppliers/:id | Deleta um forncedor especifico. | X           | X   |
+
+---
+
+### 1.1. **Criação do Fornecedor**
+
+### `/suppliers`
+
+### Exemplo de Request:
+
+```
+POST /users
+Host:
+Authorization: Bearer token
+Content-type: application/json
+```
+
+### Corpo da Requisição:
+
+```json
+{
+  "name": "MatheusDeliver",
+  "cnpj": "23272375000120",
+  "phone": "3240-5060",
+  "email": "matheus@mail.com"
+}
+```
+
+### Schema de Validação com Yup:
+
+```javascript
+name: yup.string().required(),
+email: yup.string().required(),
+cnpj: yup.string().required(),
+phone: yup.string().required(),
+```
+
+OBS.: Chaves não presentes no schema serão removidas.
+
+### Exemplo de Response:
+
+```
+201 Created
+```
+
+```json
+{
+  "id": "3aa0fb96-57b7-4b7a-a535-84d91f825d5c",
+  "name": "MatheusDeliver",
+  "cnpj": "23272375000120",
+  "phone": "3240-5060",
+  "email": "matheus@mail.com",
+  "createdAt": "2022-09-07T18:11:38.245Z",
+  "updatedAt": "2022-09-07T18:11:38.245Z"
+}
+```
+
+### Possíveis Erros:
+
+| Código do Erro | Descrição                 |
+| -------------- | ------------------------- |
+| 409 Conflict   | Email already registered. |
+| 409 Conflict   | Cnpj already registered.  |
+
+---
+
+### 1.2. **Listando Fornecedores**
+
+### `/suppliers`
+
+### Exemplo de Request:
+
+```
+GET /suppliers
+Host:
+Authorization: None
+Content-type: application/json
+```
+
+### Corpo da Requisição:
+
+```json
+Vazio
+```
+
+### Exemplo de Response:
+
+```
+200 OK
+```
+
+```json
+[
+  {
+    "id": "a370273b-fb11-4715-952d-d57928516702",
+    "name": "MatheusDeliver",
+    "cnpj": "23272375000121",
+    "phone": "3240-5060",
+    "email": "matheus@mail.com",
+    "createdAt": "2022-09-07T18:18:53.684Z",
+    "updatedAt": "2022-09-07T18:18:53.684Z"
+  }
+]
+```
+
+### Possíveis Erros:
+
+Nenhum, o máximo que pode acontecer é retornar uma lista vazia.
+
+---
+
+### 1.3. **Listar Fornecedor por ID**
+
+### `/suppliers/:id`
+
+### Exemplo de Request:
+
+```
+GET /users/:id
+Host:
+Authorization: None
+Content-type: application/json
+```
+
+### Parâmetros da Requisição:
+
+| Parâmetro  | Tipo   | Descrição                         |
+| ---------- | ------ | --------------------------------- |
+| supplierId | string | Identificador único do fornecedor |
+
+### Corpo da Requisição:
+
+```json
+Vazio
+```
+
+### Exemplo de Response:
+
+```
+200 OK
+```
+
+```json
+{
+  "id": "a370273b-fb11-4715-952d-d57928516702",
+  "name": "MatheusDeliver",
+  "cnpj": "23272375000121",
+  "phone": "3240-5060",
+  "email": "matheus@mail.com",
+  "createdAt": "2022-09-07T18:18:53.684Z",
+  "updatedAt": "2022-09-07T18:18:53.684Z"
+}
+```
+
+### Possíveis Erros:
+
+| Código do Erro | Descrição           |
+| -------------- | ------------------- |
+| 404 Not Found  | Supplier not found. |
+
+---
+
+### 1.4. **Atualizar Fornecedor**
+
+### `/suppliers`
+
+### Exemplo de Request:
+
+```
+PATCH /suppliers
+Host:
+Authorization: Bearer token
+Content-type: application/json
+```
+
+### Parâmetros da Requisição:
+
+| Parâmetro  | Tipo   | Descrição                         |
+| ---------- | ------ | --------------------------------- |
+| supplierId | string | Identificador único do fornecedor |
+
+### Corpo da Requisição:
+
+```json
+{
+  "name": "Deliverdex"
+}
+```
+
+### Schema de Validação com Yup:
+
+```javascript
+name: yup.string(),
+email: yup.string(),
+cnpj: yup.string(),
+phone: yup.string(),
+```
+
+OBS.: Chaves não presentes no schema serão removidas.
+
+### Exemplo de Response:
+
+```
+200 Ok
+```
+
+```json
+{
+  "id": "a370273b-fb11-4715-952d-d57928516702",
+  "name": "Deliverdex",
+  "cnpj": "23272375000121",
+  "phone": "3240-5060",
+  "email": "matheus@mail.com",
+  "createdAt": "2022-09-07T18:18:53.684Z",
+  "updatedAt": "2022-09-07T19:09:57.555Z"
+}
+```
+
+### Possíveis Erros:
+
+| Código do Erro | Descrição          |
+| -------------- | ------------------ |
+| 404 Not Found  | Supplier not found |
+
+---
+
+### 1.5. **Deletar Fornecedor por ID**
+
+### `/suppliers/:id`
+
+### Exemplo de Request:
+
+```
+DELETE /users/:id
+Host:
+Authorization: Bearer Token
+Content-type: application/json
+```
+
+### Parâmetros da Requisição:
+
+| Parâmetro  | Tipo   | Descrição                         |
+| ---------- | ------ | --------------------------------- |
+| supplierId | string | Identificador único do fornecedor |
+
+### Corpo da Requisição:
+
+```json
+Vazio
+```
+
+### Exemplo de Response:
+
+```
+204 No Content
+```
+
+```json
+No body returned for response
+```
+
+### Possíveis Erros:
+
+| Código do Erro | Descrição           |
+| -------------- | ------------------- |
+| 404 Not Found  | Supplier not found. |
+
+---
 
 ### 9. /supplierproducts
 
@@ -95,14 +376,14 @@
 
 ## Tabela de Conteúdos
 
--   [Visão Geral](#1-visão-geral)
--   [Diagrama ER](#2-diagrama-er)
--   [Início Rápido](#3-início-rápido)
-    -   [Instalando Dependências](#31-instalando-dependências)
-    -   [Variáveis de Ambiente](#32-variáveis-de-ambiente)
-    -   [Migrations](#33-migrations)
--   [Autenticação](#4-autenticação)
--   [Endpoints](#5-endpoints)
+- [Visão Geral](#1-visão-geral)
+- [Diagrama ER](#2-diagrama-er)
+- [Início Rápido](#3-início-rápido)
+  - [Instalando Dependências](#31-instalando-dependências)
+  - [Variáveis de Ambiente](#32-variáveis-de-ambiente)
+  - [Migrations](#33-migrations)
+- [Autenticação](#4-autenticação)
+- [Endpoints](#5-endpoints)
 
 ---
 
@@ -110,12 +391,12 @@
 
 Visão geral do projeto, um pouco das tecnologias usadas.
 
--   [NodeJS](https://nodejs.org/en/)
--   [Express](https://expressjs.com/pt-br/)
--   [TypeScript](https://www.typescriptlang.org/)
--   [PostgreSQL](https://www.postgresql.org/)
--   [TypeORM](https://typeorm.io/)
--   [Yup](https://www.npmjs.com/package/yup)
+- [NodeJS](https://nodejs.org/en/)
+- [Express](https://expressjs.com/pt-br/)
+- [TypeScript](https://www.typescriptlang.org/)
+- [PostgreSQL](https://www.postgresql.org/)
+- [TypeORM](https://typeorm.io/)
+- [Yup](https://www.npmjs.com/package/yup)
 
 A URL base da aplicação:
 http://suaapi.com/v1
@@ -178,13 +459,13 @@ Por enquanto, não foi implementada autenticação.
 
 ### Índice
 
--   [Users](#1-users)
-    -   [POST - /users](#11-criação-de-usuário)
-    -   [GET - /users](#12-listando-usuários)
-    -   [GET - /users/:user_id](#13-listar-usuário-por-id)
--   [Products](#2-products)
--   [Cart](#3-cart)
--   [Users](#4-buys)
+- [Users](#1-users)
+  - [POST - /users](#11-criação-de-usuário)
+  - [GET - /users](#12-listando-usuários)
+  - [GET - /users/:user_id](#13-listar-usuário-por-id)
+- [Products](#2-products)
+- [Cart](#3-cart)
+- [Users](#4-buys)
 
 ---
 
@@ -231,10 +512,10 @@ Content-type: application/json
 
 ```json
 {
-	"name": "eDuArDo",
-	"email": "edu@mail.com",
-	"password": "1234",
-	"isAdm": true
+  "name": "eDuArDo",
+  "email": "edu@mail.com",
+  "password": "1234",
+  "isAdm": true
 }
 ```
 
@@ -275,10 +556,10 @@ OBS.: Chaves não presentes no schema serão removidas.
 
 ```json
 {
-	"id": "9cda28c9-e540-4b2c-bf0c-c90006d37893",
-	"name": "Eduardo",
-	"email": "edu@mail.com",
-	"isAdm": true
+  "id": "9cda28c9-e540-4b2c-bf0c-c90006d37893",
+  "name": "Eduardo",
+  "email": "edu@mail.com",
+  "isAdm": true
 }
 ```
 
@@ -319,12 +600,12 @@ Vazio
 
 ```json
 [
-	{
-		"id": "9cda28c9-e540-4b2c-bf0c-c90006d37893",
-		"name": "Eduardo",
-		"email": "edu@mail.com",
-		"isAdm": true
-	}
+  {
+    "id": "9cda28c9-e540-4b2c-bf0c-c90006d37893",
+    "name": "Eduardo",
+    "email": "edu@mail.com",
+    "isAdm": true
+  }
 ]
 ```
 
@@ -369,10 +650,10 @@ Vazio
 
 ```json
 {
-	"id": "9cda28c9-e540-4b2c-bf0c-c90006d37893",
-	"name": "Eduardo",
-	"email": "edu@mail.com",
-	"isAdm": true
+  "id": "9cda28c9-e540-4b2c-bf0c-c90006d37893",
+  "name": "Eduardo",
+  "email": "edu@mail.com",
+  "isAdm": true
 }
 ```
 
