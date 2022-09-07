@@ -13,11 +13,11 @@ const softDeleteLoyaltyCustomerService = async (id: string): Promise<LoyaltyCust
     })
 
     if(!loyaltyCustomer) {
-        throw new AppError(404, 'Customer not found')
+        throw new AppError(404, 'Customer not found.')
     }
 
     if(!loyaltyCustomer?.isActive) {
-        throw new AppError(400, 'Customer already not active')
+        throw new AppError(400, 'Customer already not active.')
     }
 
     await loyaltyCustomerRepository.update(loyaltyCustomer!.id, { isActive: false})
