@@ -1,6 +1,6 @@
 import { Entity, Column, PrimaryGeneratedColumn, ManyToOne } from "typeorm";
 import Cart from "./cart.entity";
-import Products from "./Products.entity";
+import Products from "./products.entity";
 
 @Entity("productsCart")
 class ProductsCart {
@@ -13,7 +13,7 @@ class ProductsCart {
 	@ManyToOne(() => Cart, { nullable: false })
 	cart: Cart;
 
-	@ManyToOne(() => Products, { eager: true })
+	@ManyToOne(() => Products, { eager: true, nullable: false })
 	product: Products;
 }
 

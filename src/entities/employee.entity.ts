@@ -36,9 +36,7 @@ class Employee {
 	@UpdateDateColumn()
 	updatedAt: Date;
 
-	@OneToMany((type) => Cart, (cart) => cart.employee, {
-		eager: true,
-	})
+	@OneToMany((type) => Cart, (cart) => cart.employee)
 	cart: Cart[];
 }
 

@@ -5,7 +5,7 @@ import {
 	CreateDateColumn,
 	ManyToOne,
 } from "typeorm";
-import Products from "./Products.entity";
+import Products from "./products.entity";
 import SupplierProduct from "./supplierProducts.entity";
 
 //Não megeras na main
@@ -33,10 +33,10 @@ class OrderSuppliersProducts {
 	@CreateDateColumn({ nullable: false })
 	createdAt: Date;
 
-	@ManyToOne(() => SupplierProduct)
+	@ManyToOne(() => SupplierProduct, { nullable: false })
 	suplierProduct: SupplierProduct;
 
-	@ManyToOne(() => Products)
+	@ManyToOne(() => Products, { nullable: false })
 	product: Products;
 }
 
