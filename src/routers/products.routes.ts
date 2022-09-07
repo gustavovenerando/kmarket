@@ -6,13 +6,30 @@ import {
 	listProductsController,
 	updateProductsController,
 } from "../controllers/products.controllers";
+import authTokenMiddleware from "../middlewares/authToken.middleware";
+import validationAdmMiddleware from "../middlewares/validationAdm.middleware";
 
 const productsRouter = Router();
 
-productsRouter.post("", createProductsController);
-productsRouter.get("", listProductsController);
-productsRouter.get("/:id", listOneProductController);
-productsRouter.patch("/:id", updateProductsController);
-productsRouter.delete("/:id", deleteProductsController);
+productsRouter.post(
+	"",
+	authTokenMiddleware,
+	validationAdmMiddleware,
+	createProductsController
+);
+productsRouter.get("", authTokenMiddleware, listProductsController);
+productsRouter.get("/:id", authTokenMiddleware, listOneProductController);
+productsRouter.patch(
+	"/:id",
+	authTokenMiddleware,
+	validationAdmMiddleware,
+	updateProductsController
+);
+productsRouter.delete(
+	"/:id",
+	authTokenMiddleware,
+	validationAdmMiddleware,
+	deleteProductsController
+);
 
 export default productsRouter;
