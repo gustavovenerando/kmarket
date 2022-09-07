@@ -4,8 +4,13 @@ import Supplier from "./suppliers.entity";
 
 @Entity("supplierProducts")
 class SupplierProduct {
+<<<<<<< Updated upstream
 	@PrimaryGeneratedColumn("uuid")
 	id: string;
+=======
+  @PrimaryGeneratedColumn("uuid")
+  id: string;
+>>>>>>> Stashed changes
 
 	@Column()
 	name: string;
