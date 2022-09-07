@@ -1,5 +1,5 @@
 const updateProductsService = async () => {
-	return 0;
+	return 1;
 };
 
 export default updateProductsService;
