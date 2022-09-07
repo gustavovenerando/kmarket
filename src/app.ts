@@ -3,6 +3,7 @@ import "express-async-errors";
 import express, { Request, Response } from "express";
 import handleErrorMiddleware from "./middlewares/handleError.middleware";
 import sessionRouter from "./routers/session.routes";
+import loyaltyCustomerRoutes from "./routers/loyaltyCustomer.routes";
 
 import employeeRouter from './routers/employees.routes'
 
@@ -17,7 +18,11 @@ app.use("/login", sessionRouter);
 app.use("/categories", categoriesRoutes);
 // app.use("/properties", propertiesRouter);
 // app.use("/schedules", scheduleRouter);
+
+app.use("/loyaltycustomers", loyaltyCustomerRoutes)
+
 app.use("/employees", employeeRouter);
+
 
 app.get('/', (req:Request,res:Response)=>{
     res.send('passou!')
