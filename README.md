@@ -91,14 +91,14 @@ O objeto Supplier é definido como:
 
 ---
 
-### 1.1. **Criação do Fornecedor**
+### 8.1. **Criação do Fornecedor**
 
 ### `/suppliers`
 
 ### Exemplo de Request:
 
 ```
-POST /users
+POST /suppliers
 Host:
 Authorization: Bearer token
 Content-type: application/json
@@ -121,7 +121,7 @@ Content-type: application/json
 name: yup.string().required(),
 email: yup.string().required(),
 cnpj: yup.string().required(),
-phone: yup.string().required(),
+phone: yup.string().email().required(),
 ```
 
 OBS.: Chaves não presentes no schema serão removidas.
@@ -153,7 +153,7 @@ OBS.: Chaves não presentes no schema serão removidas.
 
 ---
 
-### 1.2. **Listando Fornecedores**
+### 8.2. **Listando Fornecedores**
 
 ### `/suppliers`
 
@@ -198,7 +198,7 @@ Nenhum, o máximo que pode acontecer é retornar uma lista vazia.
 
 ---
 
-### 1.3. **Listar Fornecedor por ID**
+### 8.3. **Listar Fornecedor por ID**
 
 ### `/suppliers/:id`
 
@@ -249,7 +249,7 @@ Vazio
 
 ---
 
-### 1.4. **Atualizar Fornecedor**
+### 8.4. **Atualizar Fornecedor**
 
 ### `/suppliers`
 
@@ -280,7 +280,7 @@ Content-type: application/json
 
 ```javascript
 name: yup.string(),
-email: yup.string(),
+email: yup.string().email(),
 cnpj: yup.string(),
 phone: yup.string(),
 ```
@@ -313,7 +313,7 @@ OBS.: Chaves não presentes no schema serão removidas.
 
 ---
 
-### 1.5. **Deletar Fornecedor por ID**
+### 8.5. **Deletar Fornecedor por ID**
 
 ### `/suppliers/:id`
 
