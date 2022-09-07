@@ -8,5 +8,5 @@ export interface IEmployeeRequest {
 	email: string;
 	password: string;
 	isAdm: boolean;
-	isActive: boolean;
+	isActive?: boolean;
 }
