@@ -13,12 +13,9 @@ import productsRouter from "./routers/products.routes";
 const app = express();
 app.use(express.json());
 
-// app.use("/users", usersRouter);
 app.use("/login", sessionRouter);
 app.use("/categories", categoriesRoutes);
 app.use("/products", productsRouter);
-// app.use("/properties", propertiesRouter);
-// app.use("/schedules", scheduleRouter);
 app.use("/suppliers", supplierRoutes);
 app.use("/loyaltycustomers", loyaltyCustomerRoutes);
 app.use("/employees", employeeRouter);
