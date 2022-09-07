@@ -49,7 +49,7 @@ class Products {
 	)
 	orderSuppliersProducts: OrderSuppliersProducts[];
 
-	@ManyToOne((type) => Category, { nullable: false })
+	@ManyToOne((type) => Category, { nullable: false, eager: true })
 	category: Category;
 }
 
