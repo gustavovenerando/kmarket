@@ -4,6 +4,22 @@
 
 ### 1. /products
 
+O objeto Supplier é definido como:
+
+| Campo       | Tipo   | Descrição                          |
+| ----------- | ------ | ---------------------------------- |
+| id          | string | Identificador único do produto.    |
+| name        | string | Nome do produto.                   |
+| marketPrice | number | Preço do produto.                  |
+| stock       | number | Quantidade do produto em estoque.  |
+| description | string | Descrição do produto.              |
+| discount    | number | Desconto do produto.               |
+| category    | object | Categoria do produto.              |
+| createdAt   | Date   | Data que o produto foi cadastrado. |
+| updatedAt   | Date   | Data que o produto foi atualizado. |
+
+### Endpoints
+
 | Método | Rota          | Descrição                                      | Autorizaçao | Adm |
 | ------ | ------------- | ---------------------------------------------- | ----------- | --- |
 | GET    | /products     | Lista todos os produtos.                       | X           |     |
@@ -11,6 +27,271 @@
 | POST   | /products     | Criação de um produto.                         | X           | X   |
 | PATCH  | /products/:id | Atualiza os produtos.                          | X           | X   |
 | DELETE | /products/:id | Deleta os produtos.                            | X           | X   |
+
+### 1.1. **Criação do Produto**
+
+### `/suppliers`
+
+### Exemplo de Request:
+
+```
+POST /suppliers
+Host:
+Authorization: Bearer token
+Content-type: application/json
+```
+
+### Corpo da Requisição:
+
+```json
+{
+	"name": "MatheusDeliver",
+	"cnpj": "23272375000120",
+	"phone": "3240-5060",
+	"email": "matheus@mail.com"
+}
+```
+
+### Schema de Validação com Yup:
+
+```javascript
+name: yup.string().required(),
+email: yup.string().required(),
+cnpj: yup.string().required(),
+phone: yup.string().email().required(),
+```
+
+OBS.: Chaves não presentes no schema serão removidas.
+
+### Exemplo de Response:
+
+```
+201 Created
+```
+
+```json
+{
+	"id": "3aa0fb96-57b7-4b7a-a535-84d91f825d5c",
+	"name": "MatheusDeliver",
+	"cnpj": "23272375000120",
+	"phone": "3240-5060",
+	"email": "matheus@mail.com",
+	"createdAt": "2022-09-07T18:11:38.245Z",
+	"updatedAt": "2022-09-07T18:11:38.245Z"
+}
+```
+
+### Possíveis Erros:
+
+| Código do Erro | Descrição                 |
+| -------------- | ------------------------- |
+| 409 Conflict   | Email already registered. |
+| 409 Conflict   | Cnpj already registered.  |
+
+---
+
+### 8.2. **Listando Fornecedores**
+
+### `/suppliers`
+
+### Exemplo de Request:
+
+```
+GET /suppliers
+Host:
+Authorization: Bearer token
+Content-type: application/json
+```
+
+### Corpo da Requisição:
+
+```json
+Vazio
+```
+
+### Exemplo de Response:
+
+```
+200 OK
+```
+
+```json
+[
+	{
+		"id": "a370273b-fb11-4715-952d-d57928516702",
+		"name": "MatheusDeliver",
+		"cnpj": "23272375000121",
+		"phone": "3240-5060",
+		"email": "matheus@mail.com",
+		"createdAt": "2022-09-07T18:18:53.684Z",
+		"updatedAt": "2022-09-07T18:18:53.684Z"
+	}
+]
+```
+
+### Possíveis Erros:
+
+Nenhum, o máximo que pode acontecer é retornar uma lista vazia.
+
+---
+
+### 8.3. **Listar Fornecedor por ID**
+
+### `/suppliers/:id`
+
+### Exemplo de Request:
+
+```
+GET /suppliers/:id
+Host:
+Authorization: Bearer token
+Content-type: application/json
+```
+
+### Parâmetros da Requisição:
+
+| Parâmetro  | Tipo   | Descrição                         |
+| ---------- | ------ | --------------------------------- |
+| supplierId | string | Identificador único do fornecedor |
+
+### Corpo da Requisição:
+
+```json
+Vazio
+```
+
+### Exemplo de Response:
+
+```
+200 OK
+```
+
+```json
+{
+	"id": "a370273b-fb11-4715-952d-d57928516702",
+	"name": "MatheusDeliver",
+	"cnpj": "23272375000121",
+	"phone": "3240-5060",
+	"email": "matheus@mail.com",
+	"createdAt": "2022-09-07T18:18:53.684Z",
+	"updatedAt": "2022-09-07T18:18:53.684Z"
+}
+```
+
+### Possíveis Erros:
+
+| Código do Erro | Descrição           |
+| -------------- | ------------------- |
+| 404 Not Found  | Supplier not found. |
+
+---
+
+### 8.4. **Atualizar Fornecedor**
+
+### `/suppliers`
+
+### Exemplo de Request:
+
+```
+PATCH /suppliers/:id
+Host:
+Authorization: Bearer token
+Content-type: application/json
+```
+
+### Parâmetros da Requisição:
+
+| Parâmetro  | Tipo   | Descrição                         |
+| ---------- | ------ | --------------------------------- |
+| supplierId | string | Identificador único do fornecedor |
+
+### Corpo da Requisição:
+
+```json
+{
+	"name": "Deliverdex"
+}
+```
+
+### Schema de Validação com Yup:
+
+```javascript
+name: yup.string(),
+email: yup.string().email(),
+cnpj: yup.string(),
+phone: yup.string(),
+```
+
+OBS.: Chaves não presentes no schema serão removidas.
+
+### Exemplo de Response:
+
+```
+200 Ok
+```
+
+```json
+{
+	"id": "a370273b-fb11-4715-952d-d57928516702",
+	"name": "Deliverdex",
+	"cnpj": "23272375000121",
+	"phone": "3240-5060",
+	"email": "matheus@mail.com",
+	"createdAt": "2022-09-07T18:18:53.684Z",
+	"updatedAt": "2022-09-07T19:09:57.555Z"
+}
+```
+
+### Possíveis Erros:
+
+| Código do Erro | Descrição          |
+| -------------- | ------------------ |
+| 404 Not Found  | Supplier not found |
+
+---
+
+### 8.5. **Deletar Fornecedor por ID**
+
+### `/suppliers/:id`
+
+### Exemplo de Request:
+
+```
+DELETE /suppliers/:id
+Host:
+Authorization: Bearer Token
+Content-type: application/json
+```
+
+### Parâmetros da Requisição:
+
+| Parâmetro  | Tipo   | Descrição                         |
+| ---------- | ------ | --------------------------------- |
+| supplierId | string | Identificador único do fornecedor |
+
+### Corpo da Requisição:
+
+```json
+Vazio
+```
+
+### Exemplo de Response:
+
+```
+204 No Content
+```
+
+```json
+No body returned for response
+```
+
+### Possíveis Erros:
+
+| Código do Erro | Descrição           |
+| -------------- | ------------------- |
+| 404 Not Found  | Supplier not found. |
+
+---
 
 ### 2. /carts
 
@@ -327,8 +608,8 @@ Content-type: application/json
 
 ```json
 {
-  "name": "Gabriel",
-  "email": "gabriel@mail.com"
+	"name": "Gabriel",
+	"email": "gabriel@mail.com"
 }
 ```
 
@@ -349,13 +630,13 @@ OBS.: Chaves não presentes no schema serão removidas.
 
 ```json
 {
-  "name": "Gabriel",
-  "email": "gabriel@mail.com",
-  "id": "68ee5317-3d40-4c88-b590-18d5bbfeaec3",
-  "fidelityPoints": 0,
-  "isActive": true,
-  "createdAt": "2022-09-07T20:13:50.871Z",
-  "updatedAt": "2022-09-07T20:13:50.871Z"
+	"name": "Gabriel",
+	"email": "gabriel@mail.com",
+	"id": "68ee5317-3d40-4c88-b590-18d5bbfeaec3",
+	"fidelityPoints": 0,
+	"isActive": true,
+	"createdAt": "2022-09-07T20:13:50.871Z",
+	"updatedAt": "2022-09-07T20:13:50.871Z"
 }
 ```
 
@@ -394,24 +675,24 @@ Vazio
 
 ```json
 [
-  {
-    "id": "43224513-26f4-45a4-a3d9-cd94a6a0be49",
-    "name": "Gabriel",
-    "email": "gabriel@mail.com",
-    "fidelityPoints": 50,
-    "isActive": true,
-    "createdAt": "2022-09-07T16:07:55.888Z",
-    "updatedAt": "2022-09-07T17:45:02.657Z"
-  },
-  {
-    "id": "70a3a183-64c8-45c8-b6d4-bcc876a7be3a",
-    "name": "Gustavo",
-    "email": "gustavo@mail.com",
-    "fidelityPoints": 0,
-    "isActive": false,
-    "createdAt": "2022-09-07T17:39:02.299Z",
-    "updatedAt": "2022-09-07T17:54:36.710Z"
-  }
+	{
+		"id": "43224513-26f4-45a4-a3d9-cd94a6a0be49",
+		"name": "Gabriel",
+		"email": "gabriel@mail.com",
+		"fidelityPoints": 50,
+		"isActive": true,
+		"createdAt": "2022-09-07T16:07:55.888Z",
+		"updatedAt": "2022-09-07T17:45:02.657Z"
+	},
+	{
+		"id": "70a3a183-64c8-45c8-b6d4-bcc876a7be3a",
+		"name": "Gustavo",
+		"email": "gustavo@mail.com",
+		"fidelityPoints": 0,
+		"isActive": false,
+		"createdAt": "2022-09-07T17:39:02.299Z",
+		"updatedAt": "2022-09-07T17:54:36.710Z"
+	}
 ]
 ```
 
@@ -454,13 +735,13 @@ Vazio
 
 ```json
 {
-  "id": "70a3a183-64c8-45c8-b6d4-bcc876a7be3a",
-  "name": "gabriel",
-  "email": "gabriel@mail.com",
-  "fidelityPoints": 0,
-  "isActive": false,
-  "createdAt": "2022-09-07T17:39:02.299Z",
-  "updatedAt": "2022-09-07T17:54:36.710Z"
+	"id": "70a3a183-64c8-45c8-b6d4-bcc876a7be3a",
+	"name": "gabriel",
+	"email": "gabriel@mail.com",
+	"fidelityPoints": 0,
+	"isActive": false,
+	"createdAt": "2022-09-07T17:39:02.299Z",
+	"updatedAt": "2022-09-07T17:54:36.710Z"
 }
 ```
 
@@ -495,7 +776,7 @@ Content-type: application/json
 
 ```json
 {
-  "name": "Matheus"
+	"name": "Matheus"
 }
 ```
 
@@ -517,13 +798,13 @@ OBS.: Chaves não presentes no schema serão removidas.
 
 ```json
 {
-  "id": "70a3a183-64c8-45c8-b6d4-bcc876a7be3a",
-  "name": "Matheus",
-  "email": "gabriel@mail.com",
-  "fidelityPoints": 0,
-  "isActive": false,
-  "createdAt": "2022-09-07T17:39:02.299Z",
-  "updatedAt": "2022-09-07T17:54:36.710Z"
+	"id": "70a3a183-64c8-45c8-b6d4-bcc876a7be3a",
+	"name": "Matheus",
+	"email": "gabriel@mail.com",
+	"fidelityPoints": 0,
+	"isActive": false,
+	"createdAt": "2022-09-07T17:39:02.299Z",
+	"updatedAt": "2022-09-07T17:54:36.710Z"
 }
 ```
 
