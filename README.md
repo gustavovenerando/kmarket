@@ -14,12 +14,263 @@
 
 ### 2. /carts
 
-| Método | Rota       | Descrição                                                   | Autorizaçao | Adm |
-| ------ | ---------- | ----------------------------------------------------------- | ----------- | --- |
-| GET    | /carts     | Lista todos os carrinhos.                                   | X           |     |
-| GET    | /carts/:id | Lista um carrinho usando seu ID como parâmetro.             | X           |     |
-| POST   | /carts     | Criação de um carrinho. Rota deve atualizar fidelity points | X           |     |
-| DELETE | /carts/:id | Deleta o carrinho.                                          | X           | X   |
+| Método | Rota       | Descrição                                                       | Autorizaçao | Adm |
+| ------ | ---------- | --------------------------------------------------------------- | ----------- | --- |
+| POST   | /carts     | Criação de um carrinho. Rota deve atualizar fidelity points     | X           |     |
+| GET    | /carts     | Lista todos os carrinhos.                                       | X           |     |
+| GET    | /carts/:id | Lista um carrinho usando seu ID como parâmetro.                 | X           |     |
+| PATCH  | /carts/:id | Atualiza um carrinho como vendido usando seu ID como paramêtro. | X           |     |
+| DELETE | /carts/:id | Deleta o carrinho.                                              | X           | X   |
+
+### 2.1. **Criação de Cart**
+
+### `/cart`
+
+### Exemplo de Request:
+
+```
+POST /cart
+Host: http://suaapi.com/v1
+Authorization: Yes
+isAdm: None
+Content-type: application/json
+```
+
+### Corpo da Requisição:
+
+```json
+{
+  "employeeId": "9cda28c9-e540-4b2c-bf0c-c90006d32893",
+  "loyaltyCustomerId": "9cda28c9-e540-4b2c-bf0c-c90006d32893"
+}
+```
+
+### Schema de Validação com Yup:
+
+```javascript
+employeeId: yup
+    .string()
+	.required(),
+loyaltyCustomerId: yup
+	.string()
+```
+
+OBS.: Chaves não presentes no schema serão removidas.
+
+### Exemplo de Response:
+
+```
+201 Created
+```
+
+```json
+{
+  "id": "9cda28c9-e540-4b2c-bf0c-c90006d32891",
+  "totalPrice": 0,
+  "createdAt": "1995-12-17T03:24:00",
+  "sold": false,
+  "employeeId": "9cda28c9-e540-4b2c-bf0c-c90006d32892",
+  "loyaltyCustomerId": "9cda28c9-e540-4b2c-bf0c-c90006d32893"
+}
+```
+
+### Possíveis Erros:
+
+| Código do Erro  | Descrição                    |
+| --------------- | ---------------------------- |
+| 400 Bad Request | Incorrect parameters.        |
+| 400 Bad Request | Loyalty Customer not exists. |
+
+---
+
+### 2.2. **Listando Carts**
+
+### `/cart`
+
+### Exemplo de Request:
+
+```
+GET /cart
+Host: http://suaapi.com/v1
+Authorization: Yes
+isAdm: None
+Content-type: application/json
+```
+
+### Corpo da Requisição:
+
+```json
+Vazio
+```
+
+### Exemplo de Response:
+
+```
+200 OK
+```
+
+```json
+[
+  {
+    "id": "9cda28c9-e540-4b2c-bf0c-c90006d32891",
+    "totalPrice": 25,
+    "createdAt": "1995-12-17T03:24:00",
+    "sold": false,
+    "employee": {Employee obj},
+    "loyaltyCustomerId": {loyaltyCustomer obj},
+	"productsCart": [array de productsCart]
+  },
+  {
+    "id": "9cda28c9-e540-4b2c-bf0c-c90006d32810",
+    "totalPrice": 450,
+    "createdAt": "1995-12-17T03:24:00",
+    "sold": true,
+	"employee": {Employee obj},
+    "loyaltyCustomerId": {loyaltyCustomer obj},
+	"productsCart": [array de productsCart]
+  }
+]
+```
+
+### Possíveis Erros:
+
+Nenhum, o máximo que pode acontecer é retornar uma lista vazia.
+
+---
+
+### 2.3. **Listar Cart por ID**
+
+### `/cart/:id`
+
+### Exemplo de Request:
+
+```
+GET /cart/9cda28c9-e540-4b2c-bf0c-c90006d37893/products
+Host: http://suaapi.com/v1
+Authorization: Yes
+isAdm: None
+Content-type: application/json
+```
+
+### Parâmetros da Requisição:
+
+| Parâmetro | Tipo   | Descrição                   |
+| --------- | ------ | --------------------------- |
+| id        | string | Identificador único da Cart |
+
+### Corpo da Requisição:
+
+```json
+Vazio
+```
+
+### Exemplo de Response:
+
+```
+200 OK
+```
+
+```json
+[
+
+	{
+    "id": "9cda28c9-e540-4b2c-bf0c-c90006d32810",
+    "totalPrice": 0,
+    "createdAt": "1995-12-17T03:24:00",
+    "sold": true,
+    "employee": {Employee obj},
+    "loyaltyCustomerId": {loyaltyCustomer obj},
+	"productsCart": [array de productsCart]
+  }
+]
+```
+
+### Possíveis Erros:
+
+| Código do Erro | Descrição       |
+| -------------- | --------------- |
+| 404 Not Found  | Cart not found. |
+
+### 2.4 **Vender Carrinho**
+
+### `/cart/:id`
+
+### Exemplo de Request:
+
+```
+PATCH /cart/9cda28c9-e540-4b2c-bf0c-c90006d37893
+Host: http://suaapi.com/v1
+Authorization: Yes
+isAdm: None
+Content-type: application/json
+```
+
+### Corpo da Requisição:
+
+```json
+Vazio
+```
+
+### Exemplo de Response:
+
+```
+202 Accepted
+```
+
+```json
+Sold with success
+```
+
+### Possíveis Erros:
+
+| Código do Erro  | Descrição           |
+| --------------- | ------------------- |
+| 404 not found   | Cart Id not found.  |
+| 400 bad Request | No product in Cart. |
+
+---
+
+### 2.5. **Deletando Cart**
+
+### `/cart/:id`
+
+### Exemplo de Request:
+
+```
+DELETE /cart/9cda28c9-e540-4b2c-bf0c-c90006d37893
+Host: http://suaapi.com/v1
+Authorization: Yes
+isAdm: Yes
+Content-type: application/json
+```
+
+### Parâmetros da Requisição:
+
+| Parâmetro | Tipo   | Descrição                   |
+| --------- | ------ | --------------------------- |
+| id        | string | Identificador único da Cart |
+
+### Corpo da Requisição:
+
+```json
+Vazio
+```
+
+### Exemplo de Response:
+
+```
+202 Accepted
+```
+
+```json
+Deleted with success
+```
+
+### Possíveis Erros:
+
+| Código do Erro | Descrição       |
+| -------------- | --------------- |
+| 404 Not Found  | Cart not found. |
 
 ### 3. /productsCart
 
@@ -480,7 +731,7 @@ Nenhum, o máximo que pode acontecer é retornar uma lista vazia.
 
 ---
 
-### 7.3. **Listar Categoria por ID**
+### 7.3. **Listar Produto por ID de categoria**
 
 ### `/categories/:idCategory/products`
 
