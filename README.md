@@ -566,11 +566,258 @@ Deleted with success
 
 ### 3. /productsCart
 
-| Método | Rota                  | Descrição                                                           | Autorizaçao | Adm |
-| ------ | --------------------- | ------------------------------------------------------------------- | ----------- | --- |
-| GET    | /productsCart         | Listar todos os produtos vendidos                                   | X           | X   |
-| POST   | /productsCart/:idCart | Adicionar produtos ao carrinho. Deve atualizar o estoque do produto | X           |     |
-| DELETE | /cart/:id             | Deleta o carrinho. Deve atualizar o estoque do produto              | X           | X   |
+| Método | Rota                     | Descrição                                                           | Autorizaçao | Adm |
+| ------ | ------------------------ | ------------------------------------------------------------------- | ----------- | --- |
+| POST   | /productsCart/:cartId    | Adicionar produtos ao carrinho. Deve atualizar o estoque do produto | X           |     |
+| GET    | /productsCart            | Listar todos os produtos vendidos                                   | X           | X   |
+| GET    | /productsCart/:productId | Listar todas as vendas de um produto                                | X           | X   |
+| DELETE | /productcart/:id         | Deleta o produto do carrinho. Deve atualizar o estoque do produto   | X           | X   |
+
+### Endpoints
+
+| Método | Rota                     | Descrição                           | Autorizaçao | Adm |
+| ------ | ------------------------ | ----------------------------------- | ----------- | --- |
+| POST   | /productsCart/:cartId    | Adicionar produtos ao carrinho.     | X           | X   |
+| GET    | /productsCart            | Lista todos os produtos vendidos    | X           | X   |
+| GET    | /productsCart/:productId | Lista todas as vendas de um produto | X           | X   |
+| DELETE | /productcart/:id         | Deleta o produto do carrinho        | X           | X   |
+
+---
+
+### 3.1. **Adiciona um Produto ao Carrinho**
+
+### `/productsCart/:cartId `
+
+### Exemplo de Request:
+
+```
+POST /productsCart/:cartId
+Host:
+Authorization: Bearer token
+Content-type: application/json
+```
+
+### Parâmetros da Requisição:
+
+| Parâmetro | Tipo   | Descrição                   |
+| --------- | ------ | --------------------------- |
+| cartId    | string | Identificador único do cart |
+
+### Corpo da Requisição:
+
+```json
+{
+  "productId": "a2c9df1f-69fb-4150-8851-63f29c099ec5",
+  "quantity": 2
+}
+```
+
+### Schema de Validação com Yup:
+
+```javascript
+  quantity: yup.number().required(),
+  productId: yup.string().required()
+```
+
+OBS.: Chaves não presentes no schema serão removidas.
+
+### Exemplo de Response:
+
+```
+201 Created
+
+```
+
+```json
+{
+  "id": "3bb42c0d-a9c8-4e0e-884f-b1c17e398814",
+  "quantity": 2,
+  "product": {
+    "id": "a2c9df1f-69fb-4150-8851-63f29c099ec5",
+    "name": "Refrigerante de coca",
+    "marketPrice": "6.00",
+    "stock": 11,
+    "description": "Refrescante bebida de coca",
+    "discount": "0.20",
+    "createdAt": "2022-09-08T17:17:06.701Z",
+    "updatedAt": "2022-09-08T18:02:03.624Z",
+    "category": {
+      "id": "6ae2cf50-fccd-4167-8368-5f4fe8f6943d",
+      "name": "bebidas"
+    }
+  }
+}
+```
+
+### Possíveis Erros:
+
+| Código do Erro | Descrição          |
+| -------------- | ------------------ |
+| 404 Not Found  | Cart not found.    |
+| 404 Not Found  | Product not found. |
+| 409 Conflict   | Cart already sold. |
+
+---
+
+### 3.2. **Listando Todas as Vendas**
+
+### `/productsCart`
+
+### Exemplo de Request:
+
+```
+GET /productsCart
+Host:
+Authorization: Bearer token
+Content-type: application/json
+```
+
+### Corpo da Requisição:
+
+```json
+Vazio
+```
+
+### Exemplo de Response:
+
+```
+200 OK
+
+```
+
+```json
+[
+  {
+    "id": "06663188-a389-4f70-a7a9-1fefdee6a671",
+    "quantity": 2,
+    "product": {
+      "id": "d84f5c19-ae64-47de-93cb-4b249dac776e",
+      "name": "Refrigerante de guaraná",
+      "marketPrice": "6.00",
+      "stock": -9,
+      "description": "Refrescante bebida de guaraná",
+      "discount": "0.20",
+      "createdAt": "2022-09-08T14:53:05.195Z",
+      "updatedAt": "2022-09-08T18:02:39.904Z",
+      "category": {
+        "id": "6ae2cf50-fccd-4167-8368-5f4fe8f6943d",
+        "name": "bebidas"
+      }
+    }
+  }
+]
+```
+
+### Possíveis Erros:
+
+Nenhum, o máximo que pode acontecer é retornar uma lista vazia.
+
+---
+
+### 3.3. **Lista as Vendas por Produto**
+
+### `/productsCart/:productId`
+
+### Exemplo de Request:
+
+```
+GET /productsCart/:productId
+Host:
+Authorization: Bearer token
+Content-type: application/json
+```
+
+### Parâmetros da Requisição:
+
+| Parâmetro | Tipo   | Descrição                      |
+| --------- | ------ | ------------------------------ |
+| productId | string | Identificador único do produto |
+
+### Corpo da Requisição:
+
+```json
+Vazio
+```
+
+### Exemplo de Response:
+
+```
+200 OK
+```
+
+```json
+[
+  {
+    "id": "06663188-a389-4f70-a7a9-1fefdee6a671",
+    "quantity": 2,
+    "product": {
+      "id": "d84f5c19-ae64-47de-93cb-4b249dac776e",
+      "name": "Refrigerante de guaraná",
+      "marketPrice": "6.00",
+      "stock": -9,
+      "description": "Refrescante bebida de guaraná",
+      "discount": "0.20",
+      "createdAt": "2022-09-08T14:53:05.195Z",
+      "updatedAt": "2022-09-08T18:02:39.904Z",
+      "category": {
+        "id": "6ae2cf50-fccd-4167-8368-5f4fe8f6943d",
+        "name": "bebidas"
+      }
+    }
+  }
+]
+```
+
+### Possíveis Erros:
+
+Nenhum, o máximo que pode acontecer é retornar uma lista vazia.
+
+---
+
+### 3.4. **Deletar Produto do Carrinho**
+
+### `/productcart/:id `
+
+### Exemplo de Request:
+
+```
+DELETE /productcart/:id
+Host:
+Authorization: Bearer Token
+Content-type: application/json
+```
+
+### Parâmetros da Requisição:
+
+| Parâmetro | Tipo   | Descrição                                  |
+| --------- | ------ | ------------------------------------------ |
+| id        | string | Identificador único do produto no carrinho |
+
+### Corpo da Requisição:
+
+```json
+Vazio
+```
+
+### Exemplo de Response:
+
+```
+204 No Content
+```
+
+```json
+No body returned for response
+```
+
+### Possíveis Erros:
+
+| Código do Erro | Descrição                  |
+| -------------- | -------------------------- |
+| 404 Not Found  | Product not found in cart. |
+| 404 Not Found  | Product not found.         |
+| 409 Not Found  | Cart already sold.         |
+
+---
 
 ### 4. /employees
 
@@ -585,7 +832,7 @@ Deleted with success
 ### Endpoints
 
 | Método | Rota           | Descrição                         | Autorizaçao | Adm |
-| ------ | -------------- | -------------------------------   | ----------- | --- |
+| ------ | -------------- | --------------------------------- | ----------- | --- |
 | POST   | /employees     | Criação de um funcionário.        | X           | X   |
 | GET    | /employees     | Lista todos os funcionários.      | X           | X   |
 | GET    | /employees/:id | Lista um funcionário especifico.  | X           | X   |
@@ -594,7 +841,7 @@ Deleted with success
 
 ---
 
-### 8.1. **Criação do Funcionário**
+### 4.1. **Criação do Funcionário**
 
 ### `/employees`
 
@@ -613,7 +860,7 @@ Content-type: application/json
   "name": "Daniel Josias",
   "email": "danieljosias@mail.com",
   "password": "123",
-  "isAdm": true,
+  "isAdm": true
 }
 ```
 
@@ -638,26 +885,25 @@ OBS.: Chaves não presentes no schema serão removidas.
 ```json
 {
   "id": "96aeb523-350c-48a2-97c6-ddee624575fb",
-	"name": "Daniel Josias",
-	"email": "danieljosias@kenzie.com",
-	"isAdm": true,
-	"isActive": true,
-	"createdAt": "2022-09-07T19:54:34.094Z",
-	"updatedAt": "2022-09-07T19:54:34.094Z"
+  "name": "Daniel Josias",
+  "email": "danieljosias@kenzie.com",
+  "isAdm": true,
+  "isActive": true,
+  "createdAt": "2022-09-07T19:54:34.094Z",
+  "updatedAt": "2022-09-07T19:54:34.094Z"
 }
-
 ```
 
 ### Possíveis Erros:
 
 | Código do Erro  | Descrição                 |
-| --------------  | ------------------------- |
+| --------------- | ------------------------- |
 | 400 Bad Request | Email already registered. |
 | 400 Bad Request | Required field.           |
- 
+
 ---
 
-### 8.2. **Listando Funcionários**
+### 4.2. **Listando Funcionários**
 
 ### `/employees`
 
@@ -684,19 +930,17 @@ Vazio
 ```
 
 ```json
-
 [
-	{
-		"id": "6067c01f-380b-4879-8685-52a408bf5a71",
-		"name": "Daniel Josias",
-		"email": "danieljosias@kenzie.com",
-		"isAdm": true,
-		"isActive": true,
-		"createdAt": "2022-09-07T19:46:12.280Z",
-		"updatedAt": "2022-09-07T19:46:12.280Z"
-	}
+  {
+    "id": "6067c01f-380b-4879-8685-52a408bf5a71",
+    "name": "Daniel Josias",
+    "email": "danieljosias@kenzie.com",
+    "isAdm": true,
+    "isActive": true,
+    "createdAt": "2022-09-07T19:46:12.280Z",
+    "updatedAt": "2022-09-07T19:46:12.280Z"
+  }
 ]
-
 ```
 
 ### Possíveis Erros:
@@ -705,7 +949,7 @@ Nenhum, o máximo que pode acontecer é retornar uma lista vazia.
 
 ---
 
-### 8.3. **Listar Funcionário por ID**
+### 4.3. **Listar Funcionário por ID**
 
 ### `/employees/:id`
 
@@ -720,9 +964,9 @@ Content-type: application/json
 
 ### Parâmetros da Requisição:
 
-| Parâmetro  | Tipo   | Descrição                         |
-| ---------- | ------ | --------------------------------- |
-| id | string| Identificador único do fornecedor |
+| Parâmetro | Tipo   | Descrição                         |
+| --------- | ------ | --------------------------------- |
+| id        | string | Identificador único do fornecedor |
 
 ### Corpo da Requisição:
 
@@ -751,13 +995,13 @@ Vazio
 
 ### Possíveis Erros:
 
-| Código do Erro | Descrição           |
-| -------------- | ------------------- |
+| Código do Erro | Descrição            |
+| -------------- | -------------------- |
 | 404 Not Found  | Employees not found. |
 
 ---
 
-### 8.4. **Atualizar Funcionário**
+### 4.4. **Atualizar Funcionário**
 
 ### `/employees/:id`
 
@@ -772,9 +1016,9 @@ Content-type: application/json
 
 ### Parâmetros da Requisição:
 
-| Parâmetro  | Tipo   | Descrição                         |
-| ---------- | ------ | --------------------------------- |
-| id | string| Identificador único do fornecedor |
+| Parâmetro | Tipo   | Descrição                         |
+| --------- | ------ | --------------------------------- |
+| id        | string | Identificador único do fornecedor |
 
 ### Corpo da Requisição:
 
@@ -803,15 +1047,15 @@ OBS.: Chaves não presentes no schema serão removidas.
 
 ```json
 [
-	{
-		"id": "6067c01f-380b-4879-8685-52a408bf5a71",
-		"name": "Daniel",
-		"email": "danieljosias@kenzie.com",
-		"isAdm": true,
-		"isActive": true,
-		"createdAt": "2022-09-07T19:46:12.280Z",
-		"updatedAt": "2022-09-07T19:46:12.280Z"
-	}
+  {
+    "id": "6067c01f-380b-4879-8685-52a408bf5a71",
+    "name": "Daniel",
+    "email": "danieljosias@kenzie.com",
+    "isAdm": true,
+    "isActive": true,
+    "createdAt": "2022-09-07T19:46:12.280Z",
+    "updatedAt": "2022-09-07T19:46:12.280Z"
+  }
 ]
 ```
 
@@ -823,7 +1067,7 @@ OBS.: Chaves não presentes no schema serão removidas.
 
 ---
 
-### 8.5. **Deletar Fornecedor por ID**
+### 4.5. **Deletar Funcionario por ID**
 
 ### `/employees/:id`
 
@@ -838,9 +1082,9 @@ Content-type: application/json
 
 ### Parâmetros da Requisição:
 
-| Parâmetro  | Tipo   | Descrição                         |
-| ---------- | ------ | --------------------------------- |
-| id | string| Identificador único do fornecedor |
+| Parâmetro | Tipo   | Descrição                         |
+| --------- | ------ | --------------------------------- |
+| id        | string | Identificador único do fornecedor |
 
 ### Corpo da Requisição:
 
@@ -860,8 +1104,8 @@ No body returned for response
 
 ### Possíveis Erros:
 
-| Código do Erro | Descrição           |
-| -------------- | ------------------- |
+| Código do Erro | Descrição            |
+| -------------- | -------------------- |
 | 404 Not Found  | Employees not found. |
 
 ---

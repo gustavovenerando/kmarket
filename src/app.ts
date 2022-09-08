@@ -12,6 +12,7 @@ import categoriesRoutes from "./routers/categories.routes";
 import productsRouter from "./routers/products.routes";
 import authTokenMiddleware from "./middlewares/authToken.middleware";
 import supplierProductsRoutes from "./routers/supplierProducts.routes";
+import productsCartRoutes from "./routers/productsCart.routes";
 
 const app = express();
 app.use(express.json());
@@ -24,6 +25,7 @@ app.use("/suppliers", supplierRoutes);
 app.use("/supplierproducts", supplierProductsRoutes);
 app.use("/loyaltycustomers", loyaltyCustomerRoutes);
 app.use("/employees", employeeRouter);
+app.use("/productscart", authTokenMiddleware, productsCartRoutes);
 
 app.use(handleErrorMiddleware);
 
