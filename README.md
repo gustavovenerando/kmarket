@@ -1,5 +1,86 @@
 # kmarket
 
+
+## 1. Visão Geral
+
+Visão geral do projeto, um pouco das tecnologias usadas.
+
+- [NodeJS](https://nodejs.org/en/)
+- [Express](https://expressjs.com/pt-br/)
+- [TypeScript](https://www.typescriptlang.org/)
+- [PostgreSQL](https://www.postgresql.org/)
+- [TypeORM](https://typeorm.io/)
+- [Yup](https://www.npmjs.com/package/yup)
+
+A URL base da aplicação:
+http://suaapi.com/v1
+
+---
+
+## 2. Diagrama ER
+
+[ Voltar para o topo ](#tabela-de-conteúdos)
+
+Diagrama ER da API definindo bem as relações entre as tabelas do banco de dados.
+
+![DER](DER_SP7_01.drawio.png)
+
+---
+
+## 3. Início Rápido
+
+[ Voltar para o topo ](#tabela-de-conteúdos)
+
+### 3.1. Instalando Dependências
+
+Clone o projeto em sua máquina e instale as dependências com o comando:
+
+```shell
+yarn
+```
+
+### 3.2. Variáveis de Ambiente
+
+Em seguida, crie um arquivo **.env**, copiando o formato do arquivo **.env.example**:
+
+```
+cp .env.example .env
+```
+
+Configure suas variáveis de ambiente com suas credenciais do Postgres e uma nova database da sua escolha.
+
+### 3.3. Migrations
+
+Execute as migrations com o comando:
+
+```
+yarn typeorm migration:run -d src/data-source.ts
+```
+
+---
+
+## 4. Autenticação
+
+[ Voltar para o topo ](#tabela-de-conteúdos)
+
+Por enquanto, não foi implementada autenticação.
+
+---
+
+## 5. Endpoints
+
+[ Voltar para o topo ](#tabela-de-conteúdos)
+
+### Índice
+
+- [Products](#1-Products)
+  - [POST - /users](#11-criação-de-produto)
+  - [GET - /users](#12-listando-usuários)
+  - [GET - /users/:user_id](#13-listar-usuário-por-id)
+- [Products](#2-products)
+- [Cart](#3-cart)
+- [Users](#4-buys)
+
 ## Endpoints Resumo
 
 ### 1. /products
@@ -147,7 +228,7 @@ Nenhum, o máximo que pode acontecer é retornar uma lista vazia.
 
 ---
 
-### 1.3. **Listar Fornecedor por ID**
+### 1.3. **Listar Produto por ID**
 
 ### `/products/:id`
 
@@ -202,7 +283,7 @@ Vazio
 
 ---
 
-### 1.4. **Atualizar Fornecedor**
+### 1.4. **Atualizar Produto**
 
 ### `/products`
 
@@ -317,6 +398,19 @@ Vazio
 ---
 
 ### 2. /carts
+
+O objeto Cart é definido como:
+
+| Campo             | Tipo    | Descrição                           |
+| ----------------- | ------- | ----------------------------------- |
+| id                | string  | Identificador único do carrinho.    |
+| totalPrice        | number  | valor total do carrinho.            |
+| sold              | boolean | Se o carrinho já foi vendido.       |
+| employeeId        | string  | Funcionário que vendeu o carrinho.  |
+| loyaltyCustomerId | string  | Cliente dono do carrinho.           |
+| createdAt         | Date    | Data que o carrinho foi cadastrado. |
+
+### Endpoints
 
 | Método | Rota       | Descrição                                                       | Autorizaçao | Adm |
 | ------ | ---------- | --------------------------------------------------------------- | ----------- | --- |
@@ -551,7 +645,7 @@ Vazio
 ### Exemplo de Response:
 
 ```
-202 Accepted
+204 No content
 ```
 
 ```json
@@ -566,21 +660,22 @@ Deleted with success
 
 ### 3. /productsCart
 
-| Método | Rota                     | Descrição                                                           | Autorizaçao | Adm |
-| ------ | ------------------------ | ------------------------------------------------------------------- | ----------- | --- |
-| POST   | /productsCart/:cartId    | Adicionar produtos ao carrinho. Deve atualizar o estoque do produto | X           |     |
-| GET    | /productsCart            | Listar todos os produtos vendidos                                   | X           | X   |
-| GET    | /productsCart/:productId | Listar todas as vendas de um produto                                | X           | X   |
-| DELETE | /productcart/:id         | Deleta o produto do carrinho. Deve atualizar o estoque do produto   | X           | X   |
+O objeto productCart é definido como:
+
+| Campo    | Tipo   | Descrição                                                 |
+| -------- | ------ | --------------------------------------------------------- |
+| id       | string | Identificador único do produto no carrinho.               |
+| quantity | number | Qauntidade do produto que vai ser adicionado no carrinho. |
+| product  | object | O produto que vai ser adicionado ao carrinho.             |
 
 ### Endpoints
 
-| Método | Rota                     | Descrição                           | Autorizaçao | Adm |
-| ------ | ------------------------ | ----------------------------------- | ----------- | --- |
-| POST   | /productsCart/:cartId    | Adicionar produtos ao carrinho.     | X           | X   |
-| GET    | /productsCart            | Lista todos os produtos vendidos    | X           | X   |
-| GET    | /productsCart/:productId | Lista todas as vendas de um produto | X           | X   |
-| DELETE | /productcart/:id         | Deleta o produto do carrinho        | X           | X   |
+| Método | Rota                     | Descrição                                           | Autorizaçao | Adm |
+| ------ | ------------------------ | --------------------------------------------------- | ----------- | --- |
+| POST   | /productsCart/:cartId    | Adicionar produtos ao carrinho e atualiza o estoque | X           | X   |
+| GET    | /productsCart            | Lista todos os produtos vendidos                    | X           | X   |
+| GET    | /productsCart/:productId | Lista todas as vendas de um produto                 | X           | X   |
+| DELETE | /productcart/:id         | Deleta o produto do carrinho e atualiza o estoque   | X           | X   |
 
 ---
 
@@ -821,13 +916,17 @@ No body returned for response
 
 ### 4. /employees
 
-| Método | Rota           | Descrição                                                       | Autorizaçao | Adm |
-| ------ | -------------- | --------------------------------------------------------------- | ----------- | --- |
-| GET    | /employees     | Lista todos os funcionários.                                    | X           | X   |
-| GET    | /employees/:id | Lista um funcionário usando seu ID como parâmetro.              | X           | X   |
-| POST   | /employees     | Criação de um funcionário.                                      |             |     |
-| PATCH  | /employees/:id | Atualiza os funcionários.                                       | X           | X   |
-| DELETE | /employees/:id | Deleta os funcionários. Soft delete (mudar isActive para false) | X           | X   |
+O objeto employee é definido como:
+
+| Campo     | Tipo    | Descrição                              |
+| --------- | ------- | -------------------------------------- |
+| id        | string  | Identificador único do employee.       |
+| name      | string  | Nome do funcionário.                   |
+| email     | string  | Email do funcionário.                  |
+| isAdm     | boolean | Se o funcionário é adiministrador.     |
+| isActive  | string  | Se o funcinário é ativo.               |
+| createdAt | Date    | Data que o funcionário foi cadastrado. |
+| updatedAt | Date    | Data que o funcionário foi atualizado. |
 
 ### Endpoints
 
@@ -1413,6 +1512,15 @@ No body returned for response
 
 ### 7. /categories
 
+O objeto loyaltyCustomer é definido como:
+
+| Campo          | Tipo    | Descrição                           |
+| -------------- | ------- | ----------------------------------- |
+| id             | string  | Identificador único do categoria.     |
+| name           | string  | O nome da categoria.                  |
+
+### Endpoints
+
 | Método | Rota                             | Descrição                                                        | Autorizaçao | Adm |
 | ------ | -------------------------------- | ---------------------------------------------------------------- | ----------- | --- |
 | GET    | /categories                      | Lista todos as categorias.                                       | X           |     |
@@ -1599,7 +1707,7 @@ OBS.: Chaves não presentes no schema serão removidas.
 ### Exemplo de Response:
 
 ```
-202 Accepted
+200 Ok
 ```
 
 ```json
@@ -1642,7 +1750,7 @@ Vazio
 ### Exemplo de Response:
 
 ```
-202 Accepted
+204 No Content
 ```
 
 ```json
@@ -2479,276 +2587,3 @@ No body returned for response
 - [Endpoints](#5-endpoints)
 
 ---
-
-## 1. Visão Geral
-
-Visão geral do projeto, um pouco das tecnologias usadas.
-
-- [NodeJS](https://nodejs.org/en/)
-- [Express](https://expressjs.com/pt-br/)
-- [TypeScript](https://www.typescriptlang.org/)
-- [PostgreSQL](https://www.postgresql.org/)
-- [TypeORM](https://typeorm.io/)
-- [Yup](https://www.npmjs.com/package/yup)
-
-A URL base da aplicação:
-http://suaapi.com/v1
-
----
-
-## 2. Diagrama ER
-
-[ Voltar para o topo ](#tabela-de-conteúdos)
-
-Diagrama ER da API definindo bem as relações entre as tabelas do banco de dados.
-
-![DER](DER_SP7_01.drawio.png)
-
----
-
-## 3. Início Rápido
-
-[ Voltar para o topo ](#tabela-de-conteúdos)
-
-### 3.1. Instalando Dependências
-
-Clone o projeto em sua máquina e instale as dependências com o comando:
-
-```shell
-yarn
-```
-
-### 3.2. Variáveis de Ambiente
-
-Em seguida, crie um arquivo **.env**, copiando o formato do arquivo **.env.example**:
-
-```
-cp .env.example .env
-```
-
-Configure suas variáveis de ambiente com suas credenciais do Postgres e uma nova database da sua escolha.
-
-### 3.3. Migrations
-
-Execute as migrations com o comando:
-
-```
-yarn typeorm migration:run -d src/data-source.ts
-```
-
----
-
-## 4. Autenticação
-
-[ Voltar para o topo ](#tabela-de-conteúdos)
-
-Por enquanto, não foi implementada autenticação.
-
----
-
-## 5. Endpoints
-
-[ Voltar para o topo ](#tabela-de-conteúdos)
-
-### Índice
-
-- [Users](#1-users)
-  - [POST - /users](#11-criação-de-usuário)
-  - [GET - /users](#12-listando-usuários)
-  - [GET - /users/:user_id](#13-listar-usuário-por-id)
-- [Products](#2-products)
-- [Cart](#3-cart)
-- [Users](#4-buys)
-
----
-
-## 1. **Users**
-
-[ Voltar para os Endpoints ](#5-endpoints)
-
-O objeto User é definido como:
-
-| Campo    | Tipo    | Descrição                                    |
-| -------- | ------- | -------------------------------------------- |
-| id       | string  | Identificador único do usuário               |
-| name     | string  | O nome do usuário.                           |
-| email    | string  | O e-mail do usuário.                         |
-| password | string  | A senha de acesso do usuário                 |
-| isAdm    | boolean | Define se um usuário é Administrador ou não. |
-
-### Endpoints
-
-| Método | Rota            | Descrição                                     |
-| ------ | --------------- | --------------------------------------------- |
-| POST   | /users          | Criação de um usuário.                        |
-| GET    | /users          | Lista todos os usuários                       |
-| GET    | /users/:user_id | Lista um usuário usando seu ID como parâmetro |
-
----
-
-### 1.1. **Criação de Usuário**
-
-[ Voltar para os Endpoints ](#5-endpoints)
-
-### `/users`
-
-### Exemplo de Request:
-
-```
-POST /users
-Authorization: None
-Content-type: application/json
-```
-
-### Corpo da Requisição:
-
-```json
-{
-  "name": "eDuArDo",
-  "email": "edu@mail.com",
-  "password": "1234",
-  "isAdm": true
-}
-```
-
-### Schema de Validação com Yup:
-
-```javascript
-name: yup
-        .string()
-	.required()
-	.transform((value, originalValue) => {
-		return titlelify(originalValue)
-	}),
-email: yup
-        .string()
-	.email()
-	.required()
-	.transform((value, originalValue) => {
-		return originalValue.toLowerCase()
-	}),
-password: yup
-        .string()
-	.required()
-	.transform((value, originalValue) => {
-		return bcrypt.hashSync(originalValue, 10)
-	}),
-isAdm: yup
-        .boolean()
-	.required(),
-```
-
-OBS.: Chaves não presentes no schema serão removidas.
-
-### Exemplo de Response:
-
-```
-201 Created
-```
-
-```json
-{
-  "id": "9cda28c9-e540-4b2c-bf0c-c90006d37893",
-  "name": "Eduardo",
-  "email": "edu@mail.com",
-  "isAdm": true
-}
-```
-
-### Possíveis Erros:
-
-| Código do Erro | Descrição                 |
-| -------------- | ------------------------- |
-| 409 Conflict   | Email already registered. |
-
----
-
-### 1.2. **Listando Usuários**
-
-[ Voltar aos Endpoints ](#5-endpoints)
-
-### `/users`
-
-### Exemplo de Request:
-
-```
-GET /users
-Authorization: None
-Content-type: application/json
-```
-
-### Corpo da Requisição:
-
-```json
-Vazio
-```
-
-### Exemplo de Response:
-
-```
-200 OK
-```
-
-```json
-[
-  {
-    "id": "9cda28c9-e540-4b2c-bf0c-c90006d37893",
-    "name": "Eduardo",
-    "email": "edu@mail.com",
-    "isAdm": true
-  }
-]
-```
-
-### Possíveis Erros:
-
-Nenhum, o máximo que pode acontecer é retornar uma lista vazia.
-
----
-
-### 1.3. **Listar Usuário por ID**
-
-[ Voltar aos Endpoints ](#5-endpoints)
-
-### `/users/:user_id`
-
-### Exemplo de Request:
-
-```
-GET /users/9cda28c9-e540-4b2c-bf0c-c90006d37893
-Authorization: None
-Content-type: application/json
-```
-
-### Parâmetros da Requisição:
-
-| Parâmetro | Tipo   | Descrição                             |
-| --------- | ------ | ------------------------------------- |
-| user_id   | string | Identificador único do usuário (User) |
-
-### Corpo da Requisição:
-
-```json
-Vazio
-```
-
-### Exemplo de Response:
-
-```
-200 OK
-```
-
-```json
-{
-  "id": "9cda28c9-e540-4b2c-bf0c-c90006d37893",
-  "name": "Eduardo",
-  "email": "edu@mail.com",
-  "isAdm": true
-}
-```
-
-### Possíveis Erros:
-
-| Código do Erro | Descrição       |
-| -------------- | --------------- |
-| 404 Not Found  | User not found. |

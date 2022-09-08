@@ -28,7 +28,7 @@ const updateCategoryController = async (req: Request, res: Response) => {
 
   const response = await updateCategoryService(id, name);
 
-  res.status(202).json({
+  res.status(200).json({
     message: "Updated with success",
     category: response,
   });
