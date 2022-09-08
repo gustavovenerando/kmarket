@@ -895,6 +895,240 @@ No body returned for response
 
 ---
 
+### 7.1. **Criação de Categoria**
+
+### `/categories`
+
+### Exemplo de Request:
+
+```
+POST /categories
+Authorization: Bearer token
+Content-type: application/json
+```
+
+### Corpo da Requisição:
+
+```json
+{
+  "name": "Bebidas"
+}
+```
+
+### Schema de Validação com Yup:
+
+```javascript
+name: yup
+        .string()
+	.required(),
+```
+
+OBS.: Chaves não presentes no schema serão removidas.
+
+### Exemplo de Response:
+
+```
+201 Created
+```
+
+```json
+{
+  "id": "9cda28c9-e540-4b2c-bf0c-c90006d37893",
+  "name": "Eduardo"
+}
+```
+
+### Possíveis Erros:
+
+| Código do Erro | Descrição                |
+| -------------- | ------------------------ |
+| 409 Conflict   | Name already registered. |
+
+---
+
+### 7.2. **Listando Categorias**
+
+### `/categories`
+
+### Exemplo de Request:
+
+```
+GET /categories
+Authorization: Bearer token
+Content-type: application/json
+```
+
+### Corpo da Requisição:
+
+```json
+Vazio
+```
+
+### Exemplo de Response:
+
+```
+200 OK
+```
+
+```json
+[
+  {
+    "id": "9cda28c9-e540-4b2c-bf0c-c90006d37893",
+    "name": "Bebidas"
+  },
+  {
+    "id": "9cda28c9-e540-4b2c-bf0c-c90006d37893",
+    "name": "Bebidas"
+  }
+]
+```
+
+### Possíveis Erros:
+
+Nenhum, o máximo que pode acontecer é retornar uma lista vazia.
+
+---
+
+### 7.3. **Listar Produto por ID de categoria**
+
+### `/categories/:idCategory/products`
+
+### Exemplo de Request:
+
+```
+GET /categories/9cda28c9-e540-4b2c-bf0c-c90006d37893/products
+Authorization: Bearer token
+Content-type: application/json
+```
+
+### Parâmetros da Requisição:
+
+| Parâmetro  | Tipo   | Descrição                                   |
+| ---------- | ------ | ------------------------------------------- |
+| idCategory | string | Identificador único da Categoria (Category) |
+
+### Corpo da Requisição:
+
+```json
+Vazio
+```
+
+### Exemplo de Response:
+
+```
+200 OK
+```
+
+```json
+[
+
+	{
+		"id": "9cda28c9-e540-4b2c-bf0c-c90006d37893",
+		"name": "Bebidas",
+		"products":[...array de produtos]
+	}
+]
+```
+
+### Possíveis Erros:
+
+| Código do Erro | Descrição           |
+| -------------- | ------------------- |
+| 404 Not Found  | Category not found. |
+
+### 7.4 **Atualizar Categoria**
+
+### `/categories/:id`
+
+### Exemplo de Request:
+
+```
+PATCH /categories/9cda28c9-e540-4b2c-bf0c-c90006d37893
+Authorization: Bearer token
+Content-type: application/json
+```
+
+### Corpo da Requisição:
+
+```json
+{
+  "name": "Refrigerantes"
+}
+```
+
+### Schema de Validação com Yup:
+
+```javascript
+name: yup
+        .string()
+	.required(),
+```
+
+OBS.: Chaves não presentes no schema serão removidas.
+
+### Exemplo de Response:
+
+### Exemplo de Response:
+
+```
+202 Accepted
+```
+
+```json
+Updated with success
+```
+
+### Possíveis Erros:
+
+| Código do Erro   | Descrição                |
+| ---------------- | ------------------------ |
+| 304 not Modified | Name already in Use.     |
+| 400 bad Request  | Property Name not found. |
+
+---
+
+### 7.5. **Deletando Categoria**
+
+### `/categories/:id`
+
+### Exemplo de Request:
+
+```
+DELETE /categories/9cda28c9-e540-4b2c-bf0c-c90006d37893
+Authorization: Bearer token
+Content-type: application/json
+```
+
+### Parâmetros da Requisição:
+
+| Parâmetro | Tipo   | Descrição                                   |
+| --------- | ------ | ------------------------------------------- |
+| id        | string | Identificador único da Categoria (Category) |
+
+### Corpo da Requisição:
+
+```json
+Vazio
+```
+
+### Exemplo de Response:
+
+```
+202 Accepted
+```
+
+```json
+Deleted with success
+```
+
+### Possíveis Erros:
+
+| Código do Erro | Descrição           |
+| -------------- | ------------------- |
+| 404 Not Found  | Category not found. |
+
+---
+
 ### 8. /suppliers
 
 O objeto Supplier é definido como:
@@ -1774,235 +2008,3 @@ Vazio
 | Código do Erro | Descrição       |
 | -------------- | --------------- |
 | 404 Not Found  | User not found. |
-
-### 7.1. **Criação de Categoria**
-
-### `/categories`
-
-### Exemplo de Request:
-
-```
-POST /categories
-Authorization: Bearer token
-Content-type: application/json
-```
-
-### Corpo da Requisição:
-
-```json
-{
-  "name": "Bebidas"
-}
-```
-
-### Schema de Validação com Yup:
-
-```javascript
-name: yup
-        .string()
-	.required(),
-```
-
-OBS.: Chaves não presentes no schema serão removidas.
-
-### Exemplo de Response:
-
-```
-201 Created
-```
-
-```json
-{
-  "id": "9cda28c9-e540-4b2c-bf0c-c90006d37893",
-  "name": "Eduardo"
-}
-```
-
-### Possíveis Erros:
-
-| Código do Erro | Descrição                |
-| -------------- | ------------------------ |
-| 409 Conflict   | Name already registered. |
-
----
-
-### 7.2. **Listando Categorias**
-
-### `/categories`
-
-### Exemplo de Request:
-
-```
-GET /categories
-Authorization: Bearer token
-Content-type: application/json
-```
-
-### Corpo da Requisição:
-
-```json
-Vazio
-```
-
-### Exemplo de Response:
-
-```
-200 OK
-```
-
-```json
-[
-  {
-    "id": "9cda28c9-e540-4b2c-bf0c-c90006d37893",
-    "name": "Bebidas"
-  },
-  {
-    "id": "9cda28c9-e540-4b2c-bf0c-c90006d37893",
-    "name": "Bebidas"
-  }
-]
-```
-
-### Possíveis Erros:
-
-Nenhum, o máximo que pode acontecer é retornar uma lista vazia.
-
----
-
-### 7.3. **Listar Produto por ID de categoria**
-
-### `/categories/:idCategory/products`
-
-### Exemplo de Request:
-
-```
-GET /categories/9cda28c9-e540-4b2c-bf0c-c90006d37893/products
-Authorization: Bearer token
-Content-type: application/json
-```
-
-### Parâmetros da Requisição:
-
-| Parâmetro  | Tipo   | Descrição                                   |
-| ---------- | ------ | ------------------------------------------- |
-| idCategory | string | Identificador único da Categoria (Category) |
-
-### Corpo da Requisição:
-
-```json
-Vazio
-```
-
-### Exemplo de Response:
-
-```
-200 OK
-```
-
-```json
-[
-
-	{
-		"id": "9cda28c9-e540-4b2c-bf0c-c90006d37893",
-		"name": "Bebidas",
-		"products":[...array de produtos]
-	}
-]
-```
-
-### Possíveis Erros:
-
-| Código do Erro | Descrição           |
-| -------------- | ------------------- |
-| 404 Not Found  | Category not found. |
-
-### 7.4 **Atualizar Categoria**
-
-### `/categories/:id`
-
-### Exemplo de Request:
-
-```
-PATCH /categories/9cda28c9-e540-4b2c-bf0c-c90006d37893
-Authorization: Bearer token
-Content-type: application/json
-```
-
-### Corpo da Requisição:
-
-```json
-{
-  "name": "Refrigerantes"
-}
-```
-
-### Schema de Validação com Yup:
-
-```javascript
-name: yup
-        .string()
-	.required(),
-```
-
-OBS.: Chaves não presentes no schema serão removidas.
-
-### Exemplo de Response:
-
-### Exemplo de Response:
-
-```
-202 Accepted
-```
-
-```json
-Updated with success
-```
-
-### Possíveis Erros:
-
-| Código do Erro   | Descrição                |
-| ---------------- | ------------------------ |
-| 304 not Modified | Name already in Use.     |
-| 400 bad Request  | Property Name not found. |
-
----
-
-### 7.5. **Deletando Categoria**
-
-### `/categories/:id`
-
-### Exemplo de Request:
-
-```
-DELETE /categories/9cda28c9-e540-4b2c-bf0c-c90006d37893
-Authorization: Bearer token
-Content-type: application/json
-```
-
-### Parâmetros da Requisição:
-
-| Parâmetro | Tipo   | Descrição                                   |
-| --------- | ------ | ------------------------------------------- |
-| id        | string | Identificador único da Categoria (Category) |
-
-### Corpo da Requisição:
-
-```json
-Vazio
-```
-
-### Exemplo de Response:
-
-```
-202 Accepted
-```
-
-```json
-Deleted with success
-```
-
-### Possíveis Erros:
-
-| Código do Erro | Descrição           |
-| -------------- | ------------------- |
-| 404 Not Found  | Category not found. |
