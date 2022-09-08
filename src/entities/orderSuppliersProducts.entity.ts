@@ -34,7 +34,7 @@ class OrderSuppliersProducts {
   @ManyToOne(() => SupplierProduct, { nullable: false, eager: true })
   supplierProduct: SupplierProduct;
 
-  @ManyToOne(() => Products, { nullable: false })
+  @ManyToOne(() => Products, { nullable: false, eager: true })
   product: Products;
 }
 

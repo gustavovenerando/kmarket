@@ -3,6 +3,7 @@ import { IOrderProductsRequest } from "../interfaces/orderProducts";
 import createOrderProductService from "../services/orderProducts/createOrderProduct.service";
 import deleteOrderProductService from "../services/orderProducts/deleteOrderProduct.service";
 import listOrdersProductsService from "../services/orderProducts/listOrdersProducts.service";
+import updateIsDeliveredService from "../services/orderProducts/updatedIsDelivered.service";
 
 export const createOrderProductController = async (
   req: Request,
@@ -36,6 +37,17 @@ export const listOrdersProductController = async (
   const orders = await listOrdersProductsService();
 
   return res.status(200).json(orders);
+};
+
+export const updateIsDeliveredController = async (
+  req: Request,
+  res: Response
+) => {
+  const { id } = req.params;
+
+  const isDelivered = await updateIsDeliveredService(id);
+
+  return res.status(200).json(isDelivered);
 };
 
 export const deleteOrderProductController = async (

@@ -3,6 +3,7 @@ import {
   createOrderProductController,
   deleteOrderProductController,
   listOrdersProductController,
+  updateIsDeliveredController,
 } from "../controllers/orderProducts.controllers";
 import authTokenMiddleware from "../middlewares/authToken.middleware";
 import validationAdmMiddleware from "../middlewares/validationAdm.middleware";
@@ -23,6 +24,12 @@ orderProductsRoutes.get(
   authTokenMiddleware,
   validationAdmMiddleware,
   listOrdersProductController
+);
+orderProductsRoutes.patch(
+  "/isdelivered/:id",
+  authTokenMiddleware,
+  validationAdmMiddleware,
+  updateIsDeliveredController
 );
 orderProductsRoutes.delete(
   "/:id",

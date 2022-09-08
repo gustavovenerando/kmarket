@@ -2157,11 +2157,12 @@ O objeto Supplier é definido como:
 
 ---
 
-| Método | Rota               | Descrição                                    | Autorizaçao | Adm |
-| ------ | ------------------ | -------------------------------------------- | ----------- | --- |
-| GET    | /orderproducts     | Lista todas as ordens de compra de produtos. | X           | X   |
-| POST   | /orderproducts     | Criação de ordem de compra para um produto.  | X           | X   |
-| DELETE | /orderproducts/:id | Deletar ordem de compra.                     | X           | X   |
+| Método | Rota                           | Descrição                                    | Autorizaçao | Adm |
+| ------ | ------------------------------ | -------------------------------------------- | ----------- | --- |
+| POST   | /orderproducts                 | Criação de ordem de compra para um produto.  | X           | X   |
+| GET    | /orderproducts                 | Lista todas as ordens de compra de produtos. | X           | X   |
+| PATCH  | /orderproducts/isdelivered/:id | Atualizando status de entrega de uma ordem.  | X           | X   |
+| DELETE | /orderproducts/:id             | Deletar ordem de compra.                     | X           | X   |
 
 ---
 
@@ -2315,6 +2316,20 @@ Vazio
         "id": "69b55ee4-53db-4d47-be40-c5123da43504",
         "name": "doces"
       }
+    },
+    "product": {
+      "id": "da118050-9641-4b52-abd8-67ec97f4ec1b",
+      "name": "Barra de chocolate laka",
+      "marketPrice": "6.70",
+      "stock": 30,
+      "description": "Chocolate délis",
+      "discount": "0.25",
+      "createdAt": "2022-09-08T15:42:40.774Z",
+      "updatedAt": "2022-09-08T15:42:40.774Z",
+      "category": {
+        "id": "69b55ee4-53db-4d47-be40-c5123da43504",
+        "name": "doces"
+      }
     }
   }
 ]
@@ -2326,7 +2341,89 @@ Nenhum, o máximo que pode acontecer é retornar uma lista vazia.
 
 ---
 
-### 10.3. **Deletar uma ordem de compra de um produto por ID**
+### 10.3. **Atualizando status de entrega de uma ordem**
+
+### `/supplierproducts/isdelivered/:id`
+
+### Exemplo de Request:
+
+```
+PATCH /supplierproducts/isdelivered/:id
+Authorization: Bearer token
+Content-type: application/json
+```
+
+### Parâmetros da Requisição:
+
+| Parâmetro      | Tipo   | Descrição                         |
+| -------------- | ------ | --------------------------------- |
+| orderproductId | string | Identificador único do fornecedor |
+
+### Corpo da Requisição:
+
+```json
+Vazio
+```
+
+### Exemplo de Response:
+
+```
+200 OK
+```
+
+```json
+{
+  "id": "937970d6-979c-435a-a74b-e22d8281e6ea",
+  "quantity": 2,
+  "costPrice": "14.00",
+  "totalPrice": "28.00",
+  "deliverySchedule": "2022-08-20T03:00:00.000Z",
+  "isDelivered": true,
+  "createdAt": "2022-09-08T16:03:55.471Z",
+  "supplierProduct": {
+    "id": "437f486c-5b94-4542-9658-624d0b57f2f0",
+    "name": "Barra de Chocolate",
+    "costPrice": "3.00",
+    "supplier": {
+      "id": "a370273b-fb11-4715-952d-d57928516702",
+      "name": "Deliverdex",
+      "cnpj": "23272375000121",
+      "phone": "3251-5060",
+      "email": "matheus@mail.com",
+      "createdAt": "2022-09-07T18:18:53.684Z",
+      "updatedAt": "2022-09-07T22:42:47.810Z"
+    },
+    "category": {
+      "id": "69b55ee4-53db-4d47-be40-c5123da43504",
+      "name": "doces"
+    }
+  },
+  "product": {
+    "id": "da118050-9641-4b52-abd8-67ec97f4ec1b",
+    "name": "Barra de chocolate laka",
+    "marketPrice": "6.70",
+    "stock": 30,
+    "description": "Chocolate délis",
+    "discount": "0.25",
+    "createdAt": "2022-09-08T15:42:40.774Z",
+    "updatedAt": "2022-09-08T15:42:40.774Z",
+    "category": {
+      "id": "69b55ee4-53db-4d47-be40-c5123da43504",
+      "name": "doces"
+    }
+  }
+}
+```
+
+### Possíveis Erros:
+
+| Código do Erro | Descrição                 |
+| -------------- | ------------------------- |
+| 404 Not Found  | Purchase order not found. |
+
+---
+
+### 10.4. **Deletar uma ordem de compra de um produto por ID**
 
 ### `/orderproducts/:id`
 
