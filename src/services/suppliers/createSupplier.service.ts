@@ -8,19 +8,19 @@ const createSupplierService = async ({
   cnpj,
   email,
   phone,
-}: ISupplierRequest) => {
+}: ISupplierRequest): Promise<Supplier> => {
   const supplierRepository = AppDataSource.getRepository(Supplier);
 
   const emailCheck = await supplierRepository.findOneBy({ email });
 
   if (emailCheck) {
-    throw new AppError(409, "Email already registered as supplier");
+    throw new AppError(409, "Email already registered as supplier.");
   }
 
   const cnpjCheck = await supplierRepository.findOneBy({ cnpj });
 
   if (cnpjCheck) {
-    throw new AppError(409, "CNPJ already registered as supplier");
+    throw new AppError(409, "CNPJ already registered as supplier.");
   }
 
   const newSupplier = supplierRepository.create({
