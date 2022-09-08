@@ -585,7 +585,7 @@ Deleted with success
 ### Endpoints
 
 | Método | Rota           | Descrição                         | Autorizaçao | Adm |
-| ------ | -------------- | -------------------------------   | ----------- | --- |
+| ------ | -------------- | --------------------------------- | ----------- | --- |
 | POST   | /employees     | Criação de um funcionário.        | X           | X   |
 | GET    | /employees     | Lista todos os funcionários.      | X           | X   |
 | GET    | /employees/:id | Lista um funcionário especifico.  | X           | X   |
@@ -613,7 +613,7 @@ Content-type: application/json
   "name": "Daniel Josias",
   "email": "danieljosias@mail.com",
   "password": "123",
-  "isAdm": true,
+  "isAdm": true
 }
 ```
 
@@ -638,23 +638,22 @@ OBS.: Chaves não presentes no schema serão removidas.
 ```json
 {
   "id": "96aeb523-350c-48a2-97c6-ddee624575fb",
-	"name": "Daniel Josias",
-	"email": "danieljosias@kenzie.com",
-	"isAdm": true,
-	"isActive": true,
-	"createdAt": "2022-09-07T19:54:34.094Z",
-	"updatedAt": "2022-09-07T19:54:34.094Z"
+  "name": "Daniel Josias",
+  "email": "danieljosias@kenzie.com",
+  "isAdm": true,
+  "isActive": true,
+  "createdAt": "2022-09-07T19:54:34.094Z",
+  "updatedAt": "2022-09-07T19:54:34.094Z"
 }
-
 ```
 
 ### Possíveis Erros:
 
 | Código do Erro  | Descrição                 |
-| --------------  | ------------------------- |
+| --------------- | ------------------------- |
 | 400 Bad Request | Email already registered. |
 | 400 Bad Request | Required field.           |
- 
+
 ---
 
 ### 8.2. **Listando Funcionários**
@@ -684,19 +683,17 @@ Vazio
 ```
 
 ```json
-
 [
-	{
-		"id": "6067c01f-380b-4879-8685-52a408bf5a71",
-		"name": "Daniel Josias",
-		"email": "danieljosias@kenzie.com",
-		"isAdm": true,
-		"isActive": true,
-		"createdAt": "2022-09-07T19:46:12.280Z",
-		"updatedAt": "2022-09-07T19:46:12.280Z"
-	}
+  {
+    "id": "6067c01f-380b-4879-8685-52a408bf5a71",
+    "name": "Daniel Josias",
+    "email": "danieljosias@kenzie.com",
+    "isAdm": true,
+    "isActive": true,
+    "createdAt": "2022-09-07T19:46:12.280Z",
+    "updatedAt": "2022-09-07T19:46:12.280Z"
+  }
 ]
-
 ```
 
 ### Possíveis Erros:
@@ -720,9 +717,9 @@ Content-type: application/json
 
 ### Parâmetros da Requisição:
 
-| Parâmetro  | Tipo   | Descrição                         |
-| ---------- | ------ | --------------------------------- |
-| id | string| Identificador único do fornecedor |
+| Parâmetro | Tipo   | Descrição                         |
+| --------- | ------ | --------------------------------- |
+| id        | string | Identificador único do fornecedor |
 
 ### Corpo da Requisição:
 
@@ -751,8 +748,8 @@ Vazio
 
 ### Possíveis Erros:
 
-| Código do Erro | Descrição           |
-| -------------- | ------------------- |
+| Código do Erro | Descrição            |
+| -------------- | -------------------- |
 | 404 Not Found  | Employees not found. |
 
 ---
@@ -772,9 +769,9 @@ Content-type: application/json
 
 ### Parâmetros da Requisição:
 
-| Parâmetro  | Tipo   | Descrição                         |
-| ---------- | ------ | --------------------------------- |
-| id | string| Identificador único do fornecedor |
+| Parâmetro | Tipo   | Descrição                         |
+| --------- | ------ | --------------------------------- |
+| id        | string | Identificador único do fornecedor |
 
 ### Corpo da Requisição:
 
@@ -803,15 +800,15 @@ OBS.: Chaves não presentes no schema serão removidas.
 
 ```json
 [
-	{
-		"id": "6067c01f-380b-4879-8685-52a408bf5a71",
-		"name": "Daniel",
-		"email": "danieljosias@kenzie.com",
-		"isAdm": true,
-		"isActive": true,
-		"createdAt": "2022-09-07T19:46:12.280Z",
-		"updatedAt": "2022-09-07T19:46:12.280Z"
-	}
+  {
+    "id": "6067c01f-380b-4879-8685-52a408bf5a71",
+    "name": "Daniel",
+    "email": "danieljosias@kenzie.com",
+    "isAdm": true,
+    "isActive": true,
+    "createdAt": "2022-09-07T19:46:12.280Z",
+    "updatedAt": "2022-09-07T19:46:12.280Z"
+  }
 ]
 ```
 
@@ -838,9 +835,9 @@ Content-type: application/json
 
 ### Parâmetros da Requisição:
 
-| Parâmetro  | Tipo   | Descrição                         |
-| ---------- | ------ | --------------------------------- |
-| id | string| Identificador único do fornecedor |
+| Parâmetro | Tipo   | Descrição                         |
+| --------- | ------ | --------------------------------- |
+| id        | string | Identificador único do fornecedor |
 
 ### Corpo da Requisição:
 
@@ -860,8 +857,8 @@ No body returned for response
 
 ### Possíveis Erros:
 
-| Código do Erro | Descrição           |
-| -------------- | ------------------- |
+| Código do Erro | Descrição            |
+| -------------- | -------------------- |
 | 404 Not Found  | Employees not found. |
 
 ---
@@ -1657,9 +1654,9 @@ OBS.: Chaves não presentes no schema serão removidas.
 
 ### Possíveis Erros:
 
-| Código do Erro | Descrição          |
-| -------------- | ------------------ |
-| 404 Not Found  | Supplier not found |
+| Código do Erro | Descrição           |
+| -------------- | ------------------- |
+| 404 Not Found  | Supplier not found. |
 
 ---
 
@@ -1899,11 +1896,230 @@ No body returned for response
 
 ### 10. /orderproducts
 
+O objeto Supplier é definido como:
+
+| Campo     | Tipo   | Descrição                             |
+| --------- | ------ | ------------------------------------- |
+| id        | string | Identificador único do fornecedor.    |
+| name      | string | O nome do fornecedor.                 |
+| email     | string | O e-mail único do fornecedor.         |
+| cnpj      | string | O cnpj único do fornecedor.           |
+| phone     | string | Telefone para contato do fornecedor.  |
+| createdAt | Date   | Data que o fornecedor foi cadastrado. |
+| updatedAt | Date   | Data que o fornecedor foi atualizado. |
+
+---
+
 | Método | Rota               | Descrição                                    | Autorizaçao | Adm |
 | ------ | ------------------ | -------------------------------------------- | ----------- | --- |
 | GET    | /orderproducts     | Lista todas as ordens de compra de produtos. | X           | X   |
 | POST   | /orderproducts     | Criação de ordem de compra para um produto.  | X           | X   |
 | DELETE | /orderproducts/:id | Deletar ordem de compra.                     | X           | X   |
+
+---
+
+### 10.1. **Criação de ordem de compra de um produto**
+
+### `/orderproducts`
+
+### Exemplo de Request:
+
+```
+POST /orderproducts
+Authorization: Bearer token
+Content-type: application/json
+```
+
+### Corpo da Requisição:
+
+```json
+{
+  "quantity": 50,
+  "costPrice": 3,
+  "deliverySchedule": "2022-08-18",
+  "isDelivered": false,
+  "supplierProductId": "437f486c-5b94-4542-9658-624d0b57f2f0",
+  "productId": "da118050-9641-4b52-abd8-67ec97f4ec1b"
+}
+```
+
+OBS.: isDelivered pode ser omitida na requisição, e será atribuído como false por padrão.
+
+### Schema de Validação com Yup:
+
+```javascript
+quanity: yup.number().required(),
+costPrice: yup.number().required(),
+deliverySchedule: yup.string().required(),
+isDelivered: yup.boolean(),
+supplierProductId: yup.string().required(),
+productId: yup.string().required(),
+```
+
+OBS.: Chaves não presentes no schema serão removidas.
+
+### Exemplo de Response:
+
+```
+201 Created
+```
+
+```json
+{
+  "quantity": 2,
+  "costPrice": 14,
+  "totalPrice": 28,
+  "deliverySchedule": "2022-08-20T03:00:00.000Z",
+  "supplierProduct": {
+    "id": "437f486c-5b94-4542-9658-624d0b57f2f0",
+    "name": "Barra de Chocolate",
+    "costPrice": "3.00",
+    "supplier": {
+      "id": "a370273b-fb11-4715-952d-d57928516702",
+      "name": "Deliverdex",
+      "cnpj": "23272375000121",
+      "phone": "3251-5060",
+      "email": "matheus@mail.com",
+      "createdAt": "2022-09-07T18:18:53.684Z",
+      "updatedAt": "2022-09-07T22:42:47.810Z"
+    },
+    "category": {
+      "id": "69b55ee4-53db-4d47-be40-c5123da43504",
+      "name": "doces"
+    }
+  },
+  "product": {
+    "id": "da118050-9641-4b52-abd8-67ec97f4ec1b",
+    "name": "Barra de chocolate laka",
+    "marketPrice": "6.70",
+    "stock": 30,
+    "description": "Chocolate délis",
+    "discount": "0.25",
+    "createdAt": "2022-09-08T15:42:40.774Z",
+    "updatedAt": "2022-09-08T15:42:40.774Z",
+    "category": {
+      "id": "69b55ee4-53db-4d47-be40-c5123da43504",
+      "name": "doces"
+    }
+  },
+  "id": "937970d6-979c-435a-a74b-e22d8281e6ea",
+  "isDelivered": false,
+  "createdAt": "2022-09-08T16:03:55.471Z"
+}
+```
+
+### Possíveis Erros:
+
+| Código do Erro | Descrição                                 |
+| -------------- | ----------------------------------------- |
+| 404 Not Found  | Product not found in market products.     |
+| 404 Not Found  | Product not found in supplier's products. |
+
+---
+
+### 10.2. **Listando todas ordens de compra de um produto**
+
+### `/orderproducts`
+
+### Exemplo de Request:
+
+```
+GET /supplierproducts
+Authorization: Bearer token
+Content-type: application/json
+```
+
+### Corpo da Requisição:
+
+```json
+Vazio
+```
+
+### Exemplo de Response:
+
+```
+200 OK
+```
+
+```json
+[
+  {
+    "id": "937970d6-979c-435a-a74b-e22d8281e6ea",
+    "quantity": 2,
+    "costPrice": "14.00",
+    "totalPrice": "28.00",
+    "deliverySchedule": "2022-08-20T03:00:00.000Z",
+    "isDelivered": false,
+    "createdAt": "2022-09-08T16:03:55.471Z",
+    "supplierProduct": {
+      "id": "437f486c-5b94-4542-9658-624d0b57f2f0",
+      "name": "Barra de Chocolate",
+      "costPrice": "3.00",
+      "supplier": {
+        "id": "a370273b-fb11-4715-952d-d57928516702",
+        "name": "Deliverdex",
+        "cnpj": "23272375000121",
+        "phone": "3251-5060",
+        "email": "matheus@mail.com",
+        "createdAt": "2022-09-07T18:18:53.684Z",
+        "updatedAt": "2022-09-07T22:42:47.810Z"
+      },
+      "category": {
+        "id": "69b55ee4-53db-4d47-be40-c5123da43504",
+        "name": "doces"
+      }
+    }
+  }
+]
+```
+
+### Possíveis Erros:
+
+Nenhum, o máximo que pode acontecer é retornar uma lista vazia.
+
+---
+
+### 10.3. **Deletar uma ordem de compra de um produto por ID**
+
+### `/orderproducts/:id`
+
+### Exemplo de Request:
+
+```
+DELETE /orderproducts/:id
+Authorization: Bearer Token
+Content-type: application/json
+```
+
+### Parâmetros da Requisição:
+
+| Parâmetro      | Tipo   | Descrição                         |
+| -------------- | ------ | --------------------------------- |
+| orderproductId | string | Identificador único do fornecedor |
+
+### Corpo da Requisição:
+
+```json
+Vazio
+```
+
+### Exemplo de Response:
+
+```
+204 No Content
+```
+
+```json
+No body returned for response
+```
+
+### Possíveis Erros:
+
+| Código do Erro | Descrição                 |
+| -------------- | ------------------------- |
+| 404 Not Found  | Purchase order not found. |
+
+---
 
 # Documentação da API
 

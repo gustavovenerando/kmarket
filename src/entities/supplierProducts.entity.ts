@@ -1,5 +1,12 @@
-import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from "typeorm";
+import {
+  Column,
+  Entity,
+  ManyToOne,
+  OneToMany,
+  PrimaryGeneratedColumn,
+} from "typeorm";
 import Category from "./categories.entity";
+import OrderSuppliersProducts from "./orderSuppliersProducts.entity";
 import Supplier from "./suppliers.entity";
 
 @Entity("supplierProducts")
@@ -12,6 +19,12 @@ class SupplierProduct {
 
   @Column({ type: "decimal", precision: 10, scale: 2 })
   costPrice: number;
+
+  @OneToMany(
+    () => OrderSuppliersProducts,
+    (orderSuppliersProducts) => orderSuppliersProducts.supplierProduct
+  )
+  orderProducts: OrderSuppliersProducts[];
 
   @ManyToOne(() => Supplier, (supplier) => supplier.supplierProducts, {
     eager: true,

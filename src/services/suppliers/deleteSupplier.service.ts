@@ -8,7 +8,7 @@ const deleteSupplierService = async (supplierId: string) => {
   const checkSupplier = await supplierRepository.findOneBy({ id: supplierId });
 
   if (!checkSupplier) {
-    throw new AppError(404, "Supplier not found");
+    throw new AppError(404, "Supplier not found.");
   }
 
   await supplierRepository.delete({ id: supplierId });
