@@ -1934,20 +1934,26 @@ Content-type: application/json
 
 ```json
 {
-  "name": "Coca-Cola",
-  "costPrice": 4,
-  "categoryId": "65e6dc04-1869-4e33-b31d-8fa46784af5d",
-  "supplierId": "ff7bc655-62fa-4cd9-ae1d-219dc8511b6d"
+  "quantity": 50,
+  "costPrice": 3,
+  "deliverySchedule": "2022-08-18",
+  "isDelivered": false,
+  "supplierProductId": "437f486c-5b94-4542-9658-624d0b57f2f0",
+  "productId": "da118050-9641-4b52-abd8-67ec97f4ec1b"
 }
 ```
+
+OBS.: isDelivered pode ser omitida na requisição, e será atribuído como false por padrão.
 
 ### Schema de Validação com Yup:
 
 ```javascript
-name: yup.string().required(),
+quanity: yup.number().required(),
 costPrice: yup.number().required(),
-categoryId: yup.string().required(),
-supplierId: yup.string().required(),
+deliverySchedule: yup.string().required(),
+isDelivered: yup.boolean(),
+supplierProductId: yup.string().required(),
+productId: yup.string().required(),
 ```
 
 OBS.: Chaves não presentes no schema serão removidas.
@@ -1960,31 +1966,54 @@ OBS.: Chaves não presentes no schema serão removidas.
 
 ```json
 {
-  "name": "Coca-Cola",
-  "costPrice": 4,
-  "supplier": {
-    "id": "ff7bc655-62fa-4cd9-ae1d-219dc8511b6d",
-    "name": "Bebidas de qualidade",
-    "cnpj": "23272375000153",
-    "phone": "3240-5061",
-    "email": "matheus3@mail.com",
-    "createdAt": "2022-09-08T11:43:38.907Z",
-    "updatedAt": "2022-09-08T11:43:38.907Z"
+  "quantity": 2,
+  "costPrice": 14,
+  "totalPrice": 28,
+  "deliverySchedule": "2022-08-20T03:00:00.000Z",
+  "supplierProduct": {
+    "id": "437f486c-5b94-4542-9658-624d0b57f2f0",
+    "name": "Barra de Chocolate",
+    "costPrice": "3.00",
+    "supplier": {
+      "id": "a370273b-fb11-4715-952d-d57928516702",
+      "name": "Deliverdex",
+      "cnpj": "23272375000121",
+      "phone": "3251-5060",
+      "email": "matheus@mail.com",
+      "createdAt": "2022-09-07T18:18:53.684Z",
+      "updatedAt": "2022-09-07T22:42:47.810Z"
+    },
+    "category": {
+      "id": "69b55ee4-53db-4d47-be40-c5123da43504",
+      "name": "doces"
+    }
   },
-  "category": {
-    "id": "65e6dc04-1869-4e33-b31d-8fa46784af5d",
-    "name": "bebidas"
+  "product": {
+    "id": "da118050-9641-4b52-abd8-67ec97f4ec1b",
+    "name": "Barra de chocolate laka",
+    "marketPrice": "6.70",
+    "stock": 30,
+    "description": "Chocolate délis",
+    "discount": "0.25",
+    "createdAt": "2022-09-08T15:42:40.774Z",
+    "updatedAt": "2022-09-08T15:42:40.774Z",
+    "category": {
+      "id": "69b55ee4-53db-4d47-be40-c5123da43504",
+      "name": "doces"
+    }
   },
-  "id": "b783a941-1dd4-453a-bc2f-7d0475553ce9"
+  "id": "937970d6-979c-435a-a74b-e22d8281e6ea",
+  "isDelivered": false,
+  "createdAt": "2022-09-08T16:03:55.471Z"
 }
 ```
 
 ### Possíveis Erros:
 
-| Código do Erro | Descrição           |
-| -------------- | ------------------- |
-| 404 Not Found  | Category not found. |
-| 404 Not Found  | Supplier not found. |
+| Código do Erro | Descrição                                 |
+| -------------- | ----------------------------------------- |
+| 404 Not Found  | Product not found in market products.     |
+| 404 Not Found  | Product not found in supplier's products. |
 
 ---
 
@@ -2015,21 +2044,30 @@ Vazio
 ```json
 [
   {
-    "id": "b783a941-1dd4-453a-bc2f-7d0475553ce9",
-    "name": "Coca-Cola",
-    "costPrice": "4.00",
-    "supplier": {
-      "id": "ff7bc655-62fa-4cd9-ae1d-219dc8511b6d",
-      "name": "Bebidas de qualidade",
-      "cnpj": "23272375000153",
-      "phone": "3240-5061",
-      "email": "matheus3@mail.com",
-      "createdAt": "2022-09-08T11:43:38.907Z",
-      "updatedAt": "2022-09-08T11:43:38.907Z"
-    },
-    "category": {
-      "id": "65e6dc04-1869-4e33-b31d-8fa46784af5d",
-      "name": "bebidas"
+    "id": "937970d6-979c-435a-a74b-e22d8281e6ea",
+    "quantity": 2,
+    "costPrice": "14.00",
+    "totalPrice": "28.00",
+    "deliverySchedule": "2022-08-20T03:00:00.000Z",
+    "isDelivered": false,
+    "createdAt": "2022-09-08T16:03:55.471Z",
+    "supplierProduct": {
+      "id": "437f486c-5b94-4542-9658-624d0b57f2f0",
+      "name": "Barra de Chocolate",
+      "costPrice": "3.00",
+      "supplier": {
+        "id": "a370273b-fb11-4715-952d-d57928516702",
+        "name": "Deliverdex",
+        "cnpj": "23272375000121",
+        "phone": "3251-5060",
+        "email": "matheus@mail.com",
+        "createdAt": "2022-09-07T18:18:53.684Z",
+        "updatedAt": "2022-09-07T22:42:47.810Z"
+      },
+      "category": {
+        "id": "69b55ee4-53db-4d47-be40-c5123da43504",
+        "name": "doces"
+      }
     }
   }
 ]
