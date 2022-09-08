@@ -30,13 +30,12 @@ O objeto Supplier é definido como:
 
 ### 1.1. **Criação do Produto**
 
-### `/suppliers`
+### `/products`
 
 ### Exemplo de Request:
 
 ```
-POST /suppliers
-Host:
+POST /products
 Authorization: Bearer token
 Content-type: application/json
 ```
@@ -45,10 +44,12 @@ Content-type: application/json
 
 ```json
 {
-	"name": "MatheusDeliver",
-	"cnpj": "23272375000120",
-	"phone": "3240-5060",
-	"email": "matheus@mail.com"
+	"name": "Refrigerante de guaraná",
+	"marketPrice": 6.0,
+	"stock": 15,
+	"description": "Refrescante bebida de guaraná",
+	"discount": 0.2,
+	"categoryId": "87066b82-b392-4fe7-a06e-dc2fa26e1415"
 }
 ```
 
@@ -56,9 +57,11 @@ Content-type: application/json
 
 ```javascript
 name: yup.string().required(),
-email: yup.string().required(),
-cnpj: yup.string().required(),
-phone: yup.string().email().required(),
+marketPrice: yup.number().required(),
+stock: yup.number().required(),
+description: yup.string().required(),
+discount: yup.number().required(),
+categoryId: yup.string().required(),
 ```
 
 OBS.: Chaves não presentes no schema serão removidas.
@@ -71,34 +74,38 @@ OBS.: Chaves não presentes no schema serão removidas.
 
 ```json
 {
-	"id": "3aa0fb96-57b7-4b7a-a535-84d91f825d5c",
-	"name": "MatheusDeliver",
-	"cnpj": "23272375000120",
-	"phone": "3240-5060",
-	"email": "matheus@mail.com",
-	"createdAt": "2022-09-07T18:11:38.245Z",
-	"updatedAt": "2022-09-07T18:11:38.245Z"
+	"name": "Refrigerante de guaraná",
+	"marketPrice": 6,
+	"stock": 15,
+	"description": "Refrescante bebida de guaraná",
+	"discount": "0.20",
+	"category": {
+		"id": "87066b82-b392-4fe7-a06e-dc2fa26e1415",
+		"name": "bebidas"
+	},
+	"id": "e6b49b72-b86b-42f2-8cb1-fb0104eaa5ba",
+	"createdAt": "2022-09-07T21:13:36.566Z",
+	"updatedAt": "2022-09-07T21:13:36.566Z"
 }
 ```
 
 ### Possíveis Erros:
 
-| Código do Erro | Descrição                 |
-| -------------- | ------------------------- |
-| 409 Conflict   | Email already registered. |
-| 409 Conflict   | Cnpj already registered.  |
+| Código do Erro  | Descrição                                  |
+| --------------- | ------------------------------------------ |
+| 404 not found   | Category not found.                        |
+| 400 bad request | Discount must be a number between 0 and 1. |
 
 ---
 
-### 8.2. **Listando Fornecedores**
+### 1.2. **Listando Produtos**
 
-### `/suppliers`
+### `/products`
 
 ### Exemplo de Request:
 
 ```
-GET /suppliers
-Host:
+GET /products
 Authorization: Bearer token
 Content-type: application/json
 ```
@@ -118,13 +125,18 @@ Vazio
 ```json
 [
 	{
-		"id": "a370273b-fb11-4715-952d-d57928516702",
-		"name": "MatheusDeliver",
-		"cnpj": "23272375000121",
-		"phone": "3240-5060",
-		"email": "matheus@mail.com",
-		"createdAt": "2022-09-07T18:18:53.684Z",
-		"updatedAt": "2022-09-07T18:18:53.684Z"
+		"id": "801713c5-dd17-4bd0-bfbf-04ddfca11d9f",
+		"name": "Amstel",
+		"marketPrice": "3.00",
+		"stock": 12,
+		"description": "Se beber não dirija",
+		"discount": "0.10",
+		"createdAt": "2022-09-07T19:06:35.160Z",
+		"updatedAt": "2022-09-07T20:10:57.077Z",
+		"category": {
+			"id": "87066b82-b392-4fe7-a06e-dc2fa26e1415",
+			"name": "bebidas"
+		}
 	}
 ]
 ```
@@ -135,24 +147,23 @@ Nenhum, o máximo que pode acontecer é retornar uma lista vazia.
 
 ---
 
-### 8.3. **Listar Fornecedor por ID**
+### 1.3. **Listar Fornecedor por ID**
 
-### `/suppliers/:id`
+### `/products/:id`
 
 ### Exemplo de Request:
 
 ```
-GET /suppliers/:id
-Host:
+GET /products/:id
 Authorization: Bearer token
 Content-type: application/json
 ```
 
 ### Parâmetros da Requisição:
 
-| Parâmetro  | Tipo   | Descrição                         |
-| ---------- | ------ | --------------------------------- |
-| supplierId | string | Identificador único do fornecedor |
+| Parâmetro | Tipo   | Descrição                      |
+| --------- | ------ | ------------------------------ |
+| productId | string | Identificador único do produto |
 
 ### Corpo da Requisição:
 
@@ -168,48 +179,52 @@ Vazio
 
 ```json
 {
-	"id": "a370273b-fb11-4715-952d-d57928516702",
-	"name": "MatheusDeliver",
-	"cnpj": "23272375000121",
-	"phone": "3240-5060",
-	"email": "matheus@mail.com",
-	"createdAt": "2022-09-07T18:18:53.684Z",
-	"updatedAt": "2022-09-07T18:18:53.684Z"
+	"id": "801713c5-dd17-4bd0-bfbf-04ddfca11d9f",
+	"name": "Amstel",
+	"marketPrice": "3.00",
+	"stock": 12,
+	"description": "Se beber não dirija",
+	"discount": "0.10",
+	"createdAt": "2022-09-07T19:06:35.160Z",
+	"updatedAt": "2022-09-07T20:10:57.077Z",
+	"category": {
+		"id": "87066b82-b392-4fe7-a06e-dc2fa26e1415",
+		"name": "bebidas"
+	}
 }
 ```
 
 ### Possíveis Erros:
 
-| Código do Erro | Descrição           |
-| -------------- | ------------------- |
-| 404 Not Found  | Supplier not found. |
+| Código do Erro | Descrição          |
+| -------------- | ------------------ |
+| 404 Not Found  | Product not found. |
 
 ---
 
-### 8.4. **Atualizar Fornecedor**
+### 1.4. **Atualizar Fornecedor**
 
-### `/suppliers`
+### `/products`
 
 ### Exemplo de Request:
 
 ```
-PATCH /suppliers/:id
-Host:
+PATCH /products/:id
 Authorization: Bearer token
 Content-type: application/json
 ```
 
 ### Parâmetros da Requisição:
 
-| Parâmetro  | Tipo   | Descrição                         |
-| ---------- | ------ | --------------------------------- |
-| supplierId | string | Identificador único do fornecedor |
+| Parâmetro | Tipo   | Descrição                      |
+| --------- | ------ | ------------------------------ |
+| productId | string | Identificador único do produto |
 
 ### Corpo da Requisição:
 
 ```json
 {
-	"name": "Deliverdex"
+	"marketPrice": 6
 }
 ```
 
@@ -217,9 +232,11 @@ Content-type: application/json
 
 ```javascript
 name: yup.string(),
-email: yup.string().email(),
-cnpj: yup.string(),
-phone: yup.string(),
+marketPrice: yup.number(),
+stock: yup.number(),
+description: yup.string(),
+discount: yup.number(),
+categoryId: yup.string(),
 ```
 
 OBS.: Chaves não presentes no schema serão removidas.
@@ -232,33 +249,37 @@ OBS.: Chaves não presentes no schema serão removidas.
 
 ```json
 {
-	"id": "a370273b-fb11-4715-952d-d57928516702",
-	"name": "Deliverdex",
-	"cnpj": "23272375000121",
-	"phone": "3240-5060",
-	"email": "matheus@mail.com",
-	"createdAt": "2022-09-07T18:18:53.684Z",
-	"updatedAt": "2022-09-07T19:09:57.555Z"
+	"id": "801713c5-dd17-4bd0-bfbf-04ddfca11d9f",
+	"name": "Amstel",
+	"marketPrice": "6.00",
+	"stock": 12,
+	"description": "Se beber não dirija",
+	"discount": "0.10",
+	"createdAt": "2022-09-07T19:06:35.160Z",
+	"updatedAt": "2022-09-07T20:10:57.077Z",
+	"category": {
+		"id": "87066b82-b392-4fe7-a06e-dc2fa26e1415",
+		"name": "bebidas"
+	}
 }
 ```
 
 ### Possíveis Erros:
 
-| Código do Erro | Descrição          |
-| -------------- | ------------------ |
-| 404 Not Found  | Supplier not found |
+| Código do Erro | Descrição         |
+| -------------- | ----------------- |
+| 404 Not Found  | Product not found |
 
 ---
 
-### 8.5. **Deletar Fornecedor por ID**
+### 1.5. **Deletar Produto por ID**
 
-### `/suppliers/:id`
+### `/products/:id`
 
 ### Exemplo de Request:
 
 ```
-DELETE /suppliers/:id
-Host:
+DELETE /products/:id
 Authorization: Bearer Token
 Content-type: application/json
 ```
@@ -282,14 +303,16 @@ Vazio
 ```
 
 ```json
-No body returned for response
+{
+	"message": "Product deleted successfully"
+}
 ```
 
 ### Possíveis Erros:
 
-| Código do Erro | Descrição           |
-| -------------- | ------------------- |
-| 404 Not Found  | Supplier not found. |
+| Código do Erro | Descrição         |
+| -------------- | ----------------- |
+| 404 Not Found  | Product not found |
 
 ---
 
@@ -319,8 +342,8 @@ Content-type: application/json
 
 ```json
 {
-  "employeeId": "9cda28c9-e540-4b2c-bf0c-c90006d32893",
-  "loyaltyCustomerId": "9cda28c9-e540-4b2c-bf0c-c90006d32893"
+	"employeeId": "9cda28c9-e540-4b2c-bf0c-c90006d32893",
+	"loyaltyCustomerId": "9cda28c9-e540-4b2c-bf0c-c90006d32893"
 }
 ```
 
@@ -344,12 +367,12 @@ OBS.: Chaves não presentes no schema serão removidas.
 
 ```json
 {
-  "id": "9cda28c9-e540-4b2c-bf0c-c90006d32891",
-  "totalPrice": 0,
-  "createdAt": "1995-12-17T03:24:00",
-  "sold": false,
-  "employeeId": "9cda28c9-e540-4b2c-bf0c-c90006d32892",
-  "loyaltyCustomerId": "9cda28c9-e540-4b2c-bf0c-c90006d32893"
+	"id": "9cda28c9-e540-4b2c-bf0c-c90006d32891",
+	"totalPrice": 0,
+	"createdAt": "1995-12-17T03:24:00",
+	"sold": false,
+	"employeeId": "9cda28c9-e540-4b2c-bf0c-c90006d32892",
+	"loyaltyCustomerId": "9cda28c9-e540-4b2c-bf0c-c90006d32893"
 }
 ```
 
