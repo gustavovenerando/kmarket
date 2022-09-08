@@ -1,9 +1,9 @@
 import { Request, Response } from "express";
-import { createEmployeesService } from "../services/employees/createEmployees.services";
-import { listEmployeesService } from '../services/employees/listEmployees.services'
-import { listOneEmployeesService } from "../services/employees/listOneEmployees.services";
-import { updateEmployeesService } from "../services/employees/updateEmployees.services";
-import { deleteEmployeesService } from '../services/employees/deleteEmployees.services'
+import { createEmployeesService } from "../services/employees/createEmployees.service";
+import { listEmployeesService } from '../services/employees/listEmployees.service'
+import { listOneEmployeesService } from "../services/employees/listOneEmployees.service";
+import { updateEmployeesService } from "../services/employees/updateEmployees.service";
+import { deleteEmployeesService } from '../services/employees/deleteEmployees.service'
 
 import { IEmployeeRequest } from "../interfaces/employee";
 import { instanceToPlain } from "class-transformer";

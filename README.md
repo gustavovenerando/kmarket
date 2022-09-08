@@ -67,13 +67,294 @@
 
 ### 8. /suppliers
 
+O objeto Supplier é definido como:
+
+| Campo     | Tipo   | Descrição                             |
+| --------- | ------ | ------------------------------------- |
+| id        | string | Identificador único do fornecedor.    |
+| name      | string | O nome do fornecedor.                 |
+| email     | string | O e-mail único do fornecedor.         |
+| cnpj      | string | O cnpj único do fornecedor.           |
+| phone     | string | Telefone para contato do fornecedor.  |
+| createdAt | Date   | Data que o fornecedor foi cadastrado. |
+| updatedAt | Date   | Data que o fornecedor foi atualizado. |
+
+### Endpoints
+
 | Método | Rota           | Descrição                       | Autorizaçao | Adm |
 | ------ | -------------- | ------------------------------- | ----------- | --- |
+| POST   | /suppliers     | Criação de um fornecedor.       | X           | X   |
 | GET    | /suppliers     | Lista todos os fornecedores.    | X           | X   |
 | GET    | /suppliers/:id | Lista um forncedor especifico.  | X           | X   |
-| POST   | /suppliers     | Criação de um fornecedor.       | X           | X   |
 | PATCH  | /suppliers/:id | Atualiza um fornecedores.       | X           | X   |
 | DELETE | /suppliers/:id | Deleta um forncedor especifico. | X           | X   |
+
+---
+
+### 8.1. **Criação do Fornecedor**
+
+### `/suppliers`
+
+### Exemplo de Request:
+
+```
+POST /suppliers
+Host:
+Authorization: Bearer token
+Content-type: application/json
+```
+
+### Corpo da Requisição:
+
+```json
+{
+  "name": "MatheusDeliver",
+  "cnpj": "23272375000120",
+  "phone": "3240-5060",
+  "email": "matheus@mail.com"
+}
+```
+
+### Schema de Validação com Yup:
+
+```javascript
+name: yup.string().required(),
+email: yup.string().required(),
+cnpj: yup.string().required(),
+phone: yup.string().email().required(),
+```
+
+OBS.: Chaves não presentes no schema serão removidas.
+
+### Exemplo de Response:
+
+```
+201 Created
+```
+
+```json
+{
+  "id": "3aa0fb96-57b7-4b7a-a535-84d91f825d5c",
+  "name": "MatheusDeliver",
+  "cnpj": "23272375000120",
+  "phone": "3240-5060",
+  "email": "matheus@mail.com",
+  "createdAt": "2022-09-07T18:11:38.245Z",
+  "updatedAt": "2022-09-07T18:11:38.245Z"
+}
+```
+
+### Possíveis Erros:
+
+| Código do Erro | Descrição                 |
+| -------------- | ------------------------- |
+| 409 Conflict   | Email already registered. |
+| 409 Conflict   | Cnpj already registered.  |
+
+---
+
+### 8.2. **Listando Fornecedores**
+
+### `/suppliers`
+
+### Exemplo de Request:
+
+```
+GET /suppliers
+Host:
+Authorization: None
+Content-type: application/json
+```
+
+### Corpo da Requisição:
+
+```json
+Vazio
+```
+
+### Exemplo de Response:
+
+```
+200 OK
+```
+
+```json
+[
+  {
+    "id": "a370273b-fb11-4715-952d-d57928516702",
+    "name": "MatheusDeliver",
+    "cnpj": "23272375000121",
+    "phone": "3240-5060",
+    "email": "matheus@mail.com",
+    "createdAt": "2022-09-07T18:18:53.684Z",
+    "updatedAt": "2022-09-07T18:18:53.684Z"
+  }
+]
+```
+
+### Possíveis Erros:
+
+Nenhum, o máximo que pode acontecer é retornar uma lista vazia.
+
+---
+
+### 8.3. **Listar Fornecedor por ID**
+
+### `/suppliers/:id`
+
+### Exemplo de Request:
+
+```
+GET /users/:id
+Host:
+Authorization: None
+Content-type: application/json
+```
+
+### Parâmetros da Requisição:
+
+| Parâmetro  | Tipo   | Descrição                         |
+| ---------- | ------ | --------------------------------- |
+| supplierId | string | Identificador único do fornecedor |
+
+### Corpo da Requisição:
+
+```json
+Vazio
+```
+
+### Exemplo de Response:
+
+```
+200 OK
+```
+
+```json
+{
+  "id": "a370273b-fb11-4715-952d-d57928516702",
+  "name": "MatheusDeliver",
+  "cnpj": "23272375000121",
+  "phone": "3240-5060",
+  "email": "matheus@mail.com",
+  "createdAt": "2022-09-07T18:18:53.684Z",
+  "updatedAt": "2022-09-07T18:18:53.684Z"
+}
+```
+
+### Possíveis Erros:
+
+| Código do Erro | Descrição           |
+| -------------- | ------------------- |
+| 404 Not Found  | Supplier not found. |
+
+---
+
+### 8.4. **Atualizar Fornecedor**
+
+### `/suppliers`
+
+### Exemplo de Request:
+
+```
+PATCH /suppliers
+Host:
+Authorization: Bearer token
+Content-type: application/json
+```
+
+### Parâmetros da Requisição:
+
+| Parâmetro  | Tipo   | Descrição                         |
+| ---------- | ------ | --------------------------------- |
+| supplierId | string | Identificador único do fornecedor |
+
+### Corpo da Requisição:
+
+```json
+{
+  "name": "Deliverdex"
+}
+```
+
+### Schema de Validação com Yup:
+
+```javascript
+name: yup.string(),
+email: yup.string().email(),
+cnpj: yup.string(),
+phone: yup.string(),
+```
+
+OBS.: Chaves não presentes no schema serão removidas.
+
+### Exemplo de Response:
+
+```
+200 Ok
+```
+
+```json
+{
+  "id": "a370273b-fb11-4715-952d-d57928516702",
+  "name": "Deliverdex",
+  "cnpj": "23272375000121",
+  "phone": "3240-5060",
+  "email": "matheus@mail.com",
+  "createdAt": "2022-09-07T18:18:53.684Z",
+  "updatedAt": "2022-09-07T19:09:57.555Z"
+}
+```
+
+### Possíveis Erros:
+
+| Código do Erro | Descrição          |
+| -------------- | ------------------ |
+| 404 Not Found  | Supplier not found |
+
+---
+
+### 8.5. **Deletar Fornecedor por ID**
+
+### `/suppliers/:id`
+
+### Exemplo de Request:
+
+```
+DELETE /users/:id
+Host:
+Authorization: Bearer Token
+Content-type: application/json
+```
+
+### Parâmetros da Requisição:
+
+| Parâmetro  | Tipo   | Descrição                         |
+| ---------- | ------ | --------------------------------- |
+| supplierId | string | Identificador único do fornecedor |
+
+### Corpo da Requisição:
+
+```json
+Vazio
+```
+
+### Exemplo de Response:
+
+```
+204 No Content
+```
+
+```json
+No body returned for response
+```
+
+### Possíveis Erros:
+
+| Código do Erro | Descrição           |
+| -------------- | ------------------- |
+| 404 Not Found  | Supplier not found. |
+
+---
 
 ### 9. /supplierproducts
 

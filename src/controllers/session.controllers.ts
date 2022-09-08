@@ -1,6 +1,6 @@
 import { Request, Response } from "express";
 import { IEmployeeLogin } from "../interfaces/employee";
-import { createSessionService } from "../services/session/createSession.services";
+import { createSessionService } from "../services/session/createSession.service";
 
 export const createSessionController = async (req: Request, res: Response) => {
 	const { email, password }: IEmployeeLogin = req.body;

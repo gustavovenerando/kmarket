@@ -6,10 +6,6 @@ const listLoyaltyCustomerService = async (
   id: string,
 ): Promise<LoyaltyCustomer> => {
 
-  // if(!isActive) {
-  //   throw new AppError( 403, 'Employee is not active')
-  // }
-
   const loyaltyCustomerRepository = AppDataSource.getRepository(LoyaltyCustomer);
 
   const loyaltyCustomer = await loyaltyCustomerRepository.findOneBy({
