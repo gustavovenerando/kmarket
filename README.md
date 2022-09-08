@@ -582,6 +582,290 @@ Deleted with success
 | PATCH  | /employees/:id | Atualiza os funcionários.                                       | X           | X   |
 | DELETE | /employees/:id | Deleta os funcionários. Soft delete (mudar isActive para false) | X           | X   |
 
+### Endpoints
+
+| Método | Rota           | Descrição                         | Autorizaçao | Adm |
+| ------ | -------------- | -------------------------------   | ----------- | --- |
+| POST   | /employees     | Criação de um funcionário.        | X           | X   |
+| GET    | /employees     | Lista todos os funcionários.      | X           | X   |
+| GET    | /employees/:id | Lista um funcionário especifico.  | X           | X   |
+| PATCH  | /employees/:id | Atualiza um funcionário.          | X           | X   |
+| DELETE | /employees/:id | Deleta um funcionário especifico. | X           | X   |
+
+---
+
+### 8.1. **Criação do Funcionário**
+
+### `/employees`
+
+### Exemplo de Request:
+
+```
+POST /employees
+Host:
+Content-type: application/json
+```
+
+### Corpo da Requisição:
+
+```json
+{
+  "name": "Daniel Josias",
+  "email": "danieljosias@mail.com",
+  "password": "123",
+  "isAdm": true,
+}
+```
+
+### Schema de Validação com Yup:
+
+```javascript
+name: yup.string().required(),
+email: yup.string().required(),
+password: yup.string().required(),
+isAdm: yup.boolean().required(),
+```
+
+OBS.: Chaves não presentes no schema serão removidas.
+
+### Exemplo de Response:
+
+```
+201 Created
+
+```
+
+```json
+{
+  "id": "96aeb523-350c-48a2-97c6-ddee624575fb",
+	"name": "Daniel Josias",
+	"email": "danieljosias@kenzie.com",
+	"isAdm": true,
+	"isActive": true,
+	"createdAt": "2022-09-07T19:54:34.094Z",
+	"updatedAt": "2022-09-07T19:54:34.094Z"
+}
+
+```
+
+### Possíveis Erros:
+
+| Código do Erro  | Descrição                 |
+| --------------  | ------------------------- |
+| 400 Bad Request | Email already registered. |
+| 400 Bad Request | Required field.           |
+ 
+---
+
+### 8.2. **Listando Funcionários**
+
+### `/employees`
+
+### Exemplo de Request:
+
+```
+GET /employees
+Host:
+Authorization: Bearer token
+Content-type: application/json
+```
+
+### Corpo da Requisição:
+
+```json
+Vazio
+```
+
+### Exemplo de Response:
+
+```
+200 OK
+
+```
+
+```json
+
+[
+	{
+		"id": "6067c01f-380b-4879-8685-52a408bf5a71",
+		"name": "Daniel Josias",
+		"email": "danieljosias@kenzie.com",
+		"isAdm": true,
+		"isActive": true,
+		"createdAt": "2022-09-07T19:46:12.280Z",
+		"updatedAt": "2022-09-07T19:46:12.280Z"
+	}
+]
+
+```
+
+### Possíveis Erros:
+
+Nenhum, o máximo que pode acontecer é retornar uma lista vazia.
+
+---
+
+### 8.3. **Listar Funcionário por ID**
+
+### `/employees/:id`
+
+### Exemplo de Request:
+
+```
+GET /suppliers/:id
+Host:
+Authorization: Bearer token
+Content-type: application/json
+```
+
+### Parâmetros da Requisição:
+
+| Parâmetro  | Tipo   | Descrição                         |
+| ---------- | ------ | --------------------------------- |
+| id | string| Identificador único do fornecedor |
+
+### Corpo da Requisição:
+
+```json
+Vazio
+```
+
+### Exemplo de Response:
+
+```
+200 OK
+```
+
+```json
+{
+	"id": "6067c01f-380b-4879-8685-52a408bf5a71",
+	"name": "Daniel Josias",
+	"email": "danieljosias@kenzie.com",
+	"isAdm": true,
+	"isActive": true,
+	"createdAt": "2022-09-07T19:46:12.280Z",
+	"updatedAt": "2022-09-07T19:46:12.280Z"
+} "updatedAt": "2022-09-07T18:18:53.684Z"
+
+```
+
+### Possíveis Erros:
+
+| Código do Erro | Descrição           |
+| -------------- | ------------------- |
+| 404 Not Found  | Employees not found. |
+
+---
+
+### 8.4. **Atualizar Funcionário**
+
+### `/employees/:id`
+
+### Exemplo de Request:
+
+```
+PATCH /employees/:id
+Host:
+Authorization: Bearer token
+Content-type: application/json
+```
+
+### Parâmetros da Requisição:
+
+| Parâmetro  | Tipo   | Descrição                         |
+| ---------- | ------ | --------------------------------- |
+| id | string| Identificador único do fornecedor |
+
+### Corpo da Requisição:
+
+```json
+{
+  "name": "Daniel"
+}
+```
+
+### Schema de Validação com Yup:
+
+```javascript
+name: yup.string().required(),
+email: yup.string().required(),
+password: yup.string().required(),
+isAdm: yup.boolean().required()
+```
+
+OBS.: Chaves não presentes no schema serão removidas.
+
+### Exemplo de Response:
+
+```
+200 Ok
+```
+
+```json
+[
+	{
+		"id": "6067c01f-380b-4879-8685-52a408bf5a71",
+		"name": "Daniel",
+		"email": "danieljosias@kenzie.com",
+		"isAdm": true,
+		"isActive": true,
+		"createdAt": "2022-09-07T19:46:12.280Z",
+		"updatedAt": "2022-09-07T19:46:12.280Z"
+	}
+]
+```
+
+### Possíveis Erros:
+
+| Código do Erro | Descrição          |
+| -------------- | ------------------ |
+| 404 Not Found  | Supplier not found |
+
+---
+
+### 8.5. **Deletar Fornecedor por ID**
+
+### `/employees/:id`
+
+### Exemplo de Request:
+
+```
+DELETE /employees/:id
+Host:
+Authorization: Bearer Token
+Content-type: application/json
+```
+
+### Parâmetros da Requisição:
+
+| Parâmetro  | Tipo   | Descrição                         |
+| ---------- | ------ | --------------------------------- |
+| id | string| Identificador único do fornecedor |
+
+### Corpo da Requisição:
+
+```json
+Vazio
+```
+
+### Exemplo de Response:
+
+```
+204 No Content
+```
+
+```json
+No body returned for response
+```
+
+### Possíveis Erros:
+
+| Código do Erro | Descrição           |
+| -------------- | ------------------- |
+| 404 Not Found  | Employees not found. |
+
+---
+
 ### 5. /login - Somente funcionário faz login
 
 | Método | Rota   | Descrição                           | Autorizaçao | Adm |
