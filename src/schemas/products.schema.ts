@@ -20,4 +20,4 @@ export const productsUpdateSchema: SchemaOf<IUpdateProductsSchema> = yup
 		description: yup.string(),
 		discount: yup.number(),
 		categoryId: yup.string(),
-	});
+});
