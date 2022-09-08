@@ -15,12 +15,20 @@ const createCartService = async ({
     AppDataSource.getRepository(LoyaltyCustomer);
 
   const employee = await employeeRepository.findOneBy({ id: employeeId });
-  const loyaltyCustomer = await loyaltyCustomerRepository.findOneBy({
-    id: loyaltyCustomerId,
-  });
+  let loyaltyCustomer;
+
+  if (loyaltyCustomerId) {
+    loyaltyCustomer = await loyaltyCustomerRepository.findOneBy({
+      id: loyaltyCustomerId,
+    });
+  }
 
   if (!loyaltyCustomer && loyaltyCustomerId) {
     throw new AppError(404, "Loyalty Customer not Found.");
+  }
+
+  if(!loyaltyCustomer?.isActive) {
+    throw new AppError(404, "Loyalty Customer is not active.");
   }
 
   if (!employee) {
