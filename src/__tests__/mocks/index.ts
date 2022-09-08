@@ -1,5 +1,5 @@
 import { ILoyaltyCustomerRequest } from '../../interfaces/loyaltyCustomer/index';
-import { ICartRequest } from "../../interfaces/employee";
+import { ICartRequest, IEmployeeLogin } from "../../interfaces/employee";
 import { IEmployeeRequest } from "../../interfaces/employee";
 import { ISupplierProductsRequest } from '../../interfaces/supplierProducts';
 import { ISupplierRequest } from '../../interfaces/supplier';
@@ -40,12 +40,12 @@ export const mockedAdm :IEmployeeRequest = {
 }
 
 
-export const mockedLoginAdm = {
+export const mockedLoginAdm : IEmployeeLogin = {
     email: "roberval@roberval.com",
 	password: "123",
 }
 
-export const mockedLoginEmployee = {
+export const mockedLoginEmployee : IEmployeeLogin = {
     email: "carlos@carlos.com",
 	password: "123",
 }
