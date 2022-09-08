@@ -10,7 +10,7 @@ const createSupplierProductService = async ({
   costPrice,
   name,
   supplierId,
-}: ISupplierProductsRequest) => {
+}: ISupplierProductsRequest): Promise<SupplierProduct> => {
   const supplierProductsRepository =
     AppDataSource.getRepository(SupplierProduct);
 

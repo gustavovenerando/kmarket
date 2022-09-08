@@ -8,7 +8,7 @@ const createSupplierService = async ({
   cnpj,
   email,
   phone,
-}: ISupplierRequest) => {
+}: ISupplierRequest): Promise<Supplier> => {
   const supplierRepository = AppDataSource.getRepository(Supplier);
 
   const emailCheck = await supplierRepository.findOneBy({ email });
