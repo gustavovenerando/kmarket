@@ -6,7 +6,7 @@ import { ISupplierUpdateRequest } from "../../interfaces/supplier";
 const updateSupplierService = async (
   supplierId: string,
   supplierData: ISupplierUpdateRequest
-) => {
+): Promise<Supplier | null> => {
   const supplierRepository = AppDataSource.getRepository(Supplier);
 
   const supplier = await supplierRepository.findOneBy({ id: supplierId });
