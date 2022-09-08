@@ -48,3 +48,10 @@ export const mockedProducts = {
 	discount: 0.1,
 	categoryId: "",
 }
+
+export const mockedSupplierProduct = {
+    name: "Coca 350ml",
+    costPrice: 4,
+    supplierId: "",
+    categoryId: ""
+}
