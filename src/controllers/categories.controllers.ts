@@ -28,13 +28,16 @@ const updateCategoryController = async (req: Request, res: Response) => {
 
   const response = await updateCategoryService(id, name);
 
-  res.status(202).json(response);
+  res.status(202).json({
+    message: "Updated with success",
+    category: response,
+  });
 };
 
 const deleteCategoryController = async (req: Request, res: Response) => {
   const { id } = req.params;
   const response = await deleteCategoryService(id);
-  res.status(202).json(response);
+  res.status(204).json(response);
 };
 
 export {
