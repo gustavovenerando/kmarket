@@ -32,7 +32,12 @@ export const createEmployeesService = async ({
 		throw new AppError(400, "Required field");
 	}
 
-	if (name === "" || email === "" || password === "" || isAdm === null) {
+	if (
+		name === ""||
+		email === "" ||
+		password === "" ||
+		isAdm === null
+	) {
 		throw new AppError(400, "Required field");
 	}
 

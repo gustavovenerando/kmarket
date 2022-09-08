@@ -11,3 +11,13 @@ export interface ISupplierUpdateRequest {
   phone?: string;
   email?: string;
 }
+
+export interface ISupplierResponse {
+  id:string;
+  name: string;
+  cnpj: string;
+  phone: string;
+  email: string;
+  createdAt:string;
+  updatedAt:string;
+}
