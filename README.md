@@ -44,12 +44,12 @@ Content-type: application/json
 
 ```json
 {
-	"name": "Refrigerante de guaraná",
-	"marketPrice": 6.0,
-	"stock": 15,
-	"description": "Refrescante bebida de guaraná",
-	"discount": 0.2,
-	"categoryId": "87066b82-b392-4fe7-a06e-dc2fa26e1415"
+  "name": "Refrigerante de guaraná",
+  "marketPrice": 6.0,
+  "stock": 15,
+  "description": "Refrescante bebida de guaraná",
+  "discount": 0.2,
+  "categoryId": "87066b82-b392-4fe7-a06e-dc2fa26e1415"
 }
 ```
 
@@ -74,18 +74,18 @@ OBS.: Chaves não presentes no schema serão removidas.
 
 ```json
 {
-	"name": "Refrigerante de guaraná",
-	"marketPrice": 6,
-	"stock": 15,
-	"description": "Refrescante bebida de guaraná",
-	"discount": "0.20",
-	"category": {
-		"id": "87066b82-b392-4fe7-a06e-dc2fa26e1415",
-		"name": "bebidas"
-	},
-	"id": "e6b49b72-b86b-42f2-8cb1-fb0104eaa5ba",
-	"createdAt": "2022-09-07T21:13:36.566Z",
-	"updatedAt": "2022-09-07T21:13:36.566Z"
+  "name": "Refrigerante de guaraná",
+  "marketPrice": 6,
+  "stock": 15,
+  "description": "Refrescante bebida de guaraná",
+  "discount": "0.20",
+  "category": {
+    "id": "87066b82-b392-4fe7-a06e-dc2fa26e1415",
+    "name": "bebidas"
+  },
+  "id": "e6b49b72-b86b-42f2-8cb1-fb0104eaa5ba",
+  "createdAt": "2022-09-07T21:13:36.566Z",
+  "updatedAt": "2022-09-07T21:13:36.566Z"
 }
 ```
 
@@ -124,20 +124,20 @@ Vazio
 
 ```json
 [
-	{
-		"id": "801713c5-dd17-4bd0-bfbf-04ddfca11d9f",
-		"name": "Amstel",
-		"marketPrice": "3.00",
-		"stock": 12,
-		"description": "Se beber não dirija",
-		"discount": "0.10",
-		"createdAt": "2022-09-07T19:06:35.160Z",
-		"updatedAt": "2022-09-07T20:10:57.077Z",
-		"category": {
-			"id": "87066b82-b392-4fe7-a06e-dc2fa26e1415",
-			"name": "bebidas"
-		}
-	}
+  {
+    "id": "801713c5-dd17-4bd0-bfbf-04ddfca11d9f",
+    "name": "Amstel",
+    "marketPrice": "3.00",
+    "stock": 12,
+    "description": "Se beber não dirija",
+    "discount": "0.10",
+    "createdAt": "2022-09-07T19:06:35.160Z",
+    "updatedAt": "2022-09-07T20:10:57.077Z",
+    "category": {
+      "id": "87066b82-b392-4fe7-a06e-dc2fa26e1415",
+      "name": "bebidas"
+    }
+  }
 ]
 ```
 
@@ -179,18 +179,18 @@ Vazio
 
 ```json
 {
-	"id": "801713c5-dd17-4bd0-bfbf-04ddfca11d9f",
-	"name": "Amstel",
-	"marketPrice": "3.00",
-	"stock": 12,
-	"description": "Se beber não dirija",
-	"discount": "0.10",
-	"createdAt": "2022-09-07T19:06:35.160Z",
-	"updatedAt": "2022-09-07T20:10:57.077Z",
-	"category": {
-		"id": "87066b82-b392-4fe7-a06e-dc2fa26e1415",
-		"name": "bebidas"
-	}
+  "id": "801713c5-dd17-4bd0-bfbf-04ddfca11d9f",
+  "name": "Amstel",
+  "marketPrice": "3.00",
+  "stock": 12,
+  "description": "Se beber não dirija",
+  "discount": "0.10",
+  "createdAt": "2022-09-07T19:06:35.160Z",
+  "updatedAt": "2022-09-07T20:10:57.077Z",
+  "category": {
+    "id": "87066b82-b392-4fe7-a06e-dc2fa26e1415",
+    "name": "bebidas"
+  }
 }
 ```
 
@@ -224,7 +224,7 @@ Content-type: application/json
 
 ```json
 {
-	"marketPrice": 6
+  "marketPrice": 6
 }
 ```
 
@@ -249,18 +249,18 @@ OBS.: Chaves não presentes no schema serão removidas.
 
 ```json
 {
-	"id": "801713c5-dd17-4bd0-bfbf-04ddfca11d9f",
-	"name": "Amstel",
-	"marketPrice": "6.00",
-	"stock": 12,
-	"description": "Se beber não dirija",
-	"discount": "0.10",
-	"createdAt": "2022-09-07T19:06:35.160Z",
-	"updatedAt": "2022-09-07T20:10:57.077Z",
-	"category": {
-		"id": "87066b82-b392-4fe7-a06e-dc2fa26e1415",
-		"name": "bebidas"
-	}
+  "id": "801713c5-dd17-4bd0-bfbf-04ddfca11d9f",
+  "name": "Amstel",
+  "marketPrice": "6.00",
+  "stock": 12,
+  "description": "Se beber não dirija",
+  "discount": "0.10",
+  "createdAt": "2022-09-07T19:06:35.160Z",
+  "updatedAt": "2022-09-07T20:10:57.077Z",
+  "category": {
+    "id": "87066b82-b392-4fe7-a06e-dc2fa26e1415",
+    "name": "bebidas"
+  }
 }
 ```
 
@@ -304,7 +304,7 @@ Vazio
 
 ```json
 {
-	"message": "Product deleted successfully"
+  "message": "Product deleted successfully"
 }
 ```
 
@@ -342,8 +342,8 @@ Content-type: application/json
 
 ```json
 {
-	"employeeId": "9cda28c9-e540-4b2c-bf0c-c90006d32893",
-	"loyaltyCustomerId": "9cda28c9-e540-4b2c-bf0c-c90006d32893"
+  "employeeId": "9cda28c9-e540-4b2c-bf0c-c90006d32893",
+  "loyaltyCustomerId": "9cda28c9-e540-4b2c-bf0c-c90006d32893"
 }
 ```
 
@@ -367,12 +367,12 @@ OBS.: Chaves não presentes no schema serão removidas.
 
 ```json
 {
-	"id": "9cda28c9-e540-4b2c-bf0c-c90006d32891",
-	"totalPrice": 0,
-	"createdAt": "1995-12-17T03:24:00",
-	"sold": false,
-	"employeeId": "9cda28c9-e540-4b2c-bf0c-c90006d32892",
-	"loyaltyCustomerId": "9cda28c9-e540-4b2c-bf0c-c90006d32893"
+  "id": "9cda28c9-e540-4b2c-bf0c-c90006d32891",
+  "totalPrice": 0,
+  "createdAt": "1995-12-17T03:24:00",
+  "sold": false,
+  "employeeId": "9cda28c9-e540-4b2c-bf0c-c90006d32892",
+  "loyaltyCustomerId": "9cda28c9-e540-4b2c-bf0c-c90006d32893"
 }
 ```
 
@@ -631,8 +631,8 @@ Content-type: application/json
 
 ```json
 {
-	"name": "Gabriel",
-	"email": "gabriel@mail.com"
+  "name": "Gabriel",
+  "email": "gabriel@mail.com"
 }
 ```
 
@@ -653,13 +653,13 @@ OBS.: Chaves não presentes no schema serão removidas.
 
 ```json
 {
-	"name": "Gabriel",
-	"email": "gabriel@mail.com",
-	"id": "68ee5317-3d40-4c88-b590-18d5bbfeaec3",
-	"fidelityPoints": 0,
-	"isActive": true,
-	"createdAt": "2022-09-07T20:13:50.871Z",
-	"updatedAt": "2022-09-07T20:13:50.871Z"
+  "name": "Gabriel",
+  "email": "gabriel@mail.com",
+  "id": "68ee5317-3d40-4c88-b590-18d5bbfeaec3",
+  "fidelityPoints": 0,
+  "isActive": true,
+  "createdAt": "2022-09-07T20:13:50.871Z",
+  "updatedAt": "2022-09-07T20:13:50.871Z"
 }
 ```
 
@@ -698,24 +698,24 @@ Vazio
 
 ```json
 [
-	{
-		"id": "43224513-26f4-45a4-a3d9-cd94a6a0be49",
-		"name": "Gabriel",
-		"email": "gabriel@mail.com",
-		"fidelityPoints": 50,
-		"isActive": true,
-		"createdAt": "2022-09-07T16:07:55.888Z",
-		"updatedAt": "2022-09-07T17:45:02.657Z"
-	},
-	{
-		"id": "70a3a183-64c8-45c8-b6d4-bcc876a7be3a",
-		"name": "Gustavo",
-		"email": "gustavo@mail.com",
-		"fidelityPoints": 0,
-		"isActive": false,
-		"createdAt": "2022-09-07T17:39:02.299Z",
-		"updatedAt": "2022-09-07T17:54:36.710Z"
-	}
+  {
+    "id": "43224513-26f4-45a4-a3d9-cd94a6a0be49",
+    "name": "Gabriel",
+    "email": "gabriel@mail.com",
+    "fidelityPoints": 50,
+    "isActive": true,
+    "createdAt": "2022-09-07T16:07:55.888Z",
+    "updatedAt": "2022-09-07T17:45:02.657Z"
+  },
+  {
+    "id": "70a3a183-64c8-45c8-b6d4-bcc876a7be3a",
+    "name": "Gustavo",
+    "email": "gustavo@mail.com",
+    "fidelityPoints": 0,
+    "isActive": false,
+    "createdAt": "2022-09-07T17:39:02.299Z",
+    "updatedAt": "2022-09-07T17:54:36.710Z"
+  }
 ]
 ```
 
@@ -758,13 +758,13 @@ Vazio
 
 ```json
 {
-	"id": "70a3a183-64c8-45c8-b6d4-bcc876a7be3a",
-	"name": "gabriel",
-	"email": "gabriel@mail.com",
-	"fidelityPoints": 0,
-	"isActive": false,
-	"createdAt": "2022-09-07T17:39:02.299Z",
-	"updatedAt": "2022-09-07T17:54:36.710Z"
+  "id": "70a3a183-64c8-45c8-b6d4-bcc876a7be3a",
+  "name": "gabriel",
+  "email": "gabriel@mail.com",
+  "fidelityPoints": 0,
+  "isActive": false,
+  "createdAt": "2022-09-07T17:39:02.299Z",
+  "updatedAt": "2022-09-07T17:54:36.710Z"
 }
 ```
 
@@ -799,7 +799,7 @@ Content-type: application/json
 
 ```json
 {
-	"name": "Matheus"
+  "name": "Matheus"
 }
 ```
 
@@ -821,13 +821,13 @@ OBS.: Chaves não presentes no schema serão removidas.
 
 ```json
 {
-	"id": "70a3a183-64c8-45c8-b6d4-bcc876a7be3a",
-	"name": "Matheus",
-	"email": "gabriel@mail.com",
-	"fidelityPoints": 0,
-	"isActive": false,
-	"createdAt": "2022-09-07T17:39:02.299Z",
-	"updatedAt": "2022-09-07T17:54:36.710Z"
+  "id": "70a3a183-64c8-45c8-b6d4-bcc876a7be3a",
+  "name": "Matheus",
+  "email": "gabriel@mail.com",
+  "fidelityPoints": 0,
+  "isActive": false,
+  "createdAt": "2022-09-07T17:39:02.299Z",
+  "updatedAt": "2022-09-07T17:54:36.710Z"
 }
 ```
 
@@ -893,6 +893,8 @@ No body returned for response
 | PATCH  | /categories/:id                  | Atualiza as categorias.                                          | X           | X   |
 | DELETE | /categories/:id                  | Deleta as categorias.                                            | X           | X   |
 
+---
+
 ### 8. /suppliers
 
 O objeto Supplier é definido como:
@@ -906,6 +908,8 @@ O objeto Supplier é definido como:
 | phone     | string | Telefone para contato do fornecedor.  |
 | createdAt | Date   | Data que o fornecedor foi cadastrado. |
 | updatedAt | Date   | Data que o fornecedor foi atualizado. |
+
+---
 
 ### Endpoints
 
@@ -936,10 +940,10 @@ Content-type: application/json
 
 ```json
 {
-	"name": "MatheusDeliver",
-	"cnpj": "23272375000120",
-	"phone": "3240-5060",
-	"email": "matheus@mail.com"
+  "name": "MatheusDeliver",
+  "cnpj": "23272375000120",
+  "phone": "3240-5060",
+  "email": "matheus@mail.com"
 }
 ```
 
@@ -962,13 +966,13 @@ OBS.: Chaves não presentes no schema serão removidas.
 
 ```json
 {
-	"id": "3aa0fb96-57b7-4b7a-a535-84d91f825d5c",
-	"name": "MatheusDeliver",
-	"cnpj": "23272375000120",
-	"phone": "3240-5060",
-	"email": "matheus@mail.com",
-	"createdAt": "2022-09-07T18:11:38.245Z",
-	"updatedAt": "2022-09-07T18:11:38.245Z"
+  "id": "3aa0fb96-57b7-4b7a-a535-84d91f825d5c",
+  "name": "MatheusDeliver",
+  "cnpj": "23272375000120",
+  "phone": "3240-5060",
+  "email": "matheus@mail.com",
+  "createdAt": "2022-09-07T18:11:38.245Z",
+  "updatedAt": "2022-09-07T18:11:38.245Z"
 }
 ```
 
@@ -1008,15 +1012,15 @@ Vazio
 
 ```json
 [
-	{
-		"id": "a370273b-fb11-4715-952d-d57928516702",
-		"name": "MatheusDeliver",
-		"cnpj": "23272375000121",
-		"phone": "3240-5060",
-		"email": "matheus@mail.com",
-		"createdAt": "2022-09-07T18:18:53.684Z",
-		"updatedAt": "2022-09-07T18:18:53.684Z"
-	}
+  {
+    "id": "a370273b-fb11-4715-952d-d57928516702",
+    "name": "MatheusDeliver",
+    "cnpj": "23272375000121",
+    "phone": "3240-5060",
+    "email": "matheus@mail.com",
+    "createdAt": "2022-09-07T18:18:53.684Z",
+    "updatedAt": "2022-09-07T18:18:53.684Z"
+  }
 ]
 ```
 
@@ -1059,13 +1063,13 @@ Vazio
 
 ```json
 {
-	"id": "a370273b-fb11-4715-952d-d57928516702",
-	"name": "MatheusDeliver",
-	"cnpj": "23272375000121",
-	"phone": "3240-5060",
-	"email": "matheus@mail.com",
-	"createdAt": "2022-09-07T18:18:53.684Z",
-	"updatedAt": "2022-09-07T18:18:53.684Z"
+  "id": "a370273b-fb11-4715-952d-d57928516702",
+  "name": "MatheusDeliver",
+  "cnpj": "23272375000121",
+  "phone": "3240-5060",
+  "email": "matheus@mail.com",
+  "createdAt": "2022-09-07T18:18:53.684Z",
+  "updatedAt": "2022-09-07T18:18:53.684Z"
 }
 ```
 
@@ -1100,7 +1104,7 @@ Content-type: application/json
 
 ```json
 {
-	"name": "Deliverdex"
+  "name": "Deliverdex"
 }
 ```
 
@@ -1123,13 +1127,13 @@ OBS.: Chaves não presentes no schema serão removidas.
 
 ```json
 {
-	"id": "a370273b-fb11-4715-952d-d57928516702",
-	"name": "Deliverdex",
-	"cnpj": "23272375000121",
-	"phone": "3240-5060",
-	"email": "matheus@mail.com",
-	"createdAt": "2022-09-07T18:18:53.684Z",
-	"updatedAt": "2022-09-07T19:09:57.555Z"
+  "id": "a370273b-fb11-4715-952d-d57928516702",
+  "name": "Deliverdex",
+  "cnpj": "23272375000121",
+  "phone": "3240-5060",
+  "email": "matheus@mail.com",
+  "createdAt": "2022-09-07T18:18:53.684Z",
+  "updatedAt": "2022-09-07T19:09:57.555Z"
 }
 ```
 
@@ -1186,11 +1190,294 @@ No body returned for response
 
 ### 9. /supplierproducts
 
+O objeto Supplier é definido como:
+
+| Campo     | Tipo   | Descrição                             |
+| --------- | ------ | ------------------------------------- |
+| id        | string | Identificador único do fornecedor.    |
+| name      | string | O nome do fornecedor.                 |
+| email     | string | O e-mail único do fornecedor.         |
+| cnpj      | string | O cnpj único do fornecedor.           |
+| phone     | string | Telefone para contato do fornecedor.  |
+| createdAt | Date   | Data que o fornecedor foi cadastrado. |
+| updatedAt | Date   | Data que o fornecedor foi atualizado. |
+
+---
+
+### Endpoints
+
 | Método | Rota                  | Descrição                                                            | Autorizaçao | Adm |
 | ------ | --------------------- | -------------------------------------------------------------------- | ----------- | --- |
 | GET    | /supplierproducts     | Lista todos os produtos disponiveis nos fornecedores.                | X           | X   |
 | POST   | /supplierproducts     | Criação de um produto para fornecedor (fornecedor tem este produto). | X           | X   |
 | DELETE | /supplierproducts/:id | Deleta um produto do fornecedor.                                     | X           | X   |
+
+---
+
+### 8.1. **Criação de produto para um fornecedor**
+
+### `/suppliers`
+
+### Exemplo de Request:
+
+```
+POST /suppliers
+Host:
+Authorization: Bearer token
+Content-type: application/json
+```
+
+### Corpo da Requisição:
+
+```json
+{
+  "name": "MatheusDeliver",
+  "cnpj": "23272375000120",
+  "phone": "3240-5060",
+  "email": "matheus@mail.com"
+}
+```
+
+### Schema de Validação com Yup:
+
+```javascript
+name: yup.string().required(),
+email: yup.string().required(),
+cnpj: yup.string().required(),
+phone: yup.string().email().required(),
+```
+
+OBS.: Chaves não presentes no schema serão removidas.
+
+### Exemplo de Response:
+
+```
+201 Created
+```
+
+```json
+{
+  "id": "3aa0fb96-57b7-4b7a-a535-84d91f825d5c",
+  "name": "MatheusDeliver",
+  "cnpj": "23272375000120",
+  "phone": "3240-5060",
+  "email": "matheus@mail.com",
+  "createdAt": "2022-09-07T18:11:38.245Z",
+  "updatedAt": "2022-09-07T18:11:38.245Z"
+}
+```
+
+### Possíveis Erros:
+
+| Código do Erro | Descrição                 |
+| -------------- | ------------------------- |
+| 409 Conflict   | Email already registered. |
+| 409 Conflict   | Cnpj already registered.  |
+
+---
+
+### 8.2. **Listando Fornecedores**
+
+### `/suppliers`
+
+### Exemplo de Request:
+
+```
+GET /suppliers
+Host:
+Authorization: Bearer token
+Content-type: application/json
+```
+
+### Corpo da Requisição:
+
+```json
+Vazio
+```
+
+### Exemplo de Response:
+
+```
+200 OK
+```
+
+```json
+[
+  {
+    "id": "a370273b-fb11-4715-952d-d57928516702",
+    "name": "MatheusDeliver",
+    "cnpj": "23272375000121",
+    "phone": "3240-5060",
+    "email": "matheus@mail.com",
+    "createdAt": "2022-09-07T18:18:53.684Z",
+    "updatedAt": "2022-09-07T18:18:53.684Z"
+  }
+]
+```
+
+### Possíveis Erros:
+
+Nenhum, o máximo que pode acontecer é retornar uma lista vazia.
+
+---
+
+### 8.3. **Listar Fornecedor por ID**
+
+### `/suppliers/:id`
+
+### Exemplo de Request:
+
+```
+GET /suppliers/:id
+Host:
+Authorization: Bearer token
+Content-type: application/json
+```
+
+### Parâmetros da Requisição:
+
+| Parâmetro  | Tipo   | Descrição                         |
+| ---------- | ------ | --------------------------------- |
+| supplierId | string | Identificador único do fornecedor |
+
+### Corpo da Requisição:
+
+```json
+Vazio
+```
+
+### Exemplo de Response:
+
+```
+200 OK
+```
+
+```json
+{
+  "id": "a370273b-fb11-4715-952d-d57928516702",
+  "name": "MatheusDeliver",
+  "cnpj": "23272375000121",
+  "phone": "3240-5060",
+  "email": "matheus@mail.com",
+  "createdAt": "2022-09-07T18:18:53.684Z",
+  "updatedAt": "2022-09-07T18:18:53.684Z"
+}
+```
+
+### Possíveis Erros:
+
+| Código do Erro | Descrição           |
+| -------------- | ------------------- |
+| 404 Not Found  | Supplier not found. |
+
+---
+
+### 8.4. **Atualizar Fornecedor**
+
+### `/suppliers`
+
+### Exemplo de Request:
+
+```
+PATCH /suppliers/:id
+Host:
+Authorization: Bearer token
+Content-type: application/json
+```
+
+### Parâmetros da Requisição:
+
+| Parâmetro  | Tipo   | Descrição                         |
+| ---------- | ------ | --------------------------------- |
+| supplierId | string | Identificador único do fornecedor |
+
+### Corpo da Requisição:
+
+```json
+{
+  "name": "Deliverdex"
+}
+```
+
+### Schema de Validação com Yup:
+
+```javascript
+name: yup.string(),
+email: yup.string().email(),
+cnpj: yup.string(),
+phone: yup.string(),
+```
+
+OBS.: Chaves não presentes no schema serão removidas.
+
+### Exemplo de Response:
+
+```
+200 Ok
+```
+
+```json
+{
+  "id": "a370273b-fb11-4715-952d-d57928516702",
+  "name": "Deliverdex",
+  "cnpj": "23272375000121",
+  "phone": "3240-5060",
+  "email": "matheus@mail.com",
+  "createdAt": "2022-09-07T18:18:53.684Z",
+  "updatedAt": "2022-09-07T19:09:57.555Z"
+}
+```
+
+### Possíveis Erros:
+
+| Código do Erro | Descrição          |
+| -------------- | ------------------ |
+| 404 Not Found  | Supplier not found |
+
+---
+
+### 8.5. **Deletar Fornecedor por ID**
+
+### `/suppliers/:id`
+
+### Exemplo de Request:
+
+```
+DELETE /suppliers/:id
+Host:
+Authorization: Bearer Token
+Content-type: application/json
+```
+
+### Parâmetros da Requisição:
+
+| Parâmetro  | Tipo   | Descrição                         |
+| ---------- | ------ | --------------------------------- |
+| supplierId | string | Identificador único do fornecedor |
+
+### Corpo da Requisição:
+
+```json
+Vazio
+```
+
+### Exemplo de Response:
+
+```
+204 No Content
+```
+
+```json
+No body returned for response
+```
+
+### Possíveis Erros:
+
+| Código do Erro | Descrição           |
+| -------------- | ------------------- |
+| 404 Not Found  | Supplier not found. |
+
+---
 
 ### 10. /orderproducts
 
@@ -1204,14 +1491,14 @@ No body returned for response
 
 ## Tabela de Conteúdos
 
--   [Visão Geral](#1-visão-geral)
--   [Diagrama ER](#2-diagrama-er)
--   [Início Rápido](#3-início-rápido)
-    -   [Instalando Dependências](#31-instalando-dependências)
-    -   [Variáveis de Ambiente](#32-variáveis-de-ambiente)
-    -   [Migrations](#33-migrations)
--   [Autenticação](#4-autenticação)
--   [Endpoints](#5-endpoints)
+- [Visão Geral](#1-visão-geral)
+- [Diagrama ER](#2-diagrama-er)
+- [Início Rápido](#3-início-rápido)
+  - [Instalando Dependências](#31-instalando-dependências)
+  - [Variáveis de Ambiente](#32-variáveis-de-ambiente)
+  - [Migrations](#33-migrations)
+- [Autenticação](#4-autenticação)
+- [Endpoints](#5-endpoints)
 
 ---
 
@@ -1219,12 +1506,12 @@ No body returned for response
 
 Visão geral do projeto, um pouco das tecnologias usadas.
 
--   [NodeJS](https://nodejs.org/en/)
--   [Express](https://expressjs.com/pt-br/)
--   [TypeScript](https://www.typescriptlang.org/)
--   [PostgreSQL](https://www.postgresql.org/)
--   [TypeORM](https://typeorm.io/)
--   [Yup](https://www.npmjs.com/package/yup)
+- [NodeJS](https://nodejs.org/en/)
+- [Express](https://expressjs.com/pt-br/)
+- [TypeScript](https://www.typescriptlang.org/)
+- [PostgreSQL](https://www.postgresql.org/)
+- [TypeORM](https://typeorm.io/)
+- [Yup](https://www.npmjs.com/package/yup)
 
 A URL base da aplicação:
 http://suaapi.com/v1
@@ -1287,13 +1574,13 @@ Por enquanto, não foi implementada autenticação.
 
 ### Índice
 
--   [Users](#1-users)
-    -   [POST - /users](#11-criação-de-usuário)
-    -   [GET - /users](#12-listando-usuários)
-    -   [GET - /users/:user_id](#13-listar-usuário-por-id)
--   [Products](#2-products)
--   [Cart](#3-cart)
--   [Users](#4-buys)
+- [Users](#1-users)
+  - [POST - /users](#11-criação-de-usuário)
+  - [GET - /users](#12-listando-usuários)
+  - [GET - /users/:user_id](#13-listar-usuário-por-id)
+- [Products](#2-products)
+- [Cart](#3-cart)
+- [Users](#4-buys)
 
 ---
 
@@ -1339,10 +1626,10 @@ Content-type: application/json
 
 ```json
 {
-	"name": "eDuArDo",
-	"email": "edu@mail.com",
-	"password": "1234",
-	"isAdm": true
+  "name": "eDuArDo",
+  "email": "edu@mail.com",
+  "password": "1234",
+  "isAdm": true
 }
 ```
 
@@ -1383,10 +1670,10 @@ OBS.: Chaves não presentes no schema serão removidas.
 
 ```json
 {
-	"id": "9cda28c9-e540-4b2c-bf0c-c90006d37893",
-	"name": "Eduardo",
-	"email": "edu@mail.com",
-	"isAdm": true
+  "id": "9cda28c9-e540-4b2c-bf0c-c90006d37893",
+  "name": "Eduardo",
+  "email": "edu@mail.com",
+  "isAdm": true
 }
 ```
 
@@ -1426,12 +1713,12 @@ Vazio
 
 ```json
 [
-	{
-		"id": "9cda28c9-e540-4b2c-bf0c-c90006d37893",
-		"name": "Eduardo",
-		"email": "edu@mail.com",
-		"isAdm": true
-	}
+  {
+    "id": "9cda28c9-e540-4b2c-bf0c-c90006d37893",
+    "name": "Eduardo",
+    "email": "edu@mail.com",
+    "isAdm": true
+  }
 ]
 ```
 
@@ -1475,10 +1762,10 @@ Vazio
 
 ```json
 {
-	"id": "9cda28c9-e540-4b2c-bf0c-c90006d37893",
-	"name": "Eduardo",
-	"email": "edu@mail.com",
-	"isAdm": true
+  "id": "9cda28c9-e540-4b2c-bf0c-c90006d37893",
+  "name": "Eduardo",
+  "email": "edu@mail.com",
+  "isAdm": true
 }
 ```
 
@@ -1504,7 +1791,7 @@ Content-type: application/json
 
 ```json
 {
-	"name": "Bebidas"
+  "name": "Bebidas"
 }
 ```
 
@@ -1526,8 +1813,8 @@ OBS.: Chaves não presentes no schema serão removidas.
 
 ```json
 {
-	"id": "9cda28c9-e540-4b2c-bf0c-c90006d37893",
-	"name": "Eduardo"
+  "id": "9cda28c9-e540-4b2c-bf0c-c90006d37893",
+  "name": "Eduardo"
 }
 ```
 
@@ -1565,14 +1852,14 @@ Vazio
 
 ```json
 [
-	{
-		"id": "9cda28c9-e540-4b2c-bf0c-c90006d37893",
-		"name": "Bebidas"
-	},
-	{
-		"id": "9cda28c9-e540-4b2c-bf0c-c90006d37893",
-		"name": "Bebidas"
-	}
+  {
+    "id": "9cda28c9-e540-4b2c-bf0c-c90006d37893",
+    "name": "Bebidas"
+  },
+  {
+    "id": "9cda28c9-e540-4b2c-bf0c-c90006d37893",
+    "name": "Bebidas"
+  }
 ]
 ```
 
@@ -1645,7 +1932,7 @@ Content-type: application/json
 
 ```json
 {
-	"name": "Refrigerantes"
+  "name": "Refrigerantes"
 }
 ```
 
