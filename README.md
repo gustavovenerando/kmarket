@@ -1214,7 +1214,7 @@ O objeto Supplier é definido como:
 
 ---
 
-### 8.1. **Criação de produto para um fornecedor**
+### 9.1. **Criação de produto para um fornecedor**
 
 ### `/supplierproducts`
 
@@ -1284,7 +1284,7 @@ OBS.: Chaves não presentes no schema serão removidas.
 
 ---
 
-### 8.2. **Listando produtos dos fornecedores**
+### 9.2. **Listando produtos dos fornecedores**
 
 ### `/supplierproducts`
 
@@ -1337,7 +1337,7 @@ Nenhum, o máximo que pode acontecer é retornar uma lista vazia.
 
 ---
 
-### 8.3. **Deletar produto de um fornecedor por ID**
+### 9.3. **Deletar produto de um fornecedor por ID**
 
 ### `/supplierproducts/:id`
 
