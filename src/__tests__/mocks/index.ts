@@ -10,3 +10,41 @@ export const mockedSuplier : ISupplierRequest = {
     phone:"(89) 2351-2857",
     email:"wagner@empresa.com",
 }
+
+export const mockedEmployee :IEmployeeRequest = {
+	name: "Carlos",
+	email: "carlos@carlos.com",
+	password: "123",
+	isAdm: false,
+}
+
+export const mockedAdm :IEmployeeRequest = {
+	name: "Roberval",
+	email: "roberval@roberval.com",
+	password: "123",
+	isAdm: true,
+}
+
+
+export const mockedLoginAdm = {
+    email: "roberval@roberval.com",
+	password: "123",
+}
+
+export const mockedLoginEmployee = {
+    email: "carlos@carlos.com",
+	password: "123",
+}
+
+export const mockedCategory = {
+    name:"Bebidas"
+}
+
+export const mockedProducts = {
+    name: "Coquinha",
+	marketPrice: 8,
+	stock: 0,
+	description: "coquinha gelada",
+	discount: 0.1,
+	categoryId: "",
+}
