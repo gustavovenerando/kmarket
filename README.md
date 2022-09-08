@@ -1208,21 +1208,20 @@ O objeto Supplier é definido como:
 
 | Método | Rota                  | Descrição                                                            | Autorizaçao | Adm |
 | ------ | --------------------- | -------------------------------------------------------------------- | ----------- | --- |
-| GET    | /supplierproducts     | Lista todos os produtos disponiveis nos fornecedores.                | X           | X   |
 | POST   | /supplierproducts     | Criação de um produto para fornecedor (fornecedor tem este produto). | X           | X   |
+| GET    | /supplierproducts     | Lista todos os produtos disponiveis nos fornecedores.                | X           | X   |
 | DELETE | /supplierproducts/:id | Deleta um produto do fornecedor.                                     | X           | X   |
 
 ---
 
 ### 8.1. **Criação de produto para um fornecedor**
 
-### `/suppliers`
+### `/supplierproducts`
 
 ### Exemplo de Request:
 
 ```
-POST /suppliers
-Host:
+POST /supplierproducts
 Authorization: Bearer token
 Content-type: application/json
 ```
@@ -1231,10 +1230,10 @@ Content-type: application/json
 
 ```json
 {
-  "name": "MatheusDeliver",
-  "cnpj": "23272375000120",
-  "phone": "3240-5060",
-  "email": "matheus@mail.com"
+  "name": "Coca-Cola",
+  "costPrice": 4,
+  "categoryId": "65e6dc04-1869-4e33-b31d-8fa46784af5d",
+  "supplierId": "ff7bc655-62fa-4cd9-ae1d-219dc8511b6d"
 }
 ```
 
@@ -1242,9 +1241,9 @@ Content-type: application/json
 
 ```javascript
 name: yup.string().required(),
-email: yup.string().required(),
-cnpj: yup.string().required(),
-phone: yup.string().email().required(),
+costPrice: yup.number().required(),
+categoryId: yup.string().required(),
+supplierId: yup.string().required(),
 ```
 
 OBS.: Chaves não presentes no schema serão removidas.
@@ -1257,34 +1256,42 @@ OBS.: Chaves não presentes no schema serão removidas.
 
 ```json
 {
-  "id": "3aa0fb96-57b7-4b7a-a535-84d91f825d5c",
-  "name": "MatheusDeliver",
-  "cnpj": "23272375000120",
-  "phone": "3240-5060",
-  "email": "matheus@mail.com",
-  "createdAt": "2022-09-07T18:11:38.245Z",
-  "updatedAt": "2022-09-07T18:11:38.245Z"
+  "name": "Coca-Cola",
+  "costPrice": 4,
+  "supplier": {
+    "id": "ff7bc655-62fa-4cd9-ae1d-219dc8511b6d",
+    "name": "Bebidas de qualidade",
+    "cnpj": "23272375000153",
+    "phone": "3240-5061",
+    "email": "matheus3@mail.com",
+    "createdAt": "2022-09-08T11:43:38.907Z",
+    "updatedAt": "2022-09-08T11:43:38.907Z"
+  },
+  "category": {
+    "id": "65e6dc04-1869-4e33-b31d-8fa46784af5d",
+    "name": "bebidas"
+  },
+  "id": "b783a941-1dd4-453a-bc2f-7d0475553ce9"
 }
 ```
 
 ### Possíveis Erros:
 
-| Código do Erro | Descrição                 |
-| -------------- | ------------------------- |
-| 409 Conflict   | Email already registered. |
-| 409 Conflict   | Cnpj already registered.  |
+| Código do Erro | Descrição           |
+| -------------- | ------------------- |
+| 404 Not Found  | Category not found. |
+| 404 Not Found  | Supplier not found. |
 
 ---
 
-### 8.2. **Listando Fornecedores**
+### 8.2. **Listando produtos dos fornecedores**
 
-### `/suppliers`
+### `/supplierproducts`
 
 ### Exemplo de Request:
 
 ```
-GET /suppliers
-Host:
+GET /supplierproducts
 Authorization: Bearer token
 Content-type: application/json
 ```
@@ -1304,13 +1311,22 @@ Vazio
 ```json
 [
   {
-    "id": "a370273b-fb11-4715-952d-d57928516702",
-    "name": "MatheusDeliver",
-    "cnpj": "23272375000121",
-    "phone": "3240-5060",
-    "email": "matheus@mail.com",
-    "createdAt": "2022-09-07T18:18:53.684Z",
-    "updatedAt": "2022-09-07T18:18:53.684Z"
+    "id": "b783a941-1dd4-453a-bc2f-7d0475553ce9",
+    "name": "Coca-Cola",
+    "costPrice": "4.00",
+    "supplier": {
+      "id": "ff7bc655-62fa-4cd9-ae1d-219dc8511b6d",
+      "name": "Bebidas de qualidade",
+      "cnpj": "23272375000153",
+      "phone": "3240-5061",
+      "email": "matheus3@mail.com",
+      "createdAt": "2022-09-08T11:43:38.907Z",
+      "updatedAt": "2022-09-08T11:43:38.907Z"
+    },
+    "category": {
+      "id": "65e6dc04-1869-4e33-b31d-8fa46784af5d",
+      "name": "bebidas"
+    }
   }
 ]
 ```
@@ -1321,139 +1337,23 @@ Nenhum, o máximo que pode acontecer é retornar uma lista vazia.
 
 ---
 
-### 8.3. **Listar Fornecedor por ID**
+### 8.3. **Deletar produto de um fornecedor por ID**
 
-### `/suppliers/:id`
-
-### Exemplo de Request:
-
-```
-GET /suppliers/:id
-Host:
-Authorization: Bearer token
-Content-type: application/json
-```
-
-### Parâmetros da Requisição:
-
-| Parâmetro  | Tipo   | Descrição                         |
-| ---------- | ------ | --------------------------------- |
-| supplierId | string | Identificador único do fornecedor |
-
-### Corpo da Requisição:
-
-```json
-Vazio
-```
-
-### Exemplo de Response:
-
-```
-200 OK
-```
-
-```json
-{
-  "id": "a370273b-fb11-4715-952d-d57928516702",
-  "name": "MatheusDeliver",
-  "cnpj": "23272375000121",
-  "phone": "3240-5060",
-  "email": "matheus@mail.com",
-  "createdAt": "2022-09-07T18:18:53.684Z",
-  "updatedAt": "2022-09-07T18:18:53.684Z"
-}
-```
-
-### Possíveis Erros:
-
-| Código do Erro | Descrição           |
-| -------------- | ------------------- |
-| 404 Not Found  | Supplier not found. |
-
----
-
-### 8.4. **Atualizar Fornecedor**
-
-### `/suppliers`
+### `/supplierproducts/:id`
 
 ### Exemplo de Request:
 
 ```
-PATCH /suppliers/:id
-Host:
-Authorization: Bearer token
-Content-type: application/json
-```
-
-### Parâmetros da Requisição:
-
-| Parâmetro  | Tipo   | Descrição                         |
-| ---------- | ------ | --------------------------------- |
-| supplierId | string | Identificador único do fornecedor |
-
-### Corpo da Requisição:
-
-```json
-{
-  "name": "Deliverdex"
-}
-```
-
-### Schema de Validação com Yup:
-
-```javascript
-name: yup.string(),
-email: yup.string().email(),
-cnpj: yup.string(),
-phone: yup.string(),
-```
-
-OBS.: Chaves não presentes no schema serão removidas.
-
-### Exemplo de Response:
-
-```
-200 Ok
-```
-
-```json
-{
-  "id": "a370273b-fb11-4715-952d-d57928516702",
-  "name": "Deliverdex",
-  "cnpj": "23272375000121",
-  "phone": "3240-5060",
-  "email": "matheus@mail.com",
-  "createdAt": "2022-09-07T18:18:53.684Z",
-  "updatedAt": "2022-09-07T19:09:57.555Z"
-}
-```
-
-### Possíveis Erros:
-
-| Código do Erro | Descrição          |
-| -------------- | ------------------ |
-| 404 Not Found  | Supplier not found |
-
----
-
-### 8.5. **Deletar Fornecedor por ID**
-
-### `/suppliers/:id`
-
-### Exemplo de Request:
-
-```
-DELETE /suppliers/:id
-Host:
+DELETE /supplierproducts/:id
 Authorization: Bearer Token
 Content-type: application/json
 ```
 
 ### Parâmetros da Requisição:
 
-| Parâmetro  | Tipo   | Descrição                         |
-| ---------- | ------ | --------------------------------- |
-| supplierId | string | Identificador único do fornecedor |
+| Parâmetro         | Tipo   | Descrição                         |
+| ----------------- | ------ | --------------------------------- |
+| supplierProdutcId | string | Identificador único do fornecedor |
 
 ### Corpo da Requisição:
 
@@ -1473,9 +1373,9 @@ No body returned for response
 
 ### Possíveis Erros:
 
-| Código do Erro | Descrição           |
-| -------------- | ------------------- |
-| 404 Not Found  | Supplier not found. |
+| Código do Erro | Descrição                                 |
+| -------------- | ----------------------------------------- |
+| 404 Not Found  | Product not found in supplier's products. |
 
 ---
 
