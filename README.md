@@ -551,11 +551,11 @@ Vazio
 ### Exemplo de Response:
 
 ```
-202 Accepted
+204 No Content
 ```
 
 ```json
-Deleted with success
+No body returned for response
 ```
 
 ### Possíveis Erros:
