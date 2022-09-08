@@ -16,16 +16,11 @@ export const mockedEmployee: IEmployeeRequest = {
 	isAdm: false,
 };
 
-<<<<<<< HEAD
 export const mockedEmployeEmpty :IEmployeeRequest = {
-=======
-export const mockedEmployeEmpty: IEmployeeRequest = {
->>>>>>> b9430098882e99a124fcd57aee4a936e76c4d6b7
 	name: "",
 	email: "",
 	password: "",
 	isAdm: false,
-<<<<<<< HEAD
 }
 export const mockedSupplierEmailAgain :ISupplierRequest = {
 	name:"Wagner",
@@ -40,23 +35,6 @@ export const mockedSupplierCpnjAgain :ISupplierRequest = {
     phone:"(89) 2351-2857",
     email:"wagnerzin@empresa.com",
 }
-=======
-};
-
-export const mockedSupplierEmailAgain = {
-	name: "Wagner",
-	cnpj: "37.572.899/0001-20",
-	phone: "(89) 2351-2857",
-	email: "wagner@empresa.com",
-};
-
-export const mockedSupplierCpnjAgain = {
-	name: "Wagner",
-	cnpj: "37.572.899/0001-27",
-	phone: "(89) 2351-2857",
-	email: "wagnerzin@empresa.com",
-};
->>>>>>> b9430098882e99a124fcd57aee4a936e76c4d6b7
 
 export const mockedAdm: IEmployeeRequest = {
 	name: "Roberval",
@@ -94,3 +72,7 @@ export const mockedSupplierProduct = {
 	supplierId: "",
 	categoryId: "",
 };
+
+export const mockedNotFormatedId: string = "FormatoInválido"
+
+export const mockedInvalidId: string = "00000000-0000-0000-0000-000000000000"
