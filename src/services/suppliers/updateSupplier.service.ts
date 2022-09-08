@@ -12,7 +12,7 @@ const updateSupplierService = async (
   const supplier = await supplierRepository.findOneBy({ id: supplierId });
 
   if (!supplier) {
-    throw new AppError(404, "Supplier not found");
+    throw new AppError(404, "Supplier not found.");
   }
 
   await supplierRepository.update(supplier!.id, { ...supplierData });

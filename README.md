@@ -585,7 +585,7 @@ Deleted with success
 ### Endpoints
 
 | Método | Rota           | Descrição                         | Autorizaçao | Adm |
-| ------ | -------------- | -------------------------------   | ----------- | --- |
+| ------ | -------------- | --------------------------------- | ----------- | --- |
 | POST   | /employees     | Criação de um funcionário.        | X           | X   |
 | GET    | /employees     | Lista todos os funcionários.      | X           | X   |
 | GET    | /employees/:id | Lista um funcionário especifico.  | X           | X   |
@@ -613,7 +613,7 @@ Content-type: application/json
   "name": "Daniel Josias",
   "email": "danieljosias@mail.com",
   "password": "123",
-  "isAdm": true,
+  "isAdm": true
 }
 ```
 
@@ -638,23 +638,22 @@ OBS.: Chaves não presentes no schema serão removidas.
 ```json
 {
   "id": "96aeb523-350c-48a2-97c6-ddee624575fb",
-	"name": "Daniel Josias",
-	"email": "danieljosias@kenzie.com",
-	"isAdm": true,
-	"isActive": true,
-	"createdAt": "2022-09-07T19:54:34.094Z",
-	"updatedAt": "2022-09-07T19:54:34.094Z"
+  "name": "Daniel Josias",
+  "email": "danieljosias@kenzie.com",
+  "isAdm": true,
+  "isActive": true,
+  "createdAt": "2022-09-07T19:54:34.094Z",
+  "updatedAt": "2022-09-07T19:54:34.094Z"
 }
-
 ```
 
 ### Possíveis Erros:
 
 | Código do Erro  | Descrição                 |
-| --------------  | ------------------------- |
+| --------------- | ------------------------- |
 | 400 Bad Request | Email already registered. |
 | 400 Bad Request | Required field.           |
- 
+
 ---
 
 ### 8.2. **Listando Funcionários**
@@ -684,19 +683,17 @@ Vazio
 ```
 
 ```json
-
 [
-	{
-		"id": "6067c01f-380b-4879-8685-52a408bf5a71",
-		"name": "Daniel Josias",
-		"email": "danieljosias@kenzie.com",
-		"isAdm": true,
-		"isActive": true,
-		"createdAt": "2022-09-07T19:46:12.280Z",
-		"updatedAt": "2022-09-07T19:46:12.280Z"
-	}
+  {
+    "id": "6067c01f-380b-4879-8685-52a408bf5a71",
+    "name": "Daniel Josias",
+    "email": "danieljosias@kenzie.com",
+    "isAdm": true,
+    "isActive": true,
+    "createdAt": "2022-09-07T19:46:12.280Z",
+    "updatedAt": "2022-09-07T19:46:12.280Z"
+  }
 ]
-
 ```
 
 ### Possíveis Erros:
@@ -720,9 +717,9 @@ Content-type: application/json
 
 ### Parâmetros da Requisição:
 
-| Parâmetro  | Tipo   | Descrição                         |
-| ---------- | ------ | --------------------------------- |
-| id | string| Identificador único do fornecedor |
+| Parâmetro | Tipo   | Descrição                         |
+| --------- | ------ | --------------------------------- |
+| id        | string | Identificador único do fornecedor |
 
 ### Corpo da Requisição:
 
@@ -751,8 +748,8 @@ Vazio
 
 ### Possíveis Erros:
 
-| Código do Erro | Descrição           |
-| -------------- | ------------------- |
+| Código do Erro | Descrição            |
+| -------------- | -------------------- |
 | 404 Not Found  | Employees not found. |
 
 ---
@@ -772,9 +769,9 @@ Content-type: application/json
 
 ### Parâmetros da Requisição:
 
-| Parâmetro  | Tipo   | Descrição                         |
-| ---------- | ------ | --------------------------------- |
-| id | string| Identificador único do fornecedor |
+| Parâmetro | Tipo   | Descrição                         |
+| --------- | ------ | --------------------------------- |
+| id        | string | Identificador único do fornecedor |
 
 ### Corpo da Requisição:
 
@@ -803,15 +800,15 @@ OBS.: Chaves não presentes no schema serão removidas.
 
 ```json
 [
-	{
-		"id": "6067c01f-380b-4879-8685-52a408bf5a71",
-		"name": "Daniel",
-		"email": "danieljosias@kenzie.com",
-		"isAdm": true,
-		"isActive": true,
-		"createdAt": "2022-09-07T19:46:12.280Z",
-		"updatedAt": "2022-09-07T19:46:12.280Z"
-	}
+  {
+    "id": "6067c01f-380b-4879-8685-52a408bf5a71",
+    "name": "Daniel",
+    "email": "danieljosias@kenzie.com",
+    "isAdm": true,
+    "isActive": true,
+    "createdAt": "2022-09-07T19:46:12.280Z",
+    "updatedAt": "2022-09-07T19:46:12.280Z"
+  }
 ]
 ```
 
@@ -838,9 +835,9 @@ Content-type: application/json
 
 ### Parâmetros da Requisição:
 
-| Parâmetro  | Tipo   | Descrição                         |
-| ---------- | ------ | --------------------------------- |
-| id | string| Identificador único do fornecedor |
+| Parâmetro | Tipo   | Descrição                         |
+| --------- | ------ | --------------------------------- |
+| id        | string | Identificador único do fornecedor |
 
 ### Corpo da Requisição:
 
@@ -860,8 +857,8 @@ No body returned for response
 
 ### Possíveis Erros:
 
-| Código do Erro | Descrição           |
-| -------------- | ------------------- |
+| Código do Erro | Descrição            |
+| -------------- | -------------------- |
 | 404 Not Found  | Employees not found. |
 
 ---
@@ -1657,9 +1654,9 @@ OBS.: Chaves não presentes no schema serão removidas.
 
 ### Possíveis Erros:
 
-| Código do Erro | Descrição          |
-| -------------- | ------------------ |
-| 404 Not Found  | Supplier not found |
+| Código do Erro | Descrição           |
+| -------------- | ------------------- |
+| 404 Not Found  | Supplier not found. |
 
 ---
 
@@ -1899,11 +1896,192 @@ No body returned for response
 
 ### 10. /orderproducts
 
+O objeto Supplier é definido como:
+
+| Campo     | Tipo   | Descrição                             |
+| --------- | ------ | ------------------------------------- |
+| id        | string | Identificador único do fornecedor.    |
+| name      | string | O nome do fornecedor.                 |
+| email     | string | O e-mail único do fornecedor.         |
+| cnpj      | string | O cnpj único do fornecedor.           |
+| phone     | string | Telefone para contato do fornecedor.  |
+| createdAt | Date   | Data que o fornecedor foi cadastrado. |
+| updatedAt | Date   | Data que o fornecedor foi atualizado. |
+
+---
+
 | Método | Rota               | Descrição                                    | Autorizaçao | Adm |
 | ------ | ------------------ | -------------------------------------------- | ----------- | --- |
 | GET    | /orderproducts     | Lista todas as ordens de compra de produtos. | X           | X   |
 | POST   | /orderproducts     | Criação de ordem de compra para um produto.  | X           | X   |
 | DELETE | /orderproducts/:id | Deletar ordem de compra.                     | X           | X   |
+
+---
+
+### 10.1. **Criação de ordem de compra de um produto**
+
+### `/orderproducts`
+
+### Exemplo de Request:
+
+```
+POST /orderproducts
+Authorization: Bearer token
+Content-type: application/json
+```
+
+### Corpo da Requisição:
+
+```json
+{
+  "name": "Coca-Cola",
+  "costPrice": 4,
+  "categoryId": "65e6dc04-1869-4e33-b31d-8fa46784af5d",
+  "supplierId": "ff7bc655-62fa-4cd9-ae1d-219dc8511b6d"
+}
+```
+
+### Schema de Validação com Yup:
+
+```javascript
+name: yup.string().required(),
+costPrice: yup.number().required(),
+categoryId: yup.string().required(),
+supplierId: yup.string().required(),
+```
+
+OBS.: Chaves não presentes no schema serão removidas.
+
+### Exemplo de Response:
+
+```
+201 Created
+```
+
+```json
+{
+  "name": "Coca-Cola",
+  "costPrice": 4,
+  "supplier": {
+    "id": "ff7bc655-62fa-4cd9-ae1d-219dc8511b6d",
+    "name": "Bebidas de qualidade",
+    "cnpj": "23272375000153",
+    "phone": "3240-5061",
+    "email": "matheus3@mail.com",
+    "createdAt": "2022-09-08T11:43:38.907Z",
+    "updatedAt": "2022-09-08T11:43:38.907Z"
+  },
+  "category": {
+    "id": "65e6dc04-1869-4e33-b31d-8fa46784af5d",
+    "name": "bebidas"
+  },
+  "id": "b783a941-1dd4-453a-bc2f-7d0475553ce9"
+}
+```
+
+### Possíveis Erros:
+
+| Código do Erro | Descrição           |
+| -------------- | ------------------- |
+| 404 Not Found  | Category not found. |
+| 404 Not Found  | Supplier not found. |
+
+---
+
+### 10.2. **Listando todas ordens de compra de um produto**
+
+### `/orderproducts`
+
+### Exemplo de Request:
+
+```
+GET /supplierproducts
+Authorization: Bearer token
+Content-type: application/json
+```
+
+### Corpo da Requisição:
+
+```json
+Vazio
+```
+
+### Exemplo de Response:
+
+```
+200 OK
+```
+
+```json
+[
+  {
+    "id": "b783a941-1dd4-453a-bc2f-7d0475553ce9",
+    "name": "Coca-Cola",
+    "costPrice": "4.00",
+    "supplier": {
+      "id": "ff7bc655-62fa-4cd9-ae1d-219dc8511b6d",
+      "name": "Bebidas de qualidade",
+      "cnpj": "23272375000153",
+      "phone": "3240-5061",
+      "email": "matheus3@mail.com",
+      "createdAt": "2022-09-08T11:43:38.907Z",
+      "updatedAt": "2022-09-08T11:43:38.907Z"
+    },
+    "category": {
+      "id": "65e6dc04-1869-4e33-b31d-8fa46784af5d",
+      "name": "bebidas"
+    }
+  }
+]
+```
+
+### Possíveis Erros:
+
+Nenhum, o máximo que pode acontecer é retornar uma lista vazia.
+
+---
+
+### 10.3. **Deletar uma ordem de compra de um produto por ID**
+
+### `/orderproducts/:id`
+
+### Exemplo de Request:
+
+```
+DELETE /orderproducts/:id
+Authorization: Bearer Token
+Content-type: application/json
+```
+
+### Parâmetros da Requisição:
+
+| Parâmetro      | Tipo   | Descrição                         |
+| -------------- | ------ | --------------------------------- |
+| orderproductId | string | Identificador único do fornecedor |
+
+### Corpo da Requisição:
+
+```json
+Vazio
+```
+
+### Exemplo de Response:
+
+```
+204 No Content
+```
+
+```json
+No body returned for response
+```
+
+### Possíveis Erros:
+
+| Código do Erro | Descrição                 |
+| -------------- | ------------------------- |
+| 404 Not Found  | Purchase order not found. |
+
+---
 
 # Documentação da API
 

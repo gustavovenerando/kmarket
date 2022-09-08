@@ -11,7 +11,7 @@ const deleteSupplierProductService = async (supplierProductId: string) => {
   });
 
   if (!deleteSupplierProduct) {
-    throw new AppError(404, "Product not found in supplier's products");
+    throw new AppError(404, "Product not found in supplier's products.");
   }
 
   await supplierProductRepository.delete({ id: deleteSupplierProduct.id });

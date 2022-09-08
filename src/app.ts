@@ -7,11 +7,12 @@ import sessionRouter from "./routers/session.routes";
 import cartRoutes from "./routers/carts.routes";
 import supplierRoutes from "./routers/suppliers.routes";
 import loyaltyCustomerRoutes from "./routers/loyaltyCustomer.routes";
-import employeeRouter from './routers/employees.routes'
+import employeeRouter from "./routers/employees.routes";
 import categoriesRoutes from "./routers/categories.routes";
 import productsRouter from "./routers/products.routes";
 import authTokenMiddleware from "./middlewares/authToken.middleware";
 import supplierProductsRoutes from "./routers/supplierProducts.routes";
+import orderProductsRoutes from "./routers/orderProducts.routes";
 
 const app = express();
 app.use(express.json());
@@ -24,6 +25,7 @@ app.use("/suppliers", supplierRoutes);
 app.use("/supplierproducts", supplierProductsRoutes);
 app.use("/loyaltycustomers", loyaltyCustomerRoutes);
 app.use("/employees", employeeRouter);
+app.use("/orderproducts", orderProductsRoutes);
 
 app.use(handleErrorMiddleware);
 
