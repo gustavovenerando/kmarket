@@ -2,7 +2,9 @@ import AppDataSource from "../../data-source";
 import SupplierProduct from "../../entities/supplierProducts.entity";
 import AppError from "../../errors/AppError";
 
-const deleteSupplierProductService = async (supplierProductId: string) => {
+const deleteSupplierProductService = async (
+  supplierProductId: string
+): Promise<boolean> => {
   const supplierProductRepository =
     AppDataSource.getRepository(SupplierProduct);
 
