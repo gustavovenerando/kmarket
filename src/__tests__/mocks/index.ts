@@ -18,6 +18,13 @@ export const mockedEmployee :IEmployeeRequest = {
 	isAdm: false,
 }
 
+<<<<<<< HEAD
+export const mockedEmployeEmpty :IEmployeeRequest = {
+	name: "",
+	email: "",
+	password: "",
+	isAdm: false,
+=======
 export const mockedSupplierEmailAgain = {
 	name:"Wagner",
     cnpj:"37.572.899/0001-20",
@@ -30,6 +37,7 @@ export const mockedSupplierCpnjAgain = {
     cnpj:"37.572.899/0001-27",
     phone:"(89) 2351-2857",
     email:"wagnerzin@empresa.com",
+>>>>>>> f2559ffb3e6508cf456029e16b00cd3a9b3c82ad
 }
 
 export const mockedAdm :IEmployeeRequest = {
