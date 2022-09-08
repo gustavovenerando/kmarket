@@ -45,4 +45,5 @@ export {
   listCategoriesController,
   deleteCategoryController,
   updateCategoryController,
+  listProdByCategoryController,
 };
