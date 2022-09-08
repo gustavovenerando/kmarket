@@ -1,22 +1,22 @@
 import * as yup from "yup";
 import { SchemaOf } from "yup";
 import {
-  ISupplierRequest,
-  ISupplierUpdateRequest,
+	ISupplierRequest,
+	ISupplierUpdateRequest,
 } from "../interfaces/supplier";
 
 export const supplierSchema: SchemaOf<ISupplierRequest> = yup.object().shape({
-  name: yup.string().required(),
-  cnpj: yup.string().required(),
-  phone: yup.string().required(),
-  email: yup.string().email().required(),
+	name: yup.string().required(),
+	cnpj: yup.string().required(),
+	phone: yup.string().required(),
+	email: yup.string().email().required(),
 });
 
 export const supplierUpdateSchema: SchemaOf<ISupplierUpdateRequest> = yup
-  .object()
-  .shape({
-    name: yup.string(),
-    cnpj: yup.string(),
-    phone: yup.string(),
-    email: yup.string().email(),
-  });
+	.object()
+	.shape({
+		name: yup.string(),
+		cnpj: yup.string(),
+		phone: yup.string(),
+		email: yup.string().email(),
+	});

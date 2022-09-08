@@ -10,3 +10,8 @@ export interface IEmployeeRequest {
 	isAdm: boolean;
 	isActive?: boolean;
 }
+
+export interface ICartRequest {
+	employeeId: string;
+	loyaltyCustomerId?: string;
+}

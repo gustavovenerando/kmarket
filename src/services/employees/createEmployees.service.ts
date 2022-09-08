@@ -5,18 +5,31 @@ import { hash } from "bcryptjs";
 
 import AppError from "../../errors/AppError";
 
-export const createEmployeesService = async ({name,email,password,isAdm,isActive}: IEmployeeRequest): Promise<Employee> => {
-
+export const createEmployeesService = async ({
+	name,
+	email,
+	password,
+	isAdm,
+	isActive,
+}: IEmployeeRequest): Promise<Employee> => {
 	const employeesRepository = AppDataSource.getRepository(Employee);
 	const employees = await employeesRepository.find();
 
-	const emailAlreadyExists = employees.find((employee) => employee.email === email);
+	const emailAlreadyExists = employees.find(
+		(employee) => employee.email === email
+	);
 
 	if (emailAlreadyExists) {
 		throw new AppError(400, "Email already exists");
 	}
 
-	if (name === undefined || email === undefined || password === undefined || isAdm === undefined) {
+	if (
+		name !== undefined ||
+		email !== undefined ||
+		password !== undefined ||
+		isAdm !== undefined ||
+		isActive !== undefined
+	) {
 		throw new AppError(400, "Required field");
 	}
 
@@ -27,7 +40,7 @@ export const createEmployeesService = async ({name,email,password,isAdm,isActive
 		email,
 		password: hashPassword,
 		isAdm,
-		isActive
+		isActive,
 	});
 
 	await employeesRepository.save(employee);
