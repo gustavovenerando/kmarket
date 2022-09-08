@@ -74,7 +74,7 @@ Por enquanto, não foi implementada autenticação.
 ### Índice
 
 - [Products](#1-Products)
-  - [POST - /users](#11-criação-de-usuário)
+  - [POST - /users](#11-criação-de-produto)
   - [GET - /users](#12-listando-usuários)
   - [GET - /users/:user_id](#13-listar-usuário-por-id)
 - [Products](#2-products)
