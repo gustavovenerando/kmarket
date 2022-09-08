@@ -18,6 +18,13 @@ export const mockedEmployee :IEmployeeRequest = {
 	isAdm: false,
 }
 
+export const mockedEmployeEmpty :IEmployeeRequest = {
+	name: "",
+	email: "",
+	password: "",
+	isAdm: false,
+}
+
 export const mockedAdm :IEmployeeRequest = {
 	name: "Roberval",
 	email: "roberval@roberval.com",

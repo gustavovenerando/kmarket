@@ -12,6 +12,7 @@ export const createEmployeesService = async ({
 	isAdm,
 	isActive,
 }: IEmployeeRequest): Promise<Employee> => {
+	
 	const employeesRepository = AppDataSource.getRepository(Employee);
 	const employees = await employeesRepository.find();
 
@@ -24,11 +25,19 @@ export const createEmployeesService = async ({
 	}
 
 	if (
-		name !== undefined ||
-		email !== undefined ||
-		password !== undefined ||
-		isAdm !== undefined ||
-		isActive !== undefined
+		name === undefined ||
+		email === undefined ||
+		password === undefined ||
+		isAdm === undefined
+	) {
+		throw new AppError(400, "Required field");
+	}
+
+	if (
+		name === ""||
+		email === "" ||
+		password === "" ||
+		isAdm === null
 	) {
 		throw new AppError(400, "Required field");
 	}

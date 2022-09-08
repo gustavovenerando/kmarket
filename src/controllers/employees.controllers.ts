@@ -26,7 +26,6 @@ export const listOneEmployeesController = async (req: Request,res: Response) => 
 	return res.status(200).json(instanceToPlain(employee));
 };
 
-
 export const updateEmployeesController = async (req: Request,res: Response) => {
 	const id = req.params.id
 	const { name, email, password, isAdm }: IEmployeeRequest = req.body
