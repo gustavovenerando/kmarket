@@ -1,7 +1,7 @@
 import AppDataSource from "../../data-source";
 import SupplierProduct from "../../entities/supplierProducts.entity";
 
-const listSupplierProductsService = async () => {
+const listSupplierProductsService = async (): Promise<SupplierProduct[]> => {
   const supplierProductsRepository =
     AppDataSource.getRepository(SupplierProduct);
 

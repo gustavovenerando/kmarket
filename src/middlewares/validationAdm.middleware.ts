@@ -9,7 +9,7 @@ const validationAdmMiddleware = (
 	const isAdm = req.employee.isAdm;
 
 	if (!isAdm) {
-		throw new AppError(403, "Adm permission requested.");
+		throw new AppError(401, "Adm permission requested.");
 	}
 
 	next();

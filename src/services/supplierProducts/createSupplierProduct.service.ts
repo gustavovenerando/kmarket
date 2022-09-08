@@ -10,7 +10,7 @@ const createSupplierProductService = async ({
   costPrice,
   name,
   supplierId,
-}: ISupplierProductsRequest) => {
+}: ISupplierProductsRequest): Promise<SupplierProduct> => {
   const supplierProductsRepository =
     AppDataSource.getRepository(SupplierProduct);
 
@@ -23,11 +23,11 @@ const createSupplierProductService = async ({
   const supplierFound = await supplierRepository.findOneBy({ id: supplierId });
 
   if (!categoryFound) {
-    throw new AppError(404, "Category not found");
+    throw new AppError(404, "Category not found.");
   }
 
   if (!supplierFound) {
-    throw new AppError(404, "Supplier not found");
+    throw new AppError(404, "Supplier not found.");
   }
 
   const newProduct = supplierProductsRepository.create({
