@@ -17,7 +17,7 @@ cartRoutes.post(
   validationSchemaMiddleware(cartSchema),
   createCartController
 );
-cartRoutes.post("/:id", soldCartController);
+cartRoutes.patch("/:id", soldCartController);
 cartRoutes.get("/:id", listCartByIdController);
 cartRoutes.delete("/:id", deleteCartController);
 cartRoutes.get("", listCartsController);

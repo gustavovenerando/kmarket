@@ -7,9 +7,9 @@ const deleteCartService = async (id: string) => {
 
   const cart = await cartRepository.findOneBy({ id });
   if (!cart) {
-    throw new AppError(404, "Cart not found");
+    throw new AppError(404, "Cart not found.");
   }
-  console.log("DELEEEEETE", cart);
+
   await cartRepository.delete({ id: cart.id });
   return true;
 };

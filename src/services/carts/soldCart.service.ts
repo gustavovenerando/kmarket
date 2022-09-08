@@ -7,15 +7,15 @@ const soldCartService = async (id: string) => {
   const cart = await cartRepository.findOneBy({ id });
 
   if (!cart) {
-    throw new AppError(404, "Cart not found");
+    throw new AppError(404, "Cart not found.");
   }
 
   if (cart.sold === true) {
-    throw new AppError(409, "Cart already sold");
+    throw new AppError(409, "Cart already sold.");
   }
 
   if (cart.productsCart.length === 0) {
-    throw new AppError(400, "No products in Cart");
+    throw new AppError(400, "No products in Cart.");
   }
 
   cart.sold = true;

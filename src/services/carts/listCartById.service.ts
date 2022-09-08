@@ -12,7 +12,7 @@ const listCartByIdService = async (id: string) => {
   const cart = await cartRepository.findOneBy({ id });
 
   if (!cart) {
-    throw new AppError(404, "Cart not found");
+    throw new AppError(404, "Cart not found.");
   }
 
   return cart;
