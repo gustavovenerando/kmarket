@@ -1,6 +1,5 @@
 # kmarket
 
-
 ## 1. Visão Geral
 
 Visão geral do projeto, um pouco das tecnologias usadas.
@@ -649,7 +648,7 @@ Vazio
 ```
 
 ```json
-Deleted with success
+No body returned for response
 ```
 
 ### Possíveis Erros:
@@ -1514,10 +1513,10 @@ No body returned for response
 
 O objeto loyaltyCustomer é definido como:
 
-| Campo          | Tipo    | Descrição                           |
-| -------------- | ------- | ----------------------------------- |
-| id             | string  | Identificador único do categoria.     |
-| name           | string  | O nome da categoria.                  |
+| Campo | Tipo   | Descrição                         |
+| ----- | ------ | --------------------------------- |
+| id    | string | Identificador único do categoria. |
+| name  | string | O nome da categoria.              |
 
 ### Endpoints
 
