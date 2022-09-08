@@ -9,6 +9,14 @@ export const mockedSuplier: ISupplierRequest = {
 	email: "wagner@empresa.com",
 };
 
+export const mockedSupliertestSupplierId: ISupplierRequest = {
+	name: "Walmir",
+	cnpj: "37.572.899/0002-22",
+	phone: "(89) 2351-2555",
+	email: "walmir@empresa.com",
+};
+
+
 export const mockedEmployee: IEmployeeRequest = {
 	name: "Carlos",
 	email: "carlos@carlos.com",
@@ -56,6 +64,10 @@ export const mockedLoginEmployee : IEmployeeLogin = {
 
 export const mockedCategory = {
 	name: "Bebidas",
+};
+
+export const mockedCategoryTestCategoryId = {
+	name: "Mercearia",
 };
 
 export const mockedProducts = {
