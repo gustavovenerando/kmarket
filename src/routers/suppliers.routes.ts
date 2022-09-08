@@ -10,9 +10,11 @@ import authTokenMiddleware from "../middlewares/authToken.middleware";
 import validationAdmMiddleware from "../middlewares/validationAdm.middleware";
 import validationSchemaMiddleware from "../middlewares/validationSchema.middleware";
 import {
-	supplierSchema,
-	supplierUpdateSchema,
-} from "../schemas/suppliers.schema";
+	 supplierSchema,
+	 
+	  supplierUpdateSchema,
+	} from "../schemas/suppliers.schema";
+
 
 const supplierRoutes = Router();
 

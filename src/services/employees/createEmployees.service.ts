@@ -25,6 +25,7 @@ export const createEmployeesService = async ({
 	}
 
 	if (
+<<<<<<< HEAD
 		name === undefined ||
 		email === undefined ||
 		password === undefined ||
@@ -38,6 +39,12 @@ export const createEmployeesService = async ({
 		email === "" ||
 		password === "" ||
 		isAdm === null
+=======
+		name == undefined ||
+		email == undefined ||
+		password == undefined ||
+		isAdm == undefined 
+>>>>>>> f2559ffb3e6508cf456029e16b00cd3a9b3c82ad
 	) {
 		throw new AppError(400, "Required field");
 	}
