@@ -1,7 +1,5 @@
-import { ILoyaltyCustomerRequest } from "../../interfaces/loyaltyCustomer/index";
-import { ICartRequest } from "../../interfaces/employee";
+import { IEmployeeLogin } from "../../interfaces/employee";
 import { IEmployeeRequest } from "../../interfaces/employee";
-import { ISupplierProductsRequest } from "../../interfaces/supplierProducts";
 import { ISupplierRequest } from "../../interfaces/supplier";
 
 export const mockedSuplier: ISupplierRequest = {
@@ -46,13 +44,13 @@ export const mockedAdm: IEmployeeRequest = {
 	isAdm: true,
 };
 
-export const mockedLoginAdm = {
-	email: "roberval@roberval.com",
+export const mockedLoginAdm : IEmployeeLogin = {
+    email: "roberval@roberval.com",
 	password: "123",
 };
 
-export const mockedLoginEmployee = {
-	email: "carlos@carlos.com",
+export const mockedLoginEmployee : IEmployeeLogin = {
+    email: "carlos@carlos.com",
 	password: "123",
 };
 
