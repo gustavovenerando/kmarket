@@ -11,7 +11,7 @@ export const updateEmployeesService = async (id:string,{name, email, password, i
     const isEmployee = employees.find(employee => employee.id === id)
 
     if(!isEmployee){
-        throw new AppError(404,'User not found')
+        throw new AppError(404,'Employee not found')
     }
     
     if (bcrypt.compareSync(password, isEmployee!.password)) {

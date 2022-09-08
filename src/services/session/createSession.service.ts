@@ -46,3 +46,4 @@ export const createSessionService = async ({
 
   return token;
 };
+
