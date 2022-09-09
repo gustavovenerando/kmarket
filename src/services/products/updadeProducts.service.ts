@@ -13,6 +13,8 @@ const updateProductsService = async ({
 	discount,
 	categoryId,
 }: IUpdateProducts) => {
+	if (id?.length !== 36) { throw new AppError(400, "Id format not valid.") }
+
 	const productsRepository = AppDataSource.getRepository(Products);
 	const categoryRepository = AppDataSource.getRepository(Category);
 	let categorySelected = null;
