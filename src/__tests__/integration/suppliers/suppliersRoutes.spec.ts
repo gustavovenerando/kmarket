@@ -2,12 +2,13 @@ import request, { Response } from "supertest"
 
 import { DataSource } from "typeorm"
 import AppDataSource from "../../../data-source"
-import { mockedAdm, mockedEmployee, mockedIdNotExist, mockedLoginAdm, mockedLoginEmployee, mockedNotFormatedId, mockedSuplier, mockedSupplierCpnjAgain, mockedSupplierEmailAgain, mockedSupplierUpdateAll, mockedSupplierUpdateCnpj, mockedSupplierUpdateEmail, mockedSupplierUpdateName, mockedSupplierUpdatePhone } from "../../mocks"
 
 import app from "../../../app"
 import { ISupplierResponse } from "../../../interfaces/supplier"
 
-let supplierTest:ISupplierResponse 
+import { mockedAdm, mockedEmployee, mockedIdNotExist, mockedLoginAdm, mockedLoginEmployee, mockedNotFormatedId, mockedSuplier, mockedSupplierCpnjAgain, mockedSupplierEmailAgain, mockedSupplierUpdateAll, mockedSupplierUpdateCnpj, mockedSupplierUpdateEmail, mockedSupplierUpdateName, mockedSupplierUpdatePhone } from "../../mocks"
+
+let supplierTest: ISupplierResponse
 let idSupplier: string
 let adminLoginResponse: Response
 let notAdminLoginResponse: Response
@@ -17,7 +18,7 @@ let tokenNotAdm: string
 describe("Testando rotas do Supplier", () => {
 
     let connection: DataSource
-    beforeAll(async() => {
+    beforeAll(async () => {
         await AppDataSource.initialize().then((res) => {
             connection = res
         }).catch((error) => {
@@ -33,14 +34,14 @@ describe("Testando rotas do Supplier", () => {
         tokenNotAdm = notAdminLoginResponse.body.token
     })
 
-    afterAll(async() => {
+    afterAll(async () => {
         await connection.destroy()
     })
 
-//CREATE SUPPLIER !
+    //CREATE SUPPLIER !
     //Good requests get
 
-    test("POST /suppliers - Deve ser capaz de criar um novo Supplier quando for passado os dados corretamente", async() => {
+    test("POST /suppliers - Deve ser capaz de criar um novo Supplier quando for passado os dados corretamente", async () => {
 
         const response = await request(app).post("/suppliers").set("Authorization", `Bearer ${tokenAdm}`).send(mockedSuplier)
 
@@ -59,7 +60,7 @@ describe("Testando rotas do Supplier", () => {
 
     //Bad requests get
 
-    test("POST /suppliers - Deve retornar um erro caso NÃO seja do ADM", async() => {
+    test("POST /suppliers - Deve retornar um erro caso NÃO seja do ADM", async () => {
 
         const response = await request(app).post("/suppliers").set("Authorization", `Bearer ${tokenNotAdm}`).send(mockedSuplier)
 
@@ -67,7 +68,7 @@ describe("Testando rotas do Supplier", () => {
         expect(response.body).toHaveProperty("message")
     })
 
-    test("POST /suppliers - Deve retornar um erro caso seja passado um EMAIL já EXISTENTE na criação do supplier", async() => {
+    test("POST /suppliers - Deve retornar um erro caso seja passado um EMAIL já EXISTENTE na criação do supplier", async () => {
 
         const response = await request(app).post("/suppliers").set("Authorization", `Bearer ${tokenAdm}`).send(mockedSupplierEmailAgain)
 
@@ -75,7 +76,7 @@ describe("Testando rotas do Supplier", () => {
         expect(response.body).toHaveProperty("message")
     })
 
-    test("POST /suppliers - Deve retornar um erro caso seja passado um CNPJ já EXISTENTE na criação do supplier", async() => {
+    test("POST /suppliers - Deve retornar um erro caso seja passado um CNPJ já EXISTENTE na criação do supplier", async () => {
 
         const response = await request(app).post("/suppliers").set("Authorization", `Bearer ${tokenAdm}`).send(mockedSupplierCpnjAgain)
 
@@ -83,10 +84,10 @@ describe("Testando rotas do Supplier", () => {
         expect(response.body).toHaveProperty("message")
     })
 
-//LIST ALL SUPPLIER 
+    //LIST ALL SUPPLIER 
     //Good requests get
 
-    test("GET /suppliers - Deve retornar TODOS os SUPPLIERS com a autenticação de adm", async() => {
+    test("GET /suppliers - Deve retornar TODOS os SUPPLIERS com a autenticação de adm", async () => {
 
         const response = await request(app).get("/suppliers").set("Authorization", `Bearer ${tokenAdm}`)
 
@@ -97,7 +98,7 @@ describe("Testando rotas do Supplier", () => {
 
     //Bad requests get
 
-    test("GET /suppliers - Deve retornar um erro caso NÃO seja do ADM", async() => {
+    test("GET /suppliers - Deve retornar um erro caso NÃO seja do ADM", async () => {
 
         const response = await request(app).get("/suppliers").set("Authorization", `Bearer ${tokenNotAdm}`)
 
@@ -105,7 +106,7 @@ describe("Testando rotas do Supplier", () => {
         expect(response.body).toHaveProperty("message")
     })
 
-    test("GET /suppliers - Deve retornar um erro caso NÃO tenha TOKEN", async() => {
+    test("GET /suppliers - Deve retornar um erro caso NÃO tenha TOKEN", async () => {
 
         const response = await request(app).get("/suppliers")
 
@@ -113,10 +114,10 @@ describe("Testando rotas do Supplier", () => {
         expect(response.body).toHaveProperty("message")
     })
 
-//LIST ONE SUPPLIER
+    //LIST ONE SUPPLIER
     //Good requests getById
 
-    test("GET /suppliers/:id - Deve retornar um SUPPLIER corretamente", async() => {
+    test("GET /suppliers/:id - Deve retornar um SUPPLIER corretamente", async () => {
 
         const response = await request(app).get(`/suppliers/${idSupplier}`).set("Authorization", `Bearer ${tokenAdm}`)
 
@@ -132,7 +133,7 @@ describe("Testando rotas do Supplier", () => {
     //Bad requests getById
 
 
-    test("GET /suppliers/:id - Deve retornar um erro caso NÃO tenha TOKEN", async() => {
+    test("GET /suppliers/:id - Deve retornar um erro caso NÃO tenha TOKEN", async () => {
 
         const response = await request(app).get(`/suppliers/${idSupplier}`)
 
@@ -140,7 +141,7 @@ describe("Testando rotas do Supplier", () => {
         expect(response.body).toHaveProperty("message")
     })
 
-    test("GET /suppliers/:id - Deve retornar um erro caso NÃO seja o ADM", async() => {
+    test("GET /suppliers/:id - Deve retornar um erro caso NÃO seja o ADM", async () => {
 
         const response = await request(app).get(`/suppliers/${idSupplier}`).set("Authorization", `Bearer ${tokenNotAdm}`)
 
@@ -148,7 +149,7 @@ describe("Testando rotas do Supplier", () => {
         expect(response.body).toHaveProperty("message")
     })
 
-    test("GET /suppliers/:id - Deve retornar um erro caso o ID tenha formato inválido", async() => {
+    test("GET /suppliers/:id - Deve retornar um erro caso o ID tenha formato inválido", async () => {
 
         const response = await request(app).get(`/suppliers/${mockedNotFormatedId}`).set("Authorization", `Bearer ${tokenAdm}`)
 
@@ -156,7 +157,7 @@ describe("Testando rotas do Supplier", () => {
         expect(response.body).toHaveProperty("message")
     })
 
-    test("GET /suppliers/:id - Deve retornar um erro caso não exista o ID na database", async() => {
+    test("GET /suppliers/:id - Deve retornar um erro caso não exista o ID na database", async () => {
 
         const response = await request(app).get(`/suppliers/${mockedIdNotExist}`).set("Authorization", `Bearer ${tokenAdm}`)
 
@@ -164,14 +165,14 @@ describe("Testando rotas do Supplier", () => {
         expect(response.body).toHaveProperty("message")
     })
 
-//UPDATE SUPPLIER
+    //UPDATE SUPPLIER
     //Good requests update
 
     test("UPDATE /suppliers/:id - Deve ALTERAR corretamente todo o SUPPLIER", async () => {
-    
+
         const response = await request(app).patch(`/suppliers/${idSupplier}`).set("Authorization", `Bearer ${tokenAdm}`).send(mockedSupplierUpdateAll)
 
-        const {createdAt, updatedAt, id, ...valuesToCheck} = response.body
+        const { createdAt, updatedAt, id, ...valuesToCheck } = response.body
 
         expect(response.status).toBe(200)
         expect(valuesToCheck).toEqual(mockedSupplierUpdateAll)
@@ -179,9 +180,9 @@ describe("Testando rotas do Supplier", () => {
     })
 
     test("UPDATE /suppliers/:id - Deve Alterar corretamente o NOME do SUPPLIER", async () => {
-   
+
         const response = await request(app).patch(`/suppliers/${idSupplier}`).set("Authorization", `Bearer ${tokenAdm}`).send(mockedSupplierUpdateName)
-        
+
         const nameExpected = mockedSupplierUpdateName.name
 
         expect(response.status).toBe(200)
@@ -189,9 +190,9 @@ describe("Testando rotas do Supplier", () => {
     })
 
     test("UPDATE /suppliers/:id - Deve Alterar corretamente o CNPJ do SUPPLIER", async () => {
-   
+
         const response = await request(app).patch(`/suppliers/${idSupplier}`).set("Authorization", `Bearer ${tokenAdm}`).send(mockedSupplierUpdateCnpj)
-        
+
         const cnpjExpected = mockedSupplierUpdateCnpj.cnpj
 
         expect(response.status).toBe(200)
@@ -199,18 +200,18 @@ describe("Testando rotas do Supplier", () => {
     })
 
     test("UPDATE /suppliers/:id - Deve Alterar corretamente o PHONE do SUPPLIER", async () => {
-   
+
         const response = await request(app).patch(`/suppliers/${idSupplier}`).set("Authorization", `Bearer ${tokenAdm}`).send(mockedSupplierUpdatePhone)
-        
+
         const phoneExpected = mockedSupplierUpdatePhone.phone
 
         expect(response.status).toBe(200)
         expect(response.body.phone).toEqual(phoneExpected)
     })
     test("UPDATE /suppliers/:id - Deve Alterar corretamente o EMAIL do SUPPLIER", async () => {
-   
+
         const response = await request(app).patch(`/suppliers/${idSupplier}`).set("Authorization", `Bearer ${tokenAdm}`).send(mockedSupplierUpdateEmail)
-        
+
         const emailExpected = mockedSupplierUpdateEmail.email
 
         expect(response.status).toBe(200)
@@ -219,14 +220,14 @@ describe("Testando rotas do Supplier", () => {
 
     //Bad requesst update
 
-    test("UPDATE /suppliers/:id - Deve retornar um erro caso NÃO tenha TOKEN", async() => {
+    test("UPDATE /suppliers/:id - Deve retornar um erro caso NÃO tenha TOKEN", async () => {
 
         const response = await request(app).patch(`/suppliers/${idSupplier}`)
 
         expect(response.status).toBe(401)
         expect(response.body).toHaveProperty("message")
     })
-    test("UPDATE /suppliers/:id - Deve retornar um erro caso NÃO seja o ADM", async() => {
+    test("UPDATE /suppliers/:id - Deve retornar um erro caso NÃO seja o ADM", async () => {
 
         const response = await request(app).patch(`/suppliers/${idSupplier}`).set("Authorization", `Bearer ${tokenNotAdm}`)
 
@@ -234,7 +235,7 @@ describe("Testando rotas do Supplier", () => {
         expect(response.body).toHaveProperty("message")
     })
 
-    test("UPDATE /suppliers/:id - Deve retornar um erro caso o ID tenha formato inválido", async() => {
+    test("UPDATE /suppliers/:id - Deve retornar um erro caso o ID tenha formato inválido", async () => {
 
         const response = await request(app).patch(`/suppliers/${mockedNotFormatedId}`).set("Authorization", `Bearer ${tokenAdm}`)
 
@@ -242,7 +243,7 @@ describe("Testando rotas do Supplier", () => {
         expect(response.body).toHaveProperty("message")
     })
 
-    test("UPDATE /suppliers/:id - Deve retornar um erro caso não exista o ID na database", async() => {
+    test("UPDATE /suppliers/:id - Deve retornar um erro caso não exista o ID na database", async () => {
 
         const response = await request(app).patch(`/suppliers/${mockedIdNotExist}`).set("Authorization", `Bearer ${tokenAdm}`)
 
@@ -250,14 +251,14 @@ describe("Testando rotas do Supplier", () => {
         expect(response.body).toHaveProperty("message")
     })
 
-//REMOVE SUPPLIER
+    //REMOVE SUPPLIER
     //Good requests remove
     test("DELETE /suppliers/:id - Deve REMOVER corretamente um SUPPLIER", async () => {
-  
+
         const response = await request(app).delete(`/suppliers/${idSupplier}`).set("Authorization", `Bearer ${tokenAdm}`)
-        
-        const allSuppliers =  await (await request(app).get("/suppliers").set("Authorization", `Bearer ${tokenAdm}`)).body
-        expect(allSuppliers).toEqual({suppliers:[]})
+
+        const allSuppliers = await (await request(app).get("/suppliers").set("Authorization", `Bearer ${tokenAdm}`)).body
+        expect(allSuppliers).toEqual({ suppliers: [] })
 
         expect(response.status).toBe(204)
         expect(response.status).not.toHaveProperty("body")
@@ -265,14 +266,14 @@ describe("Testando rotas do Supplier", () => {
 
     //Bad requests remove
 
-    test("DELETE /suppliers/:id - Deve retornar um erro caso NÃO tenha TOKEN", async() => {
+    test("DELETE /suppliers/:id - Deve retornar um erro caso NÃO tenha TOKEN", async () => {
 
         const response = await request(app).delete(`/suppliers/${idSupplier}`)
 
         expect(response.status).toBe(401)
         expect(response.body).toHaveProperty("message")
     })
-    test("DELETE /suppliers/:id - Deve retornar um erro caso NÃO seja o ADM", async() => {
+    test("DELETE /suppliers/:id - Deve retornar um erro caso NÃO seja o ADM", async () => {
 
         const response = await request(app).delete(`/suppliers/${idSupplier}`).set("Authorization", `Bearer ${tokenNotAdm}`)
 
@@ -280,7 +281,7 @@ describe("Testando rotas do Supplier", () => {
         expect(response.body).toHaveProperty("message")
     })
 
-    test("DELETE /suppliers/:id - Deve retornar um erro caso o ID tenha formato inválido", async() => {
+    test("DELETE /suppliers/:id - Deve retornar um erro caso o ID tenha formato inválido", async () => {
 
         const response = await request(app).delete(`/suppliers/${mockedNotFormatedId}`).set("Authorization", `Bearer ${tokenAdm}`)
 
@@ -288,7 +289,7 @@ describe("Testando rotas do Supplier", () => {
         expect(response.body).toHaveProperty("message")
     })
 
-    test("DELETE /suppliers/:id - Deve retornar um erro caso não exista o ID na database", async() => {
+    test("DELETE /suppliers/:id - Deve retornar um erro caso não exista o ID na database", async () => {
 
         const response = await request(app).delete(`/suppliers/${mockedIdNotExist}`).set("Authorization", `Bearer ${tokenAdm}`)
 
