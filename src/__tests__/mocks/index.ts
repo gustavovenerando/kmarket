@@ -1,8 +1,9 @@
 import { ILoyaltyCustomerRequest } from '../../interfaces/loyaltyCustomer/index';
-import { ICartRequest } from "../../interfaces/employee";
+import { ICartRequest, IEmployeeResponse } from "../../interfaces/employee";
 import { IEmployeeRequest } from "../../interfaces/employee";
 import { ISupplierProductsRequest } from '../../interfaces/supplierProducts';
 import { ISupplierRequest } from '../../interfaces/supplier';
+import { AfterInsert } from 'typeorm';
 
 export const mockedSuplier : ISupplierRequest = {
     name:"Wagner",
@@ -18,26 +19,11 @@ export const mockedEmployee :IEmployeeRequest = {
 	isAdm: false,
 }
 
-<<<<<<< HEAD
 export const mockedEmployeEmpty :IEmployeeRequest = {
 	name: "",
 	email: "",
 	password: "",
 	isAdm: false,
-=======
-export const mockedSupplierEmailAgain = {
-	name:"Wagner",
-    cnpj:"37.572.899/0001-20",
-    phone:"(89) 2351-2857",
-    email:"wagner@empresa.com",
-}
-
-export const mockedSupplierCpnjAgain = {
-	name:"Wagner",
-    cnpj:"37.572.899/0001-27",
-    phone:"(89) 2351-2857",
-    email:"wagnerzin@empresa.com",
->>>>>>> f2559ffb3e6508cf456029e16b00cd3a9b3c82ad
 }
 
 export const mockedAdm :IEmployeeRequest = {
@@ -47,15 +33,54 @@ export const mockedAdm :IEmployeeRequest = {
 	isAdm: true,
 }
 
+export const mockedAdmAgain :IEmployeeRequest = {
+	name: "José",
+	email: "jose@mail.com",
+	password: "123",
+	isAdm: true,
+}
+
+
+export const mockedIsActiveFalse :IEmployeeRequest = {
+	name: "José",
+	email: "jose@mail.com",
+	password: "123",
+	isAdm: true
+}
+
+export const mockedUpdateEmployee :IEmployeeRequest = {
+	name: "lima",
+	email: "lima@mail.com",
+	password: "123",
+	isAdm: true
+}
+
+export const mockedIsActiveTrue :IEmployeeRequest = {
+	name: "josias",
+	email: "josias@mail.com",
+	password: "123",
+	isAdm: true,
+	isActive: true
+}
 
 export const mockedLoginAdm = {
     email: "roberval@roberval.com",
 	password: "123",
 }
 
+export const mockedLoginAdmAgain = {
+    email: "jose@mail.com",
+	password: "123",
+}
+
 export const mockedLoginEmployee = {
     email: "carlos@carlos.com",
 	password: "123",
+}
+
+export const mockedEmployeePatch: IEmployeeResponse = {
+	name: 'Daniel',
+	email: 'daniel@mail.com'
 }
 
 export const mockedCategory = {
