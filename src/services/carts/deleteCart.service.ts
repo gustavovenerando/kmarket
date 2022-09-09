@@ -23,8 +23,6 @@ const deleteCartService = async (id: string): Promise<boolean> => {
     product!.stock += item.quantity;
 
     await productsRepository.update(product!.id, { stock: product!.stock });
-
-    await productCartRepository.delete(item.id);
   });
 
   await cartRepository.delete({ id: cart.id });
