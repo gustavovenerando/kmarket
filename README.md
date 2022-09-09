@@ -2052,9 +2052,11 @@ OBS.: Chaves não presentes no schema serão removidas.
 
 ### Possíveis Erros:
 
-| Código do Erro | Descrição           |
-| -------------- | ------------------- |
-| 404 Not Found  | Supplier not found. |
+| Código do Erro | Descrição                 |
+| -------------- | ------------------------- |
+| 409 Conflict   | Email already registered. |
+| 409 Conflict   | Cnpj already registered.  |
+| 404 Not Found  | Supplier not found.       |
 
 ---
 
