@@ -247,7 +247,7 @@ describe("Testando rotas do Products", () => {
 
     //Bad request update
 
-    test("UPDATE /suppliers/:id - Deve retornar um erro caso a BODY esteja ERRADA", async () => {
+    test("UPDATE /products/:id - Deve retornar um erro caso a BODY esteja ERRADA", async () => {
 
         const response = await request(app).patch(`/products/${idProduct}`).set("Authorization", `Bearer ${tokenAdm}`).send(mockedSupplierUpdateAll)
 
@@ -281,6 +281,52 @@ describe("Testando rotas do Products", () => {
     test("UPDATE /products/:id - Deve retornar um erro caso não exista o ID na database", async () => {
 
         const response = await request(app).patch(`/products/${mockedIdNotExist}`).set("Authorization", `Bearer ${tokenAdm}`)
+
+        expect(response.status).toBe(404)
+        expect(response.body).toHaveProperty("message")
+    })
+
+    //REMOVE PRODUCT
+    //Good requests remove
+    test("DELETE /products/:id - Deve REMOVER corretamente um PRODUCT", async () => {
+
+        const response = await request(app).delete(`/products/${idProduct}`).set("Authorization", `Bearer ${tokenAdm}`)
+
+        const allProducts = await (await request(app).get("/products").set("Authorization", `Bearer ${tokenAdm}`)).body
+        expect(allProducts).toEqual({ products: [] })
+
+        expect(response.status).toBe(204)
+        expect(response.status).not.toHaveProperty("body")
+    })
+
+    //Bad requests remove
+
+    test("DELETE /products/:id - Deve retornar um erro caso NÃO tenha TOKEN", async () => {
+
+        const response = await request(app).delete(`/products/${idProduct}`)
+
+        expect(response.status).toBe(401)
+        expect(response.body).toHaveProperty("message")
+    })
+    test("DELETE /products/:id - Deve retornar um erro caso NÃO seja o ADM", async () => {
+
+        const response = await request(app).delete(`/products/${idProduct}`).set("Authorization", `Bearer ${tokenNotAdm}`)
+
+        expect(response.status).toBe(401)
+        expect(response.body).toHaveProperty("message")
+    })
+
+    test("DELETE /products/:id - Deve retornar um erro caso o ID tenha formato inválido", async () => {
+
+        const response = await request(app).delete(`/products/${mockedNotFormatedId}`).set("Authorization", `Bearer ${tokenAdm}`)
+
+        expect(response.status).toBe(400)
+        expect(response.body).toHaveProperty("message")
+    })
+
+    test("DELETE /products/:id - Deve retornar um erro caso não exista o ID na database", async () => {
+
+        const response = await request(app).delete(`/products/${mockedIdNotExist}`).set("Authorization", `Bearer ${tokenAdm}`)
 
         expect(response.status).toBe(404)
         expect(response.body).toHaveProperty("message")
