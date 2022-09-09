@@ -5,9 +5,15 @@ import { ISupplierUpdateRequest } from "../../interfaces/supplier";
 
 const updateSupplierService = async (
   supplierId: string,
-  supplierData: ISupplierUpdateRequest
+  { cnpj, email, name, phone }: ISupplierUpdateRequest
 ): Promise<Supplier | null> => {
-  if (supplierId.length !== 36){ throw new AppError(400, "Id format not valid.")}
+  if (supplierId.length !== 36) {
+    throw new AppError(400, "Id format not valid.");
+  }
+
+  if (!cnpj && !email && !name && !phone) {
+    throw new AppError(400, "Insert a valid option");
+  }
 
   const supplierRepository = AppDataSource.getRepository(Supplier);
 
@@ -17,7 +23,12 @@ const updateSupplierService = async (
     throw new AppError(404, "Supplier not found.");
   }
 
-  await supplierRepository.update(supplier!.id, { ...supplierData });
+  await supplierRepository.update(supplier!.id, {
+    cnpj: cnpj ? cnpj : supplier.cnpj,
+    email: email ? email : supplier.email,
+    name: name ? name : supplier.name,
+    phone: phone ? phone : supplier.phone,
+  });
 
   const updatedUser = await supplierRepository.findOneBy({ id: supplier.id });
 

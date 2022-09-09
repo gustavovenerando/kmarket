@@ -10,6 +10,7 @@ import { IEmployeeRequest } from "../../interfaces/employee";
 import {
   ISupplierRequest,
   ISupplierUpdateRequest,
+  IWrongUpdateObject,
 } from "../../interfaces/supplier";
 import {
   ICreateProducts,
@@ -178,6 +179,11 @@ export const mockedSupplierProduct = {
   costPrice: 4,
   supplierId: "",
   categoryId: "",
+};
+
+export const mockedWrongUpdateObject: IWrongUpdateObject = {
+  test: "nada a ver",
+  wrongKey: "nothing to do",
 };
 
 export const mockedInvalidId: string = "00000000-0000-0000-0000-000000000000";
