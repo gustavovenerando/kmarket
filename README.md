@@ -692,7 +692,7 @@ Vazio
 ```
 
 ```json
-Deleted with success
+No body returned for response
 ```
 
 ### Possíveis Erros:

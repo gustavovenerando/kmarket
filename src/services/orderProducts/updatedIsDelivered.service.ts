@@ -14,8 +14,6 @@ const updateIsDeliveredService = async (
 
   const order = await orderProductsRepository.findOneBy({ id: orderId });
 
-  console.log("ordem", order);
-
   if (!order) {
     throw new AppError(404, "Purchase order not found.");
   }
