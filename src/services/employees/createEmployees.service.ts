@@ -12,7 +12,6 @@ export const createEmployeesService = async ({
 	isAdm,
 	isActive,
 }: IEmployeeRequest): Promise<Employee> => {
-	
 	const employeesRepository = AppDataSource.getRepository(Employee);
 	const employees = await employeesRepository.find();
 

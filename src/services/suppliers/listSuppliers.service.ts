@@ -6,7 +6,7 @@ const listSuppliersService = async () => {
 
   const suppliers = await supplierRepository.find();
 
-  return suppliers;
+  return {suppliers};
 };
 
 export default listSuppliersService;

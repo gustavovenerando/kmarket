@@ -1,43 +1,41 @@
 import {
-	Entity,
-	Column,
-	PrimaryGeneratedColumn,
-	CreateDateColumn,
-	ManyToOne,
+  Entity,
+  Column,
+  PrimaryGeneratedColumn,
+  CreateDateColumn,
+  ManyToOne,
 } from "typeorm";
 import Products from "./products.entity";
 import SupplierProduct from "./supplierProducts.entity";
 
-//Não megeras na main
-
 @Entity("orderSuppliersProducts")
 class OrderSuppliersProducts {
-	@PrimaryGeneratedColumn("uuid")
-	id: string;
+  @PrimaryGeneratedColumn("uuid")
+  id: string;
 
-	@Column()
-	quantity: number;
+  @Column()
+  quantity: number;
 
-	@Column({ type: "decimal", precision: 10, scale: 2 })
-	costPrice: number;
+  @Column({ type: "decimal", precision: 10, scale: 2 })
+  costPrice: number;
 
-	@Column({ type: "decimal", precision: 10, scale: 2 })
-	totalPrice: number;
+  @Column({ type: "decimal", precision: 10, scale: 2 })
+  totalPrice: number;
 
-	@Column()
-	deliverySchedule: Date;
+  @Column()
+  deliverySchedule: Date;
 
-	@Column({ default: false })
-	isDelivered: boolean;
+  @Column({ default: false })
+  isDelivered: boolean;
 
-	@CreateDateColumn({ nullable: false })
-	createdAt: Date;
+  @CreateDateColumn()
+  createdAt: Date;
 
-	@ManyToOne(() => SupplierProduct, { nullable: false })
-	suplierProduct: SupplierProduct;
+  @ManyToOne(() => SupplierProduct, { nullable: false, eager: true })
+  supplierProduct: SupplierProduct;
 
-	@ManyToOne(() => Products, { nullable: false })
-	product: Products;
+  @ManyToOne(() => Products, { nullable: false, eager: true })
+  product: Products;
 }
 
 export default OrderSuppliersProducts;

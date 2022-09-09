@@ -1,5 +1,129 @@
 # kmarket
 
+## 1. Visão Geral
+
+Visão geral do projeto, um pouco das tecnologias usadas.
+
+-   [NodeJS](https://nodejs.org/en/)
+-   [Express](https://expressjs.com/pt-br/)
+-   [TypeScript](https://www.typescriptlang.org/)
+-   [PostgreSQL](https://www.postgresql.org/)
+-   [TypeORM](https://typeorm.io/)
+-   [Yup](https://www.npmjs.com/package/yup)
+
+A URL base da aplicação:
+http://suaapi.com/v1
+
+---
+
+## 2. Diagrama ER
+
+[ Voltar para o topo ](#tabela-de-conteúdos)
+
+Diagrama ER da API definindo bem as relações entre as tabelas do banco de dados.
+
+![DER](DER_SP7_01.drawio.png)
+
+---
+
+## 3. Início Rápido
+
+[ Voltar para o topo ](#tabela-de-conteúdos)
+
+### 3.1. Instalando Dependências
+
+Clone o projeto em sua máquina e instale as dependências com o comando:
+
+```shell
+yarn
+```
+
+### 3.2. Variáveis de Ambiente
+
+Em seguida, crie um arquivo **.env**, copiando o formato do arquivo **.env.example**:
+
+```
+cp .env.example .env
+```
+
+Configure suas variáveis de ambiente com suas credenciais do Postgres e uma nova database da sua escolha.
+
+### 3.3. Migrations
+
+Execute as migrations com o comando:
+
+```
+yarn typeorm migration:run -d src/data-source.ts
+```
+
+---
+
+## 4. Autenticação
+
+[ Voltar para o topo ](#tabela-de-conteúdos)
+
+Por enquanto, não foi implementada autenticação.
+
+---
+
+## 5. Endpoints
+
+[ Voltar para o topo ](#tabela-de-conteúdos)
+
+### Índice
+
+-   [Products](#1-products)
+    -   [POST - /products](#11-criação-do-produto)
+    -   [GET - /products](#12-listando-produtos)
+    -   [GET - /products/:id](#13-listar-produto-por-id)
+    -   [PATCH - /products/:id](#14-atualizar-produto)
+    -   [DELETE - /products/:id](#15-deletar-produto-por-id)
+-   [Carts](#2-cart)
+    -   [POST - /cart](#21-criação-de-cart)
+    -   [GET - /cart](#22-listando-carts)
+    -   [GET - /cart/:id](#23-listar-cart-por-id)
+    -   [PATCH - /cart/:id](#24-vender-carrinho)
+    -   [DELETE - /cart/:id](#25-deletando-cart)
+-   [ProductsCart](#3-productsCart)
+    -   [POST - /productscart/:cartId](#31-adiciona-um-produto-ao-carrinho)
+    -   [GET - /productscart](#32-listando-todas-as-vendas)
+    -   [GET - /productscart/:productId](#33-lista-as-vendas-por-produto)
+    -   [DELETE - /productscart/:id](#34-deletar-produto-do-carrinho)
+-   [Employees](#4-employees)
+    -   [POST - /employees](#41-criação-do-funcionário)
+    -   [GET - /employees](#42-listando-funcionários)
+    -   [GET - /employees/:id](#43-listar-funcionário-por-id)
+    -   [PATCH - /employees/:id](#44-atualizar-funcionário)
+    -   [DELETE - /employees/:id](#45-deletar-funcionario-por-id)
+-   [Login](#5-login---somente-funcionário-faz-login)
+-   [LoyaltyCustomers](#6-loyaltycustomers)
+    -   [POST - /loyaltycustomers](#61-criação-do-cliente)
+    -   [GET - /loyaltycustomers](#62-listando-clientes)
+    -   [GET - /loyaltycustomers/:id](#63-listar-cliente-por-id)
+    -   [PATCH - /loyaltycustomers/:id](#64-atualizar-cliente)
+    -   [DELETE - /loyaltycustomers/:id](#65-deletar-cliente-por-id)
+-   [Categories](#7-categories)
+    -   [POST - /categories](#71-criação-de-categoria)
+    -   [GET - /categories](#72-listando-categorias)
+    -   [GET - /categories/:idCategory/products](#73-listar-produto-por-id-de-categoria)
+    -   [PATCH - /categories/:id](#74-atualizar-categoria)
+    -   [DELETE - /categories/:id](#75-deletando-categoria)
+-   [Suppliers](#8-suppliers)
+    -   [POST - /suppliers](#81-criação-do-fornecedor)
+    -   [GET - /suppliers](#82-listando-fornecedores)
+    -   [GET - /suppliers/:id](#83-listar-fornecedor-por-id)
+    -   [PATCH - /suppliers/:id](#84-atualizar-fornecedor)
+    -   [DELETE - /suppliers/:id](#85-deletar-fornecedor-por-id)
+-   [SupplierProducts](#9-supplierproducts)
+    -   [POST - /supplierproducts](#91-criação-de-produto-para-um-fornecedor)
+    -   [GET - /supplierproducts](#92-listando-produtos-dos-fornecedores)
+    -   [DELETE - /supplierproducts/:id](#93-deletar-produto-de-um-fornecedor-por-id)
+-   [OrderProducts](#10-orderproducts)
+    -   [POST - /orderproducts](#101-criação-de-ordem-de-compra-de-um-produto)
+    -   [GET - /orderproducts](#102-listando-todas-ordens-de-compra-de-um-produto)
+    -   [PATCH - /orderproducts/isdelivered/:id](#103-atualizando-status-de-entrega-de-uma-ordem)
+    -   [DELETE - /orderproducts/:id](#104-deletar-uma-ordem-de-compra-de-um-produto-por-id)
+
 ## Endpoints Resumo
 
 ### 1. /products
@@ -44,12 +168,12 @@ Content-type: application/json
 
 ```json
 {
-  "name": "Refrigerante de guaraná",
-  "marketPrice": 6.0,
-  "stock": 15,
-  "description": "Refrescante bebida de guaraná",
-  "discount": 0.2,
-  "categoryId": "87066b82-b392-4fe7-a06e-dc2fa26e1415"
+	"name": "Refrigerante de guaraná",
+	"marketPrice": 6.0,
+	"stock": 15,
+	"description": "Refrescante bebida de guaraná",
+	"discount": 0.2,
+	"categoryId": "87066b82-b392-4fe7-a06e-dc2fa26e1415"
 }
 ```
 
@@ -74,18 +198,18 @@ OBS.: Chaves não presentes no schema serão removidas.
 
 ```json
 {
-  "name": "Refrigerante de guaraná",
-  "marketPrice": 6,
-  "stock": 15,
-  "description": "Refrescante bebida de guaraná",
-  "discount": "0.20",
-  "category": {
-    "id": "87066b82-b392-4fe7-a06e-dc2fa26e1415",
-    "name": "bebidas"
-  },
-  "id": "e6b49b72-b86b-42f2-8cb1-fb0104eaa5ba",
-  "createdAt": "2022-09-07T21:13:36.566Z",
-  "updatedAt": "2022-09-07T21:13:36.566Z"
+	"name": "Refrigerante de guaraná",
+	"marketPrice": 6,
+	"stock": 15,
+	"description": "Refrescante bebida de guaraná",
+	"discount": "0.20",
+	"category": {
+		"id": "87066b82-b392-4fe7-a06e-dc2fa26e1415",
+		"name": "bebidas"
+	},
+	"id": "e6b49b72-b86b-42f2-8cb1-fb0104eaa5ba",
+	"createdAt": "2022-09-07T21:13:36.566Z",
+	"updatedAt": "2022-09-07T21:13:36.566Z"
 }
 ```
 
@@ -124,20 +248,20 @@ Vazio
 
 ```json
 [
-  {
-    "id": "801713c5-dd17-4bd0-bfbf-04ddfca11d9f",
-    "name": "Amstel",
-    "marketPrice": "3.00",
-    "stock": 12,
-    "description": "Se beber não dirija",
-    "discount": "0.10",
-    "createdAt": "2022-09-07T19:06:35.160Z",
-    "updatedAt": "2022-09-07T20:10:57.077Z",
-    "category": {
-      "id": "87066b82-b392-4fe7-a06e-dc2fa26e1415",
-      "name": "bebidas"
-    }
-  }
+	{
+		"id": "801713c5-dd17-4bd0-bfbf-04ddfca11d9f",
+		"name": "Amstel",
+		"marketPrice": "3.00",
+		"stock": 12,
+		"description": "Se beber não dirija",
+		"discount": "0.10",
+		"createdAt": "2022-09-07T19:06:35.160Z",
+		"updatedAt": "2022-09-07T20:10:57.077Z",
+		"category": {
+			"id": "87066b82-b392-4fe7-a06e-dc2fa26e1415",
+			"name": "bebidas"
+		}
+	}
 ]
 ```
 
@@ -147,7 +271,7 @@ Nenhum, o máximo que pode acontecer é retornar uma lista vazia.
 
 ---
 
-### 1.3. **Listar Fornecedor por ID**
+### 1.3. **Listar Produto por ID**
 
 ### `/products/:id`
 
@@ -179,18 +303,18 @@ Vazio
 
 ```json
 {
-  "id": "801713c5-dd17-4bd0-bfbf-04ddfca11d9f",
-  "name": "Amstel",
-  "marketPrice": "3.00",
-  "stock": 12,
-  "description": "Se beber não dirija",
-  "discount": "0.10",
-  "createdAt": "2022-09-07T19:06:35.160Z",
-  "updatedAt": "2022-09-07T20:10:57.077Z",
-  "category": {
-    "id": "87066b82-b392-4fe7-a06e-dc2fa26e1415",
-    "name": "bebidas"
-  }
+	"id": "801713c5-dd17-4bd0-bfbf-04ddfca11d9f",
+	"name": "Amstel",
+	"marketPrice": "3.00",
+	"stock": 12,
+	"description": "Se beber não dirija",
+	"discount": "0.10",
+	"createdAt": "2022-09-07T19:06:35.160Z",
+	"updatedAt": "2022-09-07T20:10:57.077Z",
+	"category": {
+		"id": "87066b82-b392-4fe7-a06e-dc2fa26e1415",
+		"name": "bebidas"
+	}
 }
 ```
 
@@ -202,9 +326,9 @@ Vazio
 
 ---
 
-### 1.4. **Atualizar Fornecedor**
+### 1.4. **Atualizar Produto**
 
-### `/products`
+### `/products/:id`
 
 ### Exemplo de Request:
 
@@ -224,7 +348,7 @@ Content-type: application/json
 
 ```json
 {
-  "marketPrice": 6
+	"marketPrice": 6
 }
 ```
 
@@ -249,18 +373,18 @@ OBS.: Chaves não presentes no schema serão removidas.
 
 ```json
 {
-  "id": "801713c5-dd17-4bd0-bfbf-04ddfca11d9f",
-  "name": "Amstel",
-  "marketPrice": "6.00",
-  "stock": 12,
-  "description": "Se beber não dirija",
-  "discount": "0.10",
-  "createdAt": "2022-09-07T19:06:35.160Z",
-  "updatedAt": "2022-09-07T20:10:57.077Z",
-  "category": {
-    "id": "87066b82-b392-4fe7-a06e-dc2fa26e1415",
-    "name": "bebidas"
-  }
+	"id": "801713c5-dd17-4bd0-bfbf-04ddfca11d9f",
+	"name": "Amstel",
+	"marketPrice": "6.00",
+	"stock": 12,
+	"description": "Se beber não dirija",
+	"discount": "0.10",
+	"createdAt": "2022-09-07T19:06:35.160Z",
+	"updatedAt": "2022-09-07T20:10:57.077Z",
+	"category": {
+		"id": "87066b82-b392-4fe7-a06e-dc2fa26e1415",
+		"name": "bebidas"
+	}
 }
 ```
 
@@ -304,7 +428,7 @@ Vazio
 
 ```json
 {
-  "message": "Product deleted successfully"
+	"message": "Product deleted successfully"
 }
 ```
 
@@ -316,15 +440,28 @@ Vazio
 
 ---
 
-### 2. /carts
+### 2. /cart
 
-| Método | Rota       | Descrição                                                       | Autorizaçao | Adm |
-| ------ | ---------- | --------------------------------------------------------------- | ----------- | --- |
-| POST   | /carts     | Criação de um carrinho. Rota deve atualizar fidelity points     | X           |     |
-| GET    | /carts     | Lista todos os carrinhos.                                       | X           |     |
-| GET    | /carts/:id | Lista um carrinho usando seu ID como parâmetro.                 | X           |     |
-| PATCH  | /carts/:id | Atualiza um carrinho como vendido usando seu ID como paramêtro. | X           |     |
-| DELETE | /carts/:id | Deleta o carrinho.                                              | X           | X   |
+O objeto Cart é definido como:
+
+| Campo             | Tipo    | Descrição                           |
+| ----------------- | ------- | ----------------------------------- |
+| id                | string  | Identificador único do carrinho.    |
+| totalPrice        | number  | valor total do carrinho.            |
+| sold              | boolean | Se o carrinho já foi vendido.       |
+| employeeId        | string  | Funcionário que vendeu o carrinho.  |
+| loyaltyCustomerId | string  | Cliente dono do carrinho.           |
+| createdAt         | Date    | Data que o carrinho foi cadastrado. |
+
+### Endpoints
+
+| Método | Rota      | Descrição                                                       | Autorizaçao | Adm |
+| ------ | --------- | --------------------------------------------------------------- | ----------- | --- |
+| POST   | /cart     | Criação de um carrinho. Rota deve atualizar fidelity points     | X           |     |
+| GET    | /cart     | Lista todos os carrinhos.                                       | X           |     |
+| GET    | /cart/:id | Lista um carrinho usando seu ID como parâmetro.                 | X           |     |
+| PATCH  | /cart/:id | Atualiza um carrinho como vendido usando seu ID como paramêtro. | X           |     |
+| DELETE | /cart/:id | Deleta o carrinho.                                              | X           | X   |
 
 ### 2.1. **Criação de Cart**
 
@@ -342,8 +479,8 @@ Content-type: application/json
 
 ```json
 {
-  "employeeId": "9cda28c9-e540-4b2c-bf0c-c90006d32893",
-  "loyaltyCustomerId": "9cda28c9-e540-4b2c-bf0c-c90006d32893"
+	"employeeId": "9cda28c9-e540-4b2c-bf0c-c90006d32893",
+	"loyaltyCustomerId": "9cda28c9-e540-4b2c-bf0c-c90006d32893"
 }
 ```
 
@@ -367,12 +504,12 @@ OBS.: Chaves não presentes no schema serão removidas.
 
 ```json
 {
-  "id": "9cda28c9-e540-4b2c-bf0c-c90006d32891",
-  "totalPrice": 0,
-  "createdAt": "1995-12-17T03:24:00",
-  "sold": false,
-  "employeeId": "9cda28c9-e540-4b2c-bf0c-c90006d32892",
-  "loyaltyCustomerId": "9cda28c9-e540-4b2c-bf0c-c90006d32893"
+	"id": "9cda28c9-e540-4b2c-bf0c-c90006d32891",
+	"totalPrice": 0,
+	"createdAt": "1995-12-17T03:24:00",
+	"sold": false,
+	"employeeId": "9cda28c9-e540-4b2c-bf0c-c90006d32892",
+	"loyaltyCustomerId": "9cda28c9-e540-4b2c-bf0c-c90006d32893"
 }
 ```
 
@@ -445,7 +582,7 @@ Nenhum, o máximo que pode acontecer é retornar uma lista vazia.
 ### Exemplo de Request:
 
 ```
-GET /cart/9cda28c9-e540-4b2c-bf0c-c90006d37893/products
+GET /cart/9cda28c9-e540-4b2c-bf0c-c90006d37893
 Authorization: Bearer token
 Content-type: application/json
 ```
@@ -551,11 +688,11 @@ Vazio
 ### Exemplo de Response:
 
 ```
-202 Accepted
+204 No content
 ```
 
 ```json
-Deleted with success
+No body returned for response
 ```
 
 ### Possíveis Erros:
@@ -564,28 +701,280 @@ Deleted with success
 | -------------- | --------------- |
 | 404 Not Found  | Cart not found. |
 
-### 3. /productsCart
+### 3. /productscart
 
-| Método | Rota                  | Descrição                                                           | Autorizaçao | Adm |
-| ------ | --------------------- | ------------------------------------------------------------------- | ----------- | --- |
-| GET    | /productsCart         | Listar todos os produtos vendidos                                   | X           | X   |
-| POST   | /productsCart/:idCart | Adicionar produtos ao carrinho. Deve atualizar o estoque do produto | X           |     |
-| DELETE | /cart/:id             | Deleta o carrinho. Deve atualizar o estoque do produto              | X           | X   |
+O objeto productCart é definido como:
+
+| Campo    | Tipo   | Descrição                                                 |
+| -------- | ------ | --------------------------------------------------------- |
+| id       | string | Identificador único do produto no carrinho.               |
+| quantity | number | Qauntidade do produto que vai ser adicionado no carrinho. |
+| product  | object | O produto que vai ser adicionado ao carrinho.             |
+
+### Endpoints
+
+| Método | Rota                     | Descrição                                           | Autorizaçao | Adm |
+| ------ | ------------------------ | --------------------------------------------------- | ----------- | --- |
+| POST   | /productsCart/:cartId    | Adicionar produtos ao carrinho e atualiza o estoque | X           | X   |
+| GET    | /productsCart            | Lista todos os produtos vendidos                    | X           | X   |
+| GET    | /productsCart/:productId | Lista todas as vendas de um produto                 | X           | X   |
+| DELETE | /productcart/:id         | Deleta o produto do carrinho e atualiza o estoque   | X           | X   |
+
+---
+
+### 3.1. **Adiciona um Produto ao Carrinho**
+
+### `/productscart/:cartId`
+
+### Exemplo de Request:
+
+```
+POST /productscart/:cartId
+Host:
+Authorization: Bearer token
+Content-type: application/json
+```
+
+### Parâmetros da Requisição:
+
+| Parâmetro | Tipo   | Descrição                   |
+| --------- | ------ | --------------------------- |
+| cartId    | string | Identificador único do cart |
+
+### Corpo da Requisição:
+
+```json
+{
+	"productId": "a2c9df1f-69fb-4150-8851-63f29c099ec5",
+	"quantity": 2
+}
+```
+
+### Schema de Validação com Yup:
+
+```javascript
+  quantity: yup.number().required(),
+  productId: yup.string().required()
+```
+
+OBS.: Chaves não presentes no schema serão removidas.
+
+### Exemplo de Response:
+
+```
+201 Created
+
+```
+
+```json
+{
+	"id": "3bb42c0d-a9c8-4e0e-884f-b1c17e398814",
+	"quantity": 2,
+	"product": {
+		"id": "a2c9df1f-69fb-4150-8851-63f29c099ec5",
+		"name": "Refrigerante de coca",
+		"marketPrice": "6.00",
+		"stock": 11,
+		"description": "Refrescante bebida de coca",
+		"discount": "0.20",
+		"createdAt": "2022-09-08T17:17:06.701Z",
+		"updatedAt": "2022-09-08T18:02:03.624Z",
+		"category": {
+			"id": "6ae2cf50-fccd-4167-8368-5f4fe8f6943d",
+			"name": "bebidas"
+		}
+	}
+}
+```
+
+### Possíveis Erros:
+
+| Código do Erro | Descrição          |
+| -------------- | ------------------ |
+| 404 Not Found  | Cart not found.    |
+| 404 Not Found  | Product not found. |
+| 409 Conflict   | Cart already sold. |
+
+---
+
+### 3.2. **Listando Todas as Vendas**
+
+### `/productscart`
+
+### Exemplo de Request:
+
+```
+GET /productscart
+Host:
+Authorization: Bearer token
+Content-type: application/json
+```
+
+### Corpo da Requisição:
+
+```json
+Vazio
+```
+
+### Exemplo de Response:
+
+```
+200 OK
+
+```
+
+```json
+[
+	{
+		"id": "06663188-a389-4f70-a7a9-1fefdee6a671",
+		"quantity": 2,
+		"product": {
+			"id": "d84f5c19-ae64-47de-93cb-4b249dac776e",
+			"name": "Refrigerante de guaraná",
+			"marketPrice": "6.00",
+			"stock": -9,
+			"description": "Refrescante bebida de guaraná",
+			"discount": "0.20",
+			"createdAt": "2022-09-08T14:53:05.195Z",
+			"updatedAt": "2022-09-08T18:02:39.904Z",
+			"category": {
+				"id": "6ae2cf50-fccd-4167-8368-5f4fe8f6943d",
+				"name": "bebidas"
+			}
+		}
+	}
+]
+```
+
+### Possíveis Erros:
+
+Nenhum, o máximo que pode acontecer é retornar uma lista vazia.
+
+---
+
+### 3.3. **Lista as Vendas por Produto**
+
+### `/productscart/:productId`
+
+### Exemplo de Request:
+
+```
+GET /productscart/:productId
+Host:
+Authorization: Bearer token
+Content-type: application/json
+```
+
+### Parâmetros da Requisição:
+
+| Parâmetro | Tipo   | Descrição                      |
+| --------- | ------ | ------------------------------ |
+| productId | string | Identificador único do produto |
+
+### Corpo da Requisição:
+
+```json
+Vazio
+```
+
+### Exemplo de Response:
+
+```
+200 OK
+```
+
+```json
+[
+	{
+		"id": "06663188-a389-4f70-a7a9-1fefdee6a671",
+		"quantity": 2,
+		"product": {
+			"id": "d84f5c19-ae64-47de-93cb-4b249dac776e",
+			"name": "Refrigerante de guaraná",
+			"marketPrice": "6.00",
+			"stock": -9,
+			"description": "Refrescante bebida de guaraná",
+			"discount": "0.20",
+			"createdAt": "2022-09-08T14:53:05.195Z",
+			"updatedAt": "2022-09-08T18:02:39.904Z",
+			"category": {
+				"id": "6ae2cf50-fccd-4167-8368-5f4fe8f6943d",
+				"name": "bebidas"
+			}
+		}
+	}
+]
+```
+
+### Possíveis Erros:
+
+Nenhum, o máximo que pode acontecer é retornar uma lista vazia.
+
+---
+
+### 3.4. **Deletar Produto do Carrinho**
+
+### `/productcart/:id `
+
+### Exemplo de Request:
+
+```
+DELETE /productcart/:id
+Host:
+Authorization: Bearer Token
+Content-type: application/json
+```
+
+### Parâmetros da Requisição:
+
+| Parâmetro | Tipo   | Descrição                                  |
+| --------- | ------ | ------------------------------------------ |
+| id        | string | Identificador único do produto no carrinho |
+
+### Corpo da Requisição:
+
+```json
+Vazio
+```
+
+### Exemplo de Response:
+
+```
+204 No Content
+```
+
+```json
+No body returned for response
+```
+
+### Possíveis Erros:
+
+| Código do Erro | Descrição                  |
+| -------------- | -------------------------- |
+| 404 Not Found  | Product not found in cart. |
+| 404 Not Found  | Product not found.         |
+| 409 Not Found  | Cart already sold.         |
+
+---
 
 ### 4. /employees
 
-| Método | Rota           | Descrição                                                       | Autorizaçao | Adm |
-| ------ | -------------- | --------------------------------------------------------------- | ----------- | --- |
-| GET    | /employees     | Lista todos os funcionários.                                    | X           | X   |
-| GET    | /employees/:id | Lista um funcionário usando seu ID como parâmetro.              | X           | X   |
-| POST   | /employees     | Criação de um funcionário.                                      |             |     |
-| PATCH  | /employees/:id | Atualiza os funcionários.                                       | X           | X   |
-| DELETE | /employees/:id | Deleta os funcionários. Soft delete (mudar isActive para false) | X           | X   |
+O objeto employee é definido como:
+
+| Campo     | Tipo    | Descrição                              |
+| --------- | ------- | -------------------------------------- |
+| id        | string  | Identificador único do employee.       |
+| name      | string  | Nome do funcionário.                   |
+| email     | string  | Email do funcionário.                  |
+| isAdm     | boolean | Se o funcionário é adiministrador.     |
+| isActive  | string  | Se o funcinário é ativo.               |
+| createdAt | Date    | Data que o funcionário foi cadastrado. |
+| updatedAt | Date    | Data que o funcionário foi atualizado. |
 
 ### Endpoints
 
 | Método | Rota           | Descrição                         | Autorizaçao | Adm |
-| ------ | -------------- | -------------------------------   | ----------- | --- |
+| ------ | -------------- | --------------------------------- | ----------- | --- |
 | POST   | /employees     | Criação de um funcionário.        | X           | X   |
 | GET    | /employees     | Lista todos os funcionários.      | X           | X   |
 | GET    | /employees/:id | Lista um funcionário especifico.  | X           | X   |
@@ -594,7 +983,7 @@ Deleted with success
 
 ---
 
-### 8.1. **Criação do Funcionário**
+### 4.1. **Criação do Funcionário**
 
 ### `/employees`
 
@@ -610,10 +999,10 @@ Content-type: application/json
 
 ```json
 {
-  "name": "Daniel Josias",
-  "email": "danieljosias@mail.com",
-  "password": "123",
-  "isAdm": true,
+	"name": "Daniel Josias",
+	"email": "danieljosias@mail.com",
+	"password": "123",
+	"isAdm": true
 }
 ```
 
@@ -637,7 +1026,7 @@ OBS.: Chaves não presentes no schema serão removidas.
 
 ```json
 {
-  "id": "96aeb523-350c-48a2-97c6-ddee624575fb",
+	"id": "96aeb523-350c-48a2-97c6-ddee624575fb",
 	"name": "Daniel Josias",
 	"email": "danieljosias@kenzie.com",
 	"isAdm": true,
@@ -645,19 +1034,18 @@ OBS.: Chaves não presentes no schema serão removidas.
 	"createdAt": "2022-09-07T19:54:34.094Z",
 	"updatedAt": "2022-09-07T19:54:34.094Z"
 }
-
 ```
 
 ### Possíveis Erros:
 
 | Código do Erro  | Descrição                 |
-| --------------  | ------------------------- |
+| --------------- | ------------------------- |
 | 400 Bad Request | Email already registered. |
 | 400 Bad Request | Required field.           |
- 
+
 ---
 
-### 8.2. **Listando Funcionários**
+### 4.2. **Listando Funcionários**
 
 ### `/employees`
 
@@ -684,7 +1072,6 @@ Vazio
 ```
 
 ```json
-
 [
 	{
 		"id": "6067c01f-380b-4879-8685-52a408bf5a71",
@@ -696,7 +1083,6 @@ Vazio
 		"updatedAt": "2022-09-07T19:46:12.280Z"
 	}
 ]
-
 ```
 
 ### Possíveis Erros:
@@ -705,7 +1091,7 @@ Nenhum, o máximo que pode acontecer é retornar uma lista vazia.
 
 ---
 
-### 8.3. **Listar Funcionário por ID**
+### 4.3. **Listar Funcionário por ID**
 
 ### `/employees/:id`
 
@@ -720,9 +1106,9 @@ Content-type: application/json
 
 ### Parâmetros da Requisição:
 
-| Parâmetro  | Tipo   | Descrição                         |
-| ---------- | ------ | --------------------------------- |
-| id | string| Identificador único do fornecedor |
+| Parâmetro | Tipo   | Descrição                         |
+| --------- | ------ | --------------------------------- |
+| id        | string | Identificador único do fornecedor |
 
 ### Corpo da Requisição:
 
@@ -751,13 +1137,13 @@ Vazio
 
 ### Possíveis Erros:
 
-| Código do Erro | Descrição           |
-| -------------- | ------------------- |
+| Código do Erro | Descrição            |
+| -------------- | -------------------- |
 | 404 Not Found  | Employees not found. |
 
 ---
 
-### 8.4. **Atualizar Funcionário**
+### 4.4. **Atualizar Funcionário**
 
 ### `/employees/:id`
 
@@ -772,15 +1158,15 @@ Content-type: application/json
 
 ### Parâmetros da Requisição:
 
-| Parâmetro  | Tipo   | Descrição                         |
-| ---------- | ------ | --------------------------------- |
-| id | string| Identificador único do fornecedor |
+| Parâmetro | Tipo   | Descrição                         |
+| --------- | ------ | --------------------------------- |
+| id        | string | Identificador único do fornecedor |
 
 ### Corpo da Requisição:
 
 ```json
 {
-  "name": "Daniel"
+	"name": "Daniel"
 }
 ```
 
@@ -823,7 +1209,7 @@ OBS.: Chaves não presentes no schema serão removidas.
 
 ---
 
-### 8.5. **Deletar Fornecedor por ID**
+### 4.5. **Deletar Funcionario por ID**
 
 ### `/employees/:id`
 
@@ -838,9 +1224,9 @@ Content-type: application/json
 
 ### Parâmetros da Requisição:
 
-| Parâmetro  | Tipo   | Descrição                         |
-| ---------- | ------ | --------------------------------- |
-| id | string| Identificador único do fornecedor |
+| Parâmetro | Tipo   | Descrição                         |
+| --------- | ------ | --------------------------------- |
+| id        | string | Identificador único do fornecedor |
 
 ### Corpo da Requisição:
 
@@ -860,8 +1246,8 @@ No body returned for response
 
 ### Possíveis Erros:
 
-| Código do Erro | Descrição           |
-| -------------- | ------------------- |
+| Código do Erro | Descrição            |
+| -------------- | -------------------- |
 | 404 Not Found  | Employees not found. |
 
 ---
@@ -915,8 +1301,8 @@ Content-type: application/json
 
 ```json
 {
-  "name": "Gabriel",
-  "email": "gabriel@mail.com"
+	"name": "Gabriel",
+	"email": "gabriel@mail.com"
 }
 ```
 
@@ -937,13 +1323,13 @@ OBS.: Chaves não presentes no schema serão removidas.
 
 ```json
 {
-  "name": "Gabriel",
-  "email": "gabriel@mail.com",
-  "id": "68ee5317-3d40-4c88-b590-18d5bbfeaec3",
-  "fidelityPoints": 0,
-  "isActive": true,
-  "createdAt": "2022-09-07T20:13:50.871Z",
-  "updatedAt": "2022-09-07T20:13:50.871Z"
+	"name": "Gabriel",
+	"email": "gabriel@mail.com",
+	"id": "68ee5317-3d40-4c88-b590-18d5bbfeaec3",
+	"fidelityPoints": 0,
+	"isActive": true,
+	"createdAt": "2022-09-07T20:13:50.871Z",
+	"updatedAt": "2022-09-07T20:13:50.871Z"
 }
 ```
 
@@ -982,24 +1368,24 @@ Vazio
 
 ```json
 [
-  {
-    "id": "43224513-26f4-45a4-a3d9-cd94a6a0be49",
-    "name": "Gabriel",
-    "email": "gabriel@mail.com",
-    "fidelityPoints": 50,
-    "isActive": true,
-    "createdAt": "2022-09-07T16:07:55.888Z",
-    "updatedAt": "2022-09-07T17:45:02.657Z"
-  },
-  {
-    "id": "70a3a183-64c8-45c8-b6d4-bcc876a7be3a",
-    "name": "Gustavo",
-    "email": "gustavo@mail.com",
-    "fidelityPoints": 0,
-    "isActive": false,
-    "createdAt": "2022-09-07T17:39:02.299Z",
-    "updatedAt": "2022-09-07T17:54:36.710Z"
-  }
+	{
+		"id": "43224513-26f4-45a4-a3d9-cd94a6a0be49",
+		"name": "Gabriel",
+		"email": "gabriel@mail.com",
+		"fidelityPoints": 50,
+		"isActive": true,
+		"createdAt": "2022-09-07T16:07:55.888Z",
+		"updatedAt": "2022-09-07T17:45:02.657Z"
+	},
+	{
+		"id": "70a3a183-64c8-45c8-b6d4-bcc876a7be3a",
+		"name": "Gustavo",
+		"email": "gustavo@mail.com",
+		"fidelityPoints": 0,
+		"isActive": false,
+		"createdAt": "2022-09-07T17:39:02.299Z",
+		"updatedAt": "2022-09-07T17:54:36.710Z"
+	}
 ]
 ```
 
@@ -1016,7 +1402,7 @@ Nenhum, o máximo que pode acontecer é retornar uma lista vazia.
 ### Exemplo de Request:
 
 ```
-GET /users/:id
+GET /loyaltycustomers/:id
 Host:
 Authorization: Bearer token
 Content-type: application/json
@@ -1042,13 +1428,13 @@ Vazio
 
 ```json
 {
-  "id": "70a3a183-64c8-45c8-b6d4-bcc876a7be3a",
-  "name": "gabriel",
-  "email": "gabriel@mail.com",
-  "fidelityPoints": 0,
-  "isActive": false,
-  "createdAt": "2022-09-07T17:39:02.299Z",
-  "updatedAt": "2022-09-07T17:54:36.710Z"
+	"id": "70a3a183-64c8-45c8-b6d4-bcc876a7be3a",
+	"name": "gabriel",
+	"email": "gabriel@mail.com",
+	"fidelityPoints": 0,
+	"isActive": false,
+	"createdAt": "2022-09-07T17:39:02.299Z",
+	"updatedAt": "2022-09-07T17:54:36.710Z"
 }
 ```
 
@@ -1083,7 +1469,7 @@ Content-type: application/json
 
 ```json
 {
-  "name": "Matheus"
+	"name": "Matheus"
 }
 ```
 
@@ -1105,13 +1491,13 @@ OBS.: Chaves não presentes no schema serão removidas.
 
 ```json
 {
-  "id": "70a3a183-64c8-45c8-b6d4-bcc876a7be3a",
-  "name": "Matheus",
-  "email": "gabriel@mail.com",
-  "fidelityPoints": 0,
-  "isActive": false,
-  "createdAt": "2022-09-07T17:39:02.299Z",
-  "updatedAt": "2022-09-07T17:54:36.710Z"
+	"id": "70a3a183-64c8-45c8-b6d4-bcc876a7be3a",
+	"name": "Matheus",
+	"email": "gabriel@mail.com",
+	"fidelityPoints": 0,
+	"isActive": false,
+	"createdAt": "2022-09-07T17:39:02.299Z",
+	"updatedAt": "2022-09-07T17:54:36.710Z"
 }
 ```
 
@@ -1169,6 +1555,15 @@ No body returned for response
 
 ### 7. /categories
 
+O objeto category é definido como:
+
+| Campo | Tipo   | Descrição                         |
+| ----- | ------ | --------------------------------- |
+| id    | string | Identificador único do categoria. |
+| name  | string | O nome da categoria.              |
+
+### Endpoints
+
 | Método | Rota                             | Descrição                                                        | Autorizaçao | Adm |
 | ------ | -------------------------------- | ---------------------------------------------------------------- | ----------- | --- |
 | GET    | /categories                      | Lista todos as categorias.                                       | X           |     |
@@ -1195,7 +1590,7 @@ Content-type: application/json
 
 ```json
 {
-  "name": "Bebidas"
+	"name": "Bebidas"
 }
 ```
 
@@ -1217,8 +1612,8 @@ OBS.: Chaves não presentes no schema serão removidas.
 
 ```json
 {
-  "id": "9cda28c9-e540-4b2c-bf0c-c90006d37893",
-  "name": "Eduardo"
+	"id": "9cda28c9-e540-4b2c-bf0c-c90006d37893",
+	"name": "Eduardo"
 }
 ```
 
@@ -1256,14 +1651,14 @@ Vazio
 
 ```json
 [
-  {
-    "id": "9cda28c9-e540-4b2c-bf0c-c90006d37893",
-    "name": "Bebidas"
-  },
-  {
-    "id": "9cda28c9-e540-4b2c-bf0c-c90006d37893",
-    "name": "Bebidas"
-  }
+	{
+		"id": "9cda28c9-e540-4b2c-bf0c-c90006d37893",
+		"name": "Bebidas"
+	},
+	{
+		"id": "9cda28c9-e540-4b2c-bf0c-c90006d37893",
+		"name": "Bebidas"
+	}
 ]
 ```
 
@@ -1336,7 +1731,7 @@ Content-type: application/json
 
 ```json
 {
-  "name": "Refrigerantes"
+	"name": "Refrigerantes"
 }
 ```
 
@@ -1355,7 +1750,7 @@ OBS.: Chaves não presentes no schema serão removidas.
 ### Exemplo de Response:
 
 ```
-202 Accepted
+200 Ok
 ```
 
 ```json
@@ -1398,7 +1793,7 @@ Vazio
 ### Exemplo de Response:
 
 ```
-202 Accepted
+204 No Content
 ```
 
 ```json
@@ -1458,10 +1853,10 @@ Content-type: application/json
 
 ```json
 {
-  "name": "MatheusDeliver",
-  "cnpj": "23272375000120",
-  "phone": "3240-5060",
-  "email": "matheus@mail.com"
+	"name": "MatheusDeliver",
+	"cnpj": "23272375000120",
+	"phone": "3240-5060",
+	"email": "matheus@mail.com"
 }
 ```
 
@@ -1484,13 +1879,13 @@ OBS.: Chaves não presentes no schema serão removidas.
 
 ```json
 {
-  "id": "3aa0fb96-57b7-4b7a-a535-84d91f825d5c",
-  "name": "MatheusDeliver",
-  "cnpj": "23272375000120",
-  "phone": "3240-5060",
-  "email": "matheus@mail.com",
-  "createdAt": "2022-09-07T18:11:38.245Z",
-  "updatedAt": "2022-09-07T18:11:38.245Z"
+	"id": "3aa0fb96-57b7-4b7a-a535-84d91f825d5c",
+	"name": "MatheusDeliver",
+	"cnpj": "23272375000120",
+	"phone": "3240-5060",
+	"email": "matheus@mail.com",
+	"createdAt": "2022-09-07T18:11:38.245Z",
+	"updatedAt": "2022-09-07T18:11:38.245Z"
 }
 ```
 
@@ -1530,15 +1925,15 @@ Vazio
 
 ```json
 [
-  {
-    "id": "a370273b-fb11-4715-952d-d57928516702",
-    "name": "MatheusDeliver",
-    "cnpj": "23272375000121",
-    "phone": "3240-5060",
-    "email": "matheus@mail.com",
-    "createdAt": "2022-09-07T18:18:53.684Z",
-    "updatedAt": "2022-09-07T18:18:53.684Z"
-  }
+	{
+		"id": "a370273b-fb11-4715-952d-d57928516702",
+		"name": "MatheusDeliver",
+		"cnpj": "23272375000121",
+		"phone": "3240-5060",
+		"email": "matheus@mail.com",
+		"createdAt": "2022-09-07T18:18:53.684Z",
+		"updatedAt": "2022-09-07T18:18:53.684Z"
+	}
 ]
 ```
 
@@ -1581,13 +1976,13 @@ Vazio
 
 ```json
 {
-  "id": "a370273b-fb11-4715-952d-d57928516702",
-  "name": "MatheusDeliver",
-  "cnpj": "23272375000121",
-  "phone": "3240-5060",
-  "email": "matheus@mail.com",
-  "createdAt": "2022-09-07T18:18:53.684Z",
-  "updatedAt": "2022-09-07T18:18:53.684Z"
+	"id": "a370273b-fb11-4715-952d-d57928516702",
+	"name": "MatheusDeliver",
+	"cnpj": "23272375000121",
+	"phone": "3240-5060",
+	"email": "matheus@mail.com",
+	"createdAt": "2022-09-07T18:18:53.684Z",
+	"updatedAt": "2022-09-07T18:18:53.684Z"
 }
 ```
 
@@ -1622,7 +2017,7 @@ Content-type: application/json
 
 ```json
 {
-  "name": "Deliverdex"
+	"name": "Deliverdex"
 }
 ```
 
@@ -1645,21 +2040,21 @@ OBS.: Chaves não presentes no schema serão removidas.
 
 ```json
 {
-  "id": "a370273b-fb11-4715-952d-d57928516702",
-  "name": "Deliverdex",
-  "cnpj": "23272375000121",
-  "phone": "3240-5060",
-  "email": "matheus@mail.com",
-  "createdAt": "2022-09-07T18:18:53.684Z",
-  "updatedAt": "2022-09-07T19:09:57.555Z"
+	"id": "a370273b-fb11-4715-952d-d57928516702",
+	"name": "Deliverdex",
+	"cnpj": "23272375000121",
+	"phone": "3240-5060",
+	"email": "matheus@mail.com",
+	"createdAt": "2022-09-07T18:18:53.684Z",
+	"updatedAt": "2022-09-07T19:09:57.555Z"
 }
 ```
 
 ### Possíveis Erros:
 
-| Código do Erro | Descrição          |
-| -------------- | ------------------ |
-| 404 Not Found  | Supplier not found |
+| Código do Erro | Descrição           |
+| -------------- | ------------------- |
+| 404 Not Found  | Supplier not found. |
 
 ---
 
@@ -1748,10 +2143,10 @@ Content-type: application/json
 
 ```json
 {
-  "name": "Coca-Cola",
-  "costPrice": 4,
-  "categoryId": "65e6dc04-1869-4e33-b31d-8fa46784af5d",
-  "supplierId": "ff7bc655-62fa-4cd9-ae1d-219dc8511b6d"
+	"name": "Coca-Cola",
+	"costPrice": 4,
+	"categoryId": "65e6dc04-1869-4e33-b31d-8fa46784af5d",
+	"supplierId": "ff7bc655-62fa-4cd9-ae1d-219dc8511b6d"
 }
 ```
 
@@ -1774,22 +2169,22 @@ OBS.: Chaves não presentes no schema serão removidas.
 
 ```json
 {
-  "name": "Coca-Cola",
-  "costPrice": 4,
-  "supplier": {
-    "id": "ff7bc655-62fa-4cd9-ae1d-219dc8511b6d",
-    "name": "Bebidas de qualidade",
-    "cnpj": "23272375000153",
-    "phone": "3240-5061",
-    "email": "matheus3@mail.com",
-    "createdAt": "2022-09-08T11:43:38.907Z",
-    "updatedAt": "2022-09-08T11:43:38.907Z"
-  },
-  "category": {
-    "id": "65e6dc04-1869-4e33-b31d-8fa46784af5d",
-    "name": "bebidas"
-  },
-  "id": "b783a941-1dd4-453a-bc2f-7d0475553ce9"
+	"name": "Coca-Cola",
+	"costPrice": 4,
+	"supplier": {
+		"id": "ff7bc655-62fa-4cd9-ae1d-219dc8511b6d",
+		"name": "Bebidas de qualidade",
+		"cnpj": "23272375000153",
+		"phone": "3240-5061",
+		"email": "matheus3@mail.com",
+		"createdAt": "2022-09-08T11:43:38.907Z",
+		"updatedAt": "2022-09-08T11:43:38.907Z"
+	},
+	"category": {
+		"id": "65e6dc04-1869-4e33-b31d-8fa46784af5d",
+		"name": "bebidas"
+	},
+	"id": "b783a941-1dd4-453a-bc2f-7d0475553ce9"
 }
 ```
 
@@ -1828,24 +2223,24 @@ Vazio
 
 ```json
 [
-  {
-    "id": "b783a941-1dd4-453a-bc2f-7d0475553ce9",
-    "name": "Coca-Cola",
-    "costPrice": "4.00",
-    "supplier": {
-      "id": "ff7bc655-62fa-4cd9-ae1d-219dc8511b6d",
-      "name": "Bebidas de qualidade",
-      "cnpj": "23272375000153",
-      "phone": "3240-5061",
-      "email": "matheus3@mail.com",
-      "createdAt": "2022-09-08T11:43:38.907Z",
-      "updatedAt": "2022-09-08T11:43:38.907Z"
-    },
-    "category": {
-      "id": "65e6dc04-1869-4e33-b31d-8fa46784af5d",
-      "name": "bebidas"
-    }
-  }
+	{
+		"id": "b783a941-1dd4-453a-bc2f-7d0475553ce9",
+		"name": "Coca-Cola",
+		"costPrice": "4.00",
+		"supplier": {
+			"id": "ff7bc655-62fa-4cd9-ae1d-219dc8511b6d",
+			"name": "Bebidas de qualidade",
+			"cnpj": "23272375000153",
+			"phone": "3240-5061",
+			"email": "matheus3@mail.com",
+			"createdAt": "2022-09-08T11:43:38.907Z",
+			"updatedAt": "2022-09-08T11:43:38.907Z"
+		},
+		"category": {
+			"id": "65e6dc04-1869-4e33-b31d-8fa46784af5d",
+			"name": "bebidas"
+		}
+	}
 ]
 ```
 
@@ -1899,144 +2294,38 @@ No body returned for response
 
 ### 10. /orderproducts
 
-| Método | Rota               | Descrição                                    | Autorizaçao | Adm |
-| ------ | ------------------ | -------------------------------------------- | ----------- | --- |
-| GET    | /orderproducts     | Lista todas as ordens de compra de produtos. | X           | X   |
-| POST   | /orderproducts     | Criação de ordem de compra para um produto.  | X           | X   |
-| DELETE | /orderproducts/:id | Deletar ordem de compra.                     | X           | X   |
+O objeto Supplier é definido como:
 
-# Documentação da API
-
-## Tabela de Conteúdos
-
-- [Visão Geral](#1-visão-geral)
-- [Diagrama ER](#2-diagrama-er)
-- [Início Rápido](#3-início-rápido)
-  - [Instalando Dependências](#31-instalando-dependências)
-  - [Variáveis de Ambiente](#32-variáveis-de-ambiente)
-  - [Migrations](#33-migrations)
-- [Autenticação](#4-autenticação)
-- [Endpoints](#5-endpoints)
+| Campo     | Tipo   | Descrição                             |
+| --------- | ------ | ------------------------------------- |
+| id        | string | Identificador único do fornecedor.    |
+| name      | string | O nome do fornecedor.                 |
+| email     | string | O e-mail único do fornecedor.         |
+| cnpj      | string | O cnpj único do fornecedor.           |
+| phone     | string | Telefone para contato do fornecedor.  |
+| createdAt | Date   | Data que o fornecedor foi cadastrado. |
+| updatedAt | Date   | Data que o fornecedor foi atualizado. |
 
 ---
 
-## 1. Visão Geral
-
-Visão geral do projeto, um pouco das tecnologias usadas.
-
-- [NodeJS](https://nodejs.org/en/)
-- [Express](https://expressjs.com/pt-br/)
-- [TypeScript](https://www.typescriptlang.org/)
-- [PostgreSQL](https://www.postgresql.org/)
-- [TypeORM](https://typeorm.io/)
-- [Yup](https://www.npmjs.com/package/yup)
-
-A URL base da aplicação:
-http://suaapi.com/v1
+| Método | Rota                           | Descrição                                    | Autorizaçao | Adm |
+| ------ | ------------------------------ | -------------------------------------------- | ----------- | --- |
+| POST   | /orderproducts                 | Criação de ordem de compra para um produto.  | X           | X   |
+| GET    | /orderproducts                 | Lista todas as ordens de compra de produtos. | X           | X   |
+| PATCH  | /orderproducts/isdelivered/:id | Atualizando status de entrega de uma ordem.  | X           | X   |
+| DELETE | /orderproducts/:id             | Deletar ordem de compra.                     | X           | X   |
 
 ---
 
-## 2. Diagrama ER
+### 10.1. **Criação de ordem de compra de um produto**
 
-[ Voltar para o topo ](#tabela-de-conteúdos)
-
-Diagrama ER da API definindo bem as relações entre as tabelas do banco de dados.
-
-![DER](DER_SP7_01.drawio.png)
-
----
-
-## 3. Início Rápido
-
-[ Voltar para o topo ](#tabela-de-conteúdos)
-
-### 3.1. Instalando Dependências
-
-Clone o projeto em sua máquina e instale as dependências com o comando:
-
-```shell
-yarn
-```
-
-### 3.2. Variáveis de Ambiente
-
-Em seguida, crie um arquivo **.env**, copiando o formato do arquivo **.env.example**:
-
-```
-cp .env.example .env
-```
-
-Configure suas variáveis de ambiente com suas credenciais do Postgres e uma nova database da sua escolha.
-
-### 3.3. Migrations
-
-Execute as migrations com o comando:
-
-```
-yarn typeorm migration:run -d src/data-source.ts
-```
-
----
-
-## 4. Autenticação
-
-[ Voltar para o topo ](#tabela-de-conteúdos)
-
-Por enquanto, não foi implementada autenticação.
-
----
-
-## 5. Endpoints
-
-[ Voltar para o topo ](#tabela-de-conteúdos)
-
-### Índice
-
-- [Users](#1-users)
-  - [POST - /users](#11-criação-de-usuário)
-  - [GET - /users](#12-listando-usuários)
-  - [GET - /users/:user_id](#13-listar-usuário-por-id)
-- [Products](#2-products)
-- [Cart](#3-cart)
-- [Users](#4-buys)
-
----
-
-## 1. **Users**
-
-[ Voltar para os Endpoints ](#5-endpoints)
-
-O objeto User é definido como:
-
-| Campo    | Tipo    | Descrição                                    |
-| -------- | ------- | -------------------------------------------- |
-| id       | string  | Identificador único do usuário               |
-| name     | string  | O nome do usuário.                           |
-| email    | string  | O e-mail do usuário.                         |
-| password | string  | A senha de acesso do usuário                 |
-| isAdm    | boolean | Define se um usuário é Administrador ou não. |
-
-### Endpoints
-
-| Método | Rota            | Descrição                                     |
-| ------ | --------------- | --------------------------------------------- |
-| POST   | /users          | Criação de um usuário.                        |
-| GET    | /users          | Lista todos os usuários                       |
-| GET    | /users/:user_id | Lista um usuário usando seu ID como parâmetro |
-
----
-
-### 1.1. **Criação de Usuário**
-
-[ Voltar para os Endpoints ](#5-endpoints)
-
-### `/users`
+### `/orderproducts`
 
 ### Exemplo de Request:
 
 ```
-POST /users
-Authorization: None
+POST /orderproducts
+Authorization: Bearer token
 Content-type: application/json
 ```
 
@@ -2044,38 +2333,26 @@ Content-type: application/json
 
 ```json
 {
-  "name": "eDuArDo",
-  "email": "edu@mail.com",
-  "password": "1234",
-  "isAdm": true
+	"quantity": 50,
+	"costPrice": 3,
+	"deliverySchedule": "2022-08-18",
+	"isDelivered": false,
+	"supplierProductId": "437f486c-5b94-4542-9658-624d0b57f2f0",
+	"productId": "da118050-9641-4b52-abd8-67ec97f4ec1b"
 }
 ```
+
+OBS.: isDelivered pode ser omitida na requisição, e será atribuído como false por padrão.
 
 ### Schema de Validação com Yup:
 
 ```javascript
-name: yup
-        .string()
-	.required()
-	.transform((value, originalValue) => {
-		return titlelify(originalValue)
-	}),
-email: yup
-        .string()
-	.email()
-	.required()
-	.transform((value, originalValue) => {
-		return originalValue.toLowerCase()
-	}),
-password: yup
-        .string()
-	.required()
-	.transform((value, originalValue) => {
-		return bcrypt.hashSync(originalValue, 10)
-	}),
-isAdm: yup
-        .boolean()
-	.required(),
+quanity: yup.number().required(),
+costPrice: yup.number().required(),
+deliverySchedule: yup.string().required(),
+isDelivered: yup.boolean(),
+supplierProductId: yup.string().required(),
+productId: yup.string().required(),
 ```
 
 OBS.: Chaves não presentes no schema serão removidas.
@@ -2088,32 +2365,66 @@ OBS.: Chaves não presentes no schema serão removidas.
 
 ```json
 {
-  "id": "9cda28c9-e540-4b2c-bf0c-c90006d37893",
-  "name": "Eduardo",
-  "email": "edu@mail.com",
-  "isAdm": true
+	"quantity": 2,
+	"costPrice": 14,
+	"totalPrice": 28,
+	"deliverySchedule": "2022-08-20T03:00:00.000Z",
+	"supplierProduct": {
+		"id": "437f486c-5b94-4542-9658-624d0b57f2f0",
+		"name": "Barra de Chocolate",
+		"costPrice": "3.00",
+		"supplier": {
+			"id": "a370273b-fb11-4715-952d-d57928516702",
+			"name": "Deliverdex",
+			"cnpj": "23272375000121",
+			"phone": "3251-5060",
+			"email": "matheus@mail.com",
+			"createdAt": "2022-09-07T18:18:53.684Z",
+			"updatedAt": "2022-09-07T22:42:47.810Z"
+		},
+		"category": {
+			"id": "69b55ee4-53db-4d47-be40-c5123da43504",
+			"name": "doces"
+		}
+	},
+	"product": {
+		"id": "da118050-9641-4b52-abd8-67ec97f4ec1b",
+		"name": "Barra de chocolate laka",
+		"marketPrice": "6.70",
+		"stock": 30,
+		"description": "Chocolate délis",
+		"discount": "0.25",
+		"createdAt": "2022-09-08T15:42:40.774Z",
+		"updatedAt": "2022-09-08T15:42:40.774Z",
+		"category": {
+			"id": "69b55ee4-53db-4d47-be40-c5123da43504",
+			"name": "doces"
+		}
+	},
+	"id": "937970d6-979c-435a-a74b-e22d8281e6ea",
+	"isDelivered": false,
+	"createdAt": "2022-09-08T16:03:55.471Z"
 }
 ```
 
 ### Possíveis Erros:
 
-| Código do Erro | Descrição                 |
-| -------------- | ------------------------- |
-| 409 Conflict   | Email already registered. |
+| Código do Erro | Descrição                                 |
+| -------------- | ----------------------------------------- |
+| 404 Not Found  | Product not found in market products.     |
+| 404 Not Found  | Product not found in supplier's products. |
 
 ---
 
-### 1.2. **Listando Usuários**
+### 10.2. **Listando todas ordens de compra de um produto**
 
-[ Voltar aos Endpoints ](#5-endpoints)
-
-### `/users`
+### `/orderproducts`
 
 ### Exemplo de Request:
 
 ```
-GET /users
-Authorization: None
+GET /orderproducts
+Authorization: Bearer token
 Content-type: application/json
 ```
 
@@ -2131,12 +2442,47 @@ Vazio
 
 ```json
 [
-  {
-    "id": "9cda28c9-e540-4b2c-bf0c-c90006d37893",
-    "name": "Eduardo",
-    "email": "edu@mail.com",
-    "isAdm": true
-  }
+	{
+		"id": "937970d6-979c-435a-a74b-e22d8281e6ea",
+		"quantity": 2,
+		"costPrice": "14.00",
+		"totalPrice": "28.00",
+		"deliverySchedule": "2022-08-20T03:00:00.000Z",
+		"isDelivered": false,
+		"createdAt": "2022-09-08T16:03:55.471Z",
+		"supplierProduct": {
+			"id": "437f486c-5b94-4542-9658-624d0b57f2f0",
+			"name": "Barra de Chocolate",
+			"costPrice": "3.00",
+			"supplier": {
+				"id": "a370273b-fb11-4715-952d-d57928516702",
+				"name": "Deliverdex",
+				"cnpj": "23272375000121",
+				"phone": "3251-5060",
+				"email": "matheus@mail.com",
+				"createdAt": "2022-09-07T18:18:53.684Z",
+				"updatedAt": "2022-09-07T22:42:47.810Z"
+			},
+			"category": {
+				"id": "69b55ee4-53db-4d47-be40-c5123da43504",
+				"name": "doces"
+			}
+		},
+		"product": {
+			"id": "da118050-9641-4b52-abd8-67ec97f4ec1b",
+			"name": "Barra de chocolate laka",
+			"marketPrice": "6.70",
+			"stock": 30,
+			"description": "Chocolate délis",
+			"discount": "0.25",
+			"createdAt": "2022-09-08T15:42:40.774Z",
+			"updatedAt": "2022-09-08T15:42:40.774Z",
+			"category": {
+				"id": "69b55ee4-53db-4d47-be40-c5123da43504",
+				"name": "doces"
+			}
+		}
+	}
 ]
 ```
 
@@ -2146,25 +2492,23 @@ Nenhum, o máximo que pode acontecer é retornar uma lista vazia.
 
 ---
 
-### 1.3. **Listar Usuário por ID**
+### 10.3. **Atualizando status de entrega de uma ordem**
 
-[ Voltar aos Endpoints ](#5-endpoints)
-
-### `/users/:user_id`
+### `/orderproducts/isdelivered/:id`
 
 ### Exemplo de Request:
 
 ```
-GET /users/9cda28c9-e540-4b2c-bf0c-c90006d37893
-Authorization: None
+PATCH /orderproducts/isdelivered/:id
+Authorization: Bearer token
 Content-type: application/json
 ```
 
 ### Parâmetros da Requisição:
 
-| Parâmetro | Tipo   | Descrição                             |
-| --------- | ------ | ------------------------------------- |
-| user_id   | string | Identificador único do usuário (User) |
+| Parâmetro      | Tipo   | Descrição                         |
+| -------------- | ------ | --------------------------------- |
+| orderproductId | string | Identificador único do fornecedor |
 
 ### Corpo da Requisição:
 
@@ -2180,15 +2524,109 @@ Vazio
 
 ```json
 {
-  "id": "9cda28c9-e540-4b2c-bf0c-c90006d37893",
-  "name": "Eduardo",
-  "email": "edu@mail.com",
-  "isAdm": true
+	"id": "937970d6-979c-435a-a74b-e22d8281e6ea",
+	"quantity": 2,
+	"costPrice": "14.00",
+	"totalPrice": "28.00",
+	"deliverySchedule": "2022-08-20T03:00:00.000Z",
+	"isDelivered": true,
+	"createdAt": "2022-09-08T16:03:55.471Z",
+	"supplierProduct": {
+		"id": "437f486c-5b94-4542-9658-624d0b57f2f0",
+		"name": "Barra de Chocolate",
+		"costPrice": "3.00",
+		"supplier": {
+			"id": "a370273b-fb11-4715-952d-d57928516702",
+			"name": "Deliverdex",
+			"cnpj": "23272375000121",
+			"phone": "3251-5060",
+			"email": "matheus@mail.com",
+			"createdAt": "2022-09-07T18:18:53.684Z",
+			"updatedAt": "2022-09-07T22:42:47.810Z"
+		},
+		"category": {
+			"id": "69b55ee4-53db-4d47-be40-c5123da43504",
+			"name": "doces"
+		}
+	},
+	"product": {
+		"id": "da118050-9641-4b52-abd8-67ec97f4ec1b",
+		"name": "Barra de chocolate laka",
+		"marketPrice": "6.70",
+		"stock": 30,
+		"description": "Chocolate délis",
+		"discount": "0.25",
+		"createdAt": "2022-09-08T15:42:40.774Z",
+		"updatedAt": "2022-09-08T15:42:40.774Z",
+		"category": {
+			"id": "69b55ee4-53db-4d47-be40-c5123da43504",
+			"name": "doces"
+		}
+	}
 }
 ```
 
 ### Possíveis Erros:
 
-| Código do Erro | Descrição       |
-| -------------- | --------------- |
-| 404 Not Found  | User not found. |
+| Código do Erro | Descrição                 |
+| -------------- | ------------------------- |
+| 404 Not Found  | Purchase order not found. |
+
+---
+
+### 10.4. **Deletar uma ordem de compra de um produto por ID**
+
+### `/orderproducts/:id`
+
+### Exemplo de Request:
+
+```
+DELETE /orderproducts/:id
+Authorization: Bearer Token
+Content-type: application/json
+```
+
+### Parâmetros da Requisição:
+
+| Parâmetro      | Tipo   | Descrição                         |
+| -------------- | ------ | --------------------------------- |
+| orderproductId | string | Identificador único do fornecedor |
+
+### Corpo da Requisição:
+
+```json
+Vazio
+```
+
+### Exemplo de Response:
+
+```
+204 No Content
+```
+
+```json
+No body returned for response
+```
+
+### Possíveis Erros:
+
+| Código do Erro | Descrição                 |
+| -------------- | ------------------------- |
+| 404 Not Found  | Purchase order not found. |
+
+---
+
+# Documentação da API
+
+## Tabela de Conteúdos
+
+-   [Visão Geral](#1-visão-geral)
+-   [Diagrama ER](#2-diagrama-er)
+-   [Início Rápido](#3-início-rápido)
+    -   [Instalando Dependências](#31-instalando-dependências)
+    -   [Variáveis de Ambiente](#32-variáveis-de-ambiente)
+    -   [Migrations](#33-migrations)
+-   [Autenticação](#4-autenticação)
+-   [Endpoints](#5-endpoints)
+
+---
