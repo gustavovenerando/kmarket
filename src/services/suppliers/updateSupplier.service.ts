@@ -7,6 +7,8 @@ const updateSupplierService = async (
   supplierId: string,
   supplierData: ISupplierUpdateRequest
 ): Promise<Supplier | null> => {
+  if (supplierId.length !== 36){ throw new AppError(400, "Id format not valid.")}
+
   const supplierRepository = AppDataSource.getRepository(Supplier);
 
   const supplier = await supplierRepository.findOneBy({ id: supplierId });

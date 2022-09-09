@@ -1,6 +1,6 @@
 import { IEmployeeLogin } from "../../interfaces/employee";
 import { IEmployeeRequest } from "../../interfaces/employee";
-import { ISupplierRequest } from "../../interfaces/supplier";
+import { ISupplierRequest, ISupplierUpdateRequest } from "../../interfaces/supplier";
 
 export const mockedSuplier: ISupplierRequest = {
 	name: "Wagner",
@@ -85,6 +85,21 @@ export const mockedSupplierProduct = {
 	categoryId: "",
 };
 
+export const mockedSupplierUpdateAll: ISupplierUpdateRequest = {
+	name: "Wagnerzão",
+	cnpj: "000.000.000/0000-00",
+	phone: "(00) 0000-0000",
+	email: "empresa@wagner.com",
+}
+export const mockedSupplierUpdateName: ISupplierUpdateRequest = {name: "Wagner"}
+
+export const mockedSupplierUpdateCnpj: ISupplierUpdateRequest = {cnpj: "37.572.899/0001-27"}
+
+export const mockedSupplierUpdatePhone: ISupplierUpdateRequest = {phone: "(89) 2351-2857"}
+
+export const mockedSupplierUpdateEmail: ISupplierUpdateRequest = {email: "wagner@empresa.com"}
+
+
 export const mockedNotFormatedId: string = "FormatoInválido"
 
-export const mockedInvalidId: string = "00000000-0000-0000-0000-000000000000"
+export const mockedIdNotExist: string = "00000000-0000-0000-0000-000000000000"
