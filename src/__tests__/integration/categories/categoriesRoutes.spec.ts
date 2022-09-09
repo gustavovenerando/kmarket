@@ -264,7 +264,7 @@ describe("/categories", () => {
 		expect(response.body).toHaveProperty("message");
 	});
 
-	test("DELETE /categories/:id -  Should not be able to delete category without autentication", async () => {
+	test("DELETE /categories/:id -  Should not be able to delete category with invalid category ID", async () => {
 		const adminLoginResponse = await request(app)
 			.post("/login")
 			.send(mockedLoginAdm);
