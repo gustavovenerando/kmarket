@@ -1,6 +1,5 @@
 # kmarket
 
-
 ## 1. Visão Geral
 
 Visão geral do projeto, um pouco das tecnologias usadas.
@@ -73,13 +72,57 @@ Por enquanto, não foi implementada autenticação.
 
 ### Índice
 
-- [Products](#1-Products)
-  - [POST - /users](#11-criação-de-produto)
-  - [GET - /users](#12-listando-usuários)
-  - [GET - /users/:user_id](#13-listar-usuário-por-id)
-- [Products](#2-products)
-- [Cart](#3-cart)
-- [Users](#4-buys)
+- [Products](#1-products)
+  - [POST - /products](#11-criação-do-produto)
+  - [GET - /products](#12-listando-produtos)
+  - [GET - /products/:id](#13-listar-produto-por-id)
+  - [PATCH - /products/:id](#14-atualizar-produto)
+  - [DELETE - /products/:id](#15-deletar-produto-por-id)
+- [Carts](#2-cart)
+  - [POST - /cart](#21-criação-de-cart)
+  - [GET - /cart](#22-listando-carts)
+  - [GET - /cart/:id](#23-listar-cart-por-id)
+  - [PATCH - /cart/:id](#24-vender-carrinho)
+  - [DELETE - /cart/:id](#25-deletando-cart)
+- [ProductsCart](#3-productsCart)
+  - [POST - /productscart/:cartId](#31-adiciona-um-produto-ao-carrinho)
+  - [GET - /productscart](#32-listando-todas-as-vendas)
+  - [GET - /productscart/:productId](#33-lista-as-vendas-por-produto)
+  - [DELETE - /productscart/:id](#34-deletar-produto-do-carrinho)
+- [Employees](#4-employees)
+  - [POST - /employees](#41-criação-do-funcionário)
+  - [GET - /employees](#42-listando-funcionários)
+  - [GET - /employees/:id](#43-listar-funcionário-por-id)
+  - [PATCH - /employees/:id](#44-atualizar-funcionário)
+  - [DELETE - /employees/:id](#45-deletar-funcionario-por-id)
+- [Login](#5-login---somente-funcionário-faz-login)
+- [LoyaltyCustomers](#6-loyaltycustomers)
+  - [POST - /loyaltycustomers](#61-criação-do-cliente)
+  - [GET - /loyaltycustomers](#62-listando-clientes)
+  - [GET - /loyaltycustomers/:id](#63-listar-cliente-por-id)
+  - [PATCH - /loyaltycustomers/:id](#64-atualizar-cliente)
+  - [DELETE - /loyaltycustomers/:id](#65-deletar-cliente-por-id)
+- [Categories](#7-categories)
+  - [POST - /categories](#71-criação-de-categoria)
+  - [GET - /categories](#72-listando-categorias)
+  - [GET - /categories/:idCategory/products](#73-listar-produto-por-id-de-categoria)
+  - [PATCH - /categories/:id](#74-atualizar-categoria)
+  - [DELETE - /categories/:id](#75-deletando-categoria)
+- [Suppliers](#8-suppliers)
+  - [POST - /suppliers](#81-criação-do-fornecedor)
+  - [GET - /suppliers](#82-listando-fornecedores)
+  - [GET - /suppliers/:id](#83-listar-fornecedor-por-id)
+  - [PATCH - /suppliers/:id](#84-atualizar-fornecedor)
+  - [DELETE - /suppliers/:id](#85-deletar-fornecedor-por-id)
+- [SupplierProducts](#9-supplierproducts)
+  - [POST - /supplierproducts](#91-criação-de-produto-para-um-fornecedor)
+  - [GET - /supplierproducts](#92-listando-produtos-dos-fornecedores)
+  - [DELETE - /supplierproducts/:id](#93-deletar-produto-de-um-fornecedor-por-id)
+- [OrderProducts](#10-orderproducts)
+  - [POST - /orderproducts](#101-criação-de-ordem-de-compra-de-um-produto)
+  - [GET - /orderproducts](#102-listando-todas-ordens-de-compra-de-um-produto)
+  - [PATCH - /orderproducts/isdelivered/:id](#103-atualizando-status-de-entrega-de-uma-ordem)
+  - [DELETE - /orderproducts/:id](#104-deletar-uma-ordem-de-compra-de-um-produto-por-id)
 
 ## Endpoints Resumo
 
@@ -285,7 +328,7 @@ Vazio
 
 ### 1.4. **Atualizar Produto**
 
-### `/products`
+### `/products/:id`
 
 ### Exemplo de Request:
 
@@ -397,7 +440,7 @@ Vazio
 
 ---
 
-### 2. /carts
+### 2. /cart
 
 O objeto Cart é definido como:
 
@@ -412,13 +455,13 @@ O objeto Cart é definido como:
 
 ### Endpoints
 
-| Método | Rota       | Descrição                                                       | Autorizaçao | Adm |
-| ------ | ---------- | --------------------------------------------------------------- | ----------- | --- |
-| POST   | /carts     | Criação de um carrinho. Rota deve atualizar fidelity points     | X           |     |
-| GET    | /carts     | Lista todos os carrinhos.                                       | X           |     |
-| GET    | /carts/:id | Lista um carrinho usando seu ID como parâmetro.                 | X           |     |
-| PATCH  | /carts/:id | Atualiza um carrinho como vendido usando seu ID como paramêtro. | X           |     |
-| DELETE | /carts/:id | Deleta o carrinho.                                              | X           | X   |
+| Método | Rota      | Descrição                                                       | Autorizaçao | Adm |
+| ------ | --------- | --------------------------------------------------------------- | ----------- | --- |
+| POST   | /cart     | Criação de um carrinho. Rota deve atualizar fidelity points     | X           |     |
+| GET    | /cart     | Lista todos os carrinhos.                                       | X           |     |
+| GET    | /cart/:id | Lista um carrinho usando seu ID como parâmetro.                 | X           |     |
+| PATCH  | /cart/:id | Atualiza um carrinho como vendido usando seu ID como paramêtro. | X           |     |
+| DELETE | /cart/:id | Deleta o carrinho.                                              | X           | X   |
 
 ### 2.1. **Criação de Cart**
 
@@ -539,7 +582,7 @@ Nenhum, o máximo que pode acontecer é retornar uma lista vazia.
 ### Exemplo de Request:
 
 ```
-GET /cart/9cda28c9-e540-4b2c-bf0c-c90006d37893/products
+GET /cart/9cda28c9-e540-4b2c-bf0c-c90006d37893
 Authorization: Bearer token
 Content-type: application/json
 ```
@@ -658,7 +701,7 @@ Deleted with success
 | -------------- | --------------- |
 | 404 Not Found  | Cart not found. |
 
-### 3. /productsCart
+### 3. /productscart
 
 O objeto productCart é definido como:
 
@@ -681,12 +724,12 @@ O objeto productCart é definido como:
 
 ### 3.1. **Adiciona um Produto ao Carrinho**
 
-### `/productsCart/:cartId `
+### `/productscart/:cartId`
 
 ### Exemplo de Request:
 
 ```
-POST /productsCart/:cartId
+POST /productscart/:cartId
 Host:
 Authorization: Bearer token
 Content-type: application/json
@@ -756,12 +799,12 @@ OBS.: Chaves não presentes no schema serão removidas.
 
 ### 3.2. **Listando Todas as Vendas**
 
-### `/productsCart`
+### `/productscart`
 
 ### Exemplo de Request:
 
 ```
-GET /productsCart
+GET /productscart
 Host:
 Authorization: Bearer token
 Content-type: application/json
@@ -811,12 +854,12 @@ Nenhum, o máximo que pode acontecer é retornar uma lista vazia.
 
 ### 3.3. **Lista as Vendas por Produto**
 
-### `/productsCart/:productId`
+### `/productscart/:productId`
 
 ### Exemplo de Request:
 
 ```
-GET /productsCart/:productId
+GET /productscart/:productId
 Host:
 Authorization: Bearer token
 Content-type: application/json
@@ -1359,7 +1402,7 @@ Nenhum, o máximo que pode acontecer é retornar uma lista vazia.
 ### Exemplo de Request:
 
 ```
-GET /users/:id
+GET /loyaltycustomers/:id
 Host:
 Authorization: Bearer token
 Content-type: application/json
@@ -1514,10 +1557,10 @@ No body returned for response
 
 O objeto loyaltyCustomer é definido como:
 
-| Campo          | Tipo    | Descrição                           |
-| -------------- | ------- | ----------------------------------- |
-| id             | string  | Identificador único do categoria.     |
-| name           | string  | O nome da categoria.                  |
+| Campo | Tipo   | Descrição                         |
+| ----- | ------ | --------------------------------- |
+| id    | string | Identificador único do categoria. |
+| name  | string | O nome da categoria.              |
 
 ### Endpoints
 
@@ -2380,7 +2423,7 @@ OBS.: Chaves não presentes no schema serão removidas.
 ### Exemplo de Request:
 
 ```
-GET /supplierproducts
+GET /orderproducts
 Authorization: Bearer token
 Content-type: application/json
 ```
@@ -2451,12 +2494,12 @@ Nenhum, o máximo que pode acontecer é retornar uma lista vazia.
 
 ### 10.3. **Atualizando status de entrega de uma ordem**
 
-### `/supplierproducts/isdelivered/:id`
+### `/orderproducts/isdelivered/:id`
 
 ### Exemplo de Request:
 
 ```
-PATCH /supplierproducts/isdelivered/:id
+PATCH /orderproducts/isdelivered/:id
 Authorization: Bearer token
 Content-type: application/json
 ```
