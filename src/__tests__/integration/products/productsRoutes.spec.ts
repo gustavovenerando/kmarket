@@ -5,18 +5,19 @@ import AppDataSource from "../../../data-source"
 
 import app from "../../../app"
 
-import { mockedAdm, mockedCategory, mockedEmployee, mockedIdNotExist, mockedLoginAdm, mockedLoginEmployee, mockedNotFormatedId, mockedProducts, mockedProductsInvalidDiscount1, mockedProductsInvalidDiscount2 } from "../../mocks"
+import { mockedAdm, mockedCategory, mockedEmployee, mockedIdNotExist, mockedLoginAdm, mockedLoginEmployee, mockedNotFormatedId, mockedProductDescription, mockedProductDiscount, mockedProductMarketPrice, mockedProducts, mockedProductsInvalidDiscount1, mockedProductsInvalidDiscount2, mockedProductStock, mockedProductUpdateAll, mockedProductUpdateName, mockedSupplierUpdateAll } from "../../mocks"
 import { IProductsResponse } from "../../../interfaces/products"
 
 let productTest: IProductsResponse
 let idProduct: string
+let categoryTest: { name: string, id: string }
 
 let adminLoginResponse: Response
 let notAdminLoginResponse: Response
 let tokenAdm: string
 let tokenNotAdm: string
 
-describe("Testando rotas do ProduidProduct", () => {
+describe("Testando rotas do Products", () => {
 
     let connection: DataSource
 
@@ -36,7 +37,8 @@ describe("Testando rotas do ProduidProduct", () => {
         tokenNotAdm = notAdminLoginResponse.body.token
 
         const responseCategory = await request(app).post("/categories").set("Authorization", `Bearer ${tokenAdm}`).send(mockedCategory)
-        mockedProducts.categoryId = responseCategory.body.id
+        categoryTest = responseCategory.body
+        mockedProducts.categoryId = categoryTest.id
     })
 
     afterAll(async () => {
@@ -173,6 +175,112 @@ describe("Testando rotas do ProduidProduct", () => {
     test("GET /products/:id - Deve retornar um erro caso não exista o ID na database", async () => {
 
         const response = await request(app).get(`/products/${mockedIdNotExist}`).set("Authorization", `Bearer ${tokenAdm}`)
+
+        expect(response.status).toBe(404)
+        expect(response.body).toHaveProperty("message")
+    })
+
+    //UPDATE PRODUCT
+    //Good requests update
+
+    test("UPDATE /products/:id - Deve ALTERAR corretamente o PRODUCT junto com category", async () => {
+
+        const response = await request(app).patch(`/products/${idProduct}`).set("Authorization", `Bearer ${tokenAdm}`).send(mockedProductUpdateAll)
+
+        const { createdAt, updatedAt, id, category, ...valuesToCheck } = response.body
+
+        expect(category).toEqual(categoryTest)
+        expect(response.status).toBe(200)
+        expect(valuesToCheck).toEqual(mockedProductUpdateAll)
+        expect(valuesToCheck).not.toEqual(mockedProducts)
+    })
+
+    test("UPDATE /products/:id - Deve Alterar corretamente o NOME do PRODUCT", async () => {
+
+        const response = await request(app).patch(`/products/${idProduct}`).set("Authorization", `Bearer ${tokenAdm}`).send(mockedProductUpdateName)
+
+        const nameExpected = mockedProductUpdateName.name
+
+        expect(response.status).toBe(200)
+        expect(response.body.name).toEqual(nameExpected)
+    })
+
+    test("UPDATE /products/:id - Deve Alterar corretamente o MARKETPRICE do PRODUCT", async () => {
+
+        const response = await request(app).patch(`/products/${idProduct}`).set("Authorization", `Bearer ${tokenAdm}`).send(mockedProductMarketPrice)
+
+        const marketPriceExpected = mockedProductMarketPrice.marketPrice
+
+        expect(response.status).toBe(200)
+        expect(response.body.marketPrice).toEqual(marketPriceExpected)
+    })
+
+    test("UPDATE /products/:id - Deve Alterar corretamente o STOCK do PRODUCT", async () => {
+
+        const response = await request(app).patch(`/products/${idProduct}`).set("Authorization", `Bearer ${tokenAdm}`).send(mockedProductStock)
+
+        const stockExpected = mockedProductStock.stock
+
+        expect(response.status).toBe(200)
+        expect(response.body.stock).toEqual(stockExpected)
+    })
+
+    test("UPDATE /products/:id - Deve Alterar corretamente o DESCRIPTION do PRODUCT", async () => {
+
+        const response = await request(app).patch(`/products/${idProduct}`).set("Authorization", `Bearer ${tokenAdm}`).send(mockedProductDescription)
+
+        const descriptionExpected = mockedProductDescription.description
+
+        expect(response.status).toBe(200)
+        expect(response.body.description).toEqual(descriptionExpected)
+    })
+
+    test("UPDATE /products/:id - Deve Alterar corretamente o DISCOUNT do PRODUCT", async () => {
+
+        const response = await request(app).patch(`/products/${idProduct}`).set("Authorization", `Bearer ${tokenAdm}`).send(mockedProductDiscount)
+
+        const discountExpected = mockedProductDiscount.discount
+
+        expect(response.status).toBe(200)
+        expect(response.body.discount).toEqual(discountExpected)
+    })
+
+    //Bad request update
+
+    test("UPDATE /suppliers/:id - Deve retornar um erro caso a BODY esteja ERRADA", async () => {
+
+        const response = await request(app).patch(`/products/${idProduct}`).set("Authorization", `Bearer ${tokenAdm}`).send(mockedSupplierUpdateAll)
+
+        expect(response.status).toBe(400)
+        expect(response.body).toHaveProperty("message")
+    })
+
+    test("UPDATE /products/:id - Deve retornar um erro caso NÃO tenha TOKEN", async () => {
+
+        const response = await request(app).patch(`/products/${idProduct}`)
+
+        expect(response.status).toBe(401)
+        expect(response.body).toHaveProperty("message")
+    })
+    test("UPDATE /products/:id - Deve retornar um erro caso NÃO seja o ADM", async () => {
+
+        const response = await request(app).patch(`/products/${idProduct}`).set("Authorization", `Bearer ${tokenNotAdm}`)
+
+        expect(response.status).toBe(401)
+        expect(response.body).toHaveProperty("message")
+    })
+
+    test("UPDATE /products/:id - Deve retornar um erro caso o ID tenha formato inválido", async () => {
+
+        const response = await request(app).patch(`/products/${mockedNotFormatedId}`).set("Authorization", `Bearer ${tokenAdm}`)
+
+        expect(response.status).toBe(400)
+        expect(response.body).toHaveProperty("message")
+    })
+
+    test("UPDATE /products/:id - Deve retornar um erro caso não exista o ID na database", async () => {
+
+        const response = await request(app).patch(`/products/${mockedIdNotExist}`).set("Authorization", `Bearer ${tokenAdm}`)
 
         expect(response.status).toBe(404)
         expect(response.body).toHaveProperty("message")

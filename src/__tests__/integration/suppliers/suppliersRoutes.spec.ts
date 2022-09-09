@@ -6,7 +6,7 @@ import AppDataSource from "../../../data-source"
 import app from "../../../app"
 import { ISupplierResponse } from "../../../interfaces/supplier"
 
-import { mockedAdm, mockedEmployee, mockedIdNotExist, mockedLoginAdm, mockedLoginEmployee, mockedNotFormatedId, mockedSuplier, mockedSupplierCpnjAgain, mockedSupplierEmailAgain, mockedSupplierUpdateAll, mockedSupplierUpdateCnpj, mockedSupplierUpdateEmail, mockedSupplierUpdateName, mockedSupplierUpdatePhone } from "../../mocks"
+import { mockedAdm, mockedEmployee, mockedIdNotExist, mockedLoginAdm, mockedLoginEmployee, mockedNotFormatedId, mockedProductUpdateAll, mockedSuplier, mockedSupplierCpnjAgain, mockedSupplierEmailAgain, mockedSupplierUpdateAll, mockedSupplierUpdateCnpj, mockedSupplierUpdateEmail, mockedSupplierUpdateName, mockedSupplierUpdatePhone } from "../../mocks"
 
 let supplierTest: ISupplierResponse
 let idSupplier: string
@@ -218,7 +218,15 @@ describe("Testando rotas do Supplier", () => {
         expect(response.body.email).toEqual(emailExpected)
     })
 
-    //Bad requesst update
+    //Bad request update
+
+    test("UPDATE /suppliers/:id - Deve retornar um erro caso a BODY esteja ERRADA", async () => {
+
+        const response = await request(app).patch(`/suppliers/${idSupplier}`).set("Authorization", `Bearer ${tokenAdm}`).send(mockedProductUpdateAll)
+
+        expect(response.status).toBe(400)
+        expect(response.body).toHaveProperty("message")
+    })
 
     test("UPDATE /suppliers/:id - Deve retornar um erro caso NÃO tenha TOKEN", async () => {
 
@@ -229,7 +237,7 @@ describe("Testando rotas do Supplier", () => {
     })
     test("UPDATE /suppliers/:id - Deve retornar um erro caso NÃO seja o ADM", async () => {
 
-        const response = await request(app).patch(`/suppliers/${idSupplier}`).set("Authorization", `Bearer ${tokenNotAdm}`)
+        const response = await request(app).patch(`/suppliers/${idSupplier}`).set("Authorization", `Bearer ${tokenNotAdm}`).send(mockedSupplierUpdateAll)
 
         expect(response.status).toBe(401)
         expect(response.body).toHaveProperty("message")
@@ -237,7 +245,7 @@ describe("Testando rotas do Supplier", () => {
 
     test("UPDATE /suppliers/:id - Deve retornar um erro caso o ID tenha formato inválido", async () => {
 
-        const response = await request(app).patch(`/suppliers/${mockedNotFormatedId}`).set("Authorization", `Bearer ${tokenAdm}`)
+        const response = await request(app).patch(`/suppliers/${mockedNotFormatedId}`).set("Authorization", `Bearer ${tokenAdm}`).send(mockedSupplierUpdateAll)
 
         expect(response.status).toBe(400)
         expect(response.body).toHaveProperty("message")
@@ -245,7 +253,7 @@ describe("Testando rotas do Supplier", () => {
 
     test("UPDATE /suppliers/:id - Deve retornar um erro caso não exista o ID na database", async () => {
 
-        const response = await request(app).patch(`/suppliers/${mockedIdNotExist}`).set("Authorization", `Bearer ${tokenAdm}`)
+        const response = await request(app).patch(`/suppliers/${mockedIdNotExist}`).set("Authorization", `Bearer ${tokenAdm}`).send(mockedSupplierUpdateAll)
 
         expect(response.status).toBe(404)
         expect(response.body).toHaveProperty("message")
