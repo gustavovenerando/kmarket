@@ -64,4 +64,16 @@ describe("/categories", () => {
 		expect(response.body).toHaveProperty("message");
 		expect(response.status).toBe(401);
 	});
+
+	test("GET /categories -  Must be able to list all categories", async () => {
+		const adminLoginResponse = await request(app)
+			.post("/login")
+			.send(mockedLoginAdm);
+		const response = await request(app)
+			.get("/categories")
+			.set("Authorization", `Bearer ${adminLoginResponse.body.token}`);
+
+		expect(response.body).toHaveLength(1);
+		expect(response.status).toBe(200);
+	});
 });
