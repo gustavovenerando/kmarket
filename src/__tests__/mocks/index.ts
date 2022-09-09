@@ -1,4 +1,7 @@
-import { ILoyaltyCustomerRequest } from "../../interfaces/loyaltyCustomer/index";
+import {
+  ILoyaltyCustomerRequest,
+  IUpdateLoyaltyCustomerName,
+} from "../../interfaces/loyaltyCustomer/index";
 import { ICartRequest, IEmployeeResponse } from "../../interfaces/employee";
 import { ISupplierProductsRequest } from "../../interfaces/supplierProducts";
 import { AfterInsert } from "typeorm";
@@ -162,3 +165,13 @@ export const mockedSupplierUpdateEmail: ISupplierUpdateRequest = {
 export const mockedNotFormattedId: string = "FormatoInválido";
 
 export const mockedIdNotExist: string = "00000000-0000-0000-0000-000000000000";
+
+export const mockedUpdateLoyaltyCustomerName: IUpdateLoyaltyCustomerName = {
+  name: "Fidelis Falante",
+  email: "cliente@mail.com",
+};
+
+export const mockedPatchFailLoyaltyCustomerName: IUpdateLoyaltyCustomerName = {
+  name: "oi",
+  email: "any@mail.com",
+};
