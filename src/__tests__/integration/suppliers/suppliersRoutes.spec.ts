@@ -1,5 +1,4 @@
 import request, { Response } from "supertest";
-
 import { DataSource } from "typeorm";
 import AppDataSource from "../../../data-source";
 import {
@@ -9,6 +8,7 @@ import {
   mockedLoginAdm,
   mockedLoginEmployee,
   mockedNotFormattedId,
+  mockedProductUpdateAll,
   mockedSupplier,
   mockedSupplierCnpjAgain,
   mockedSupplierEmailAgain,
@@ -18,7 +18,6 @@ import {
   mockedSupplierUpdateName,
   mockedSupplierUpdatePhone,
 } from "../../mocks";
-
 import app from "../../../app";
 import { ISupplierResponse } from "../../../interfaces/supplier";
 
@@ -109,7 +108,7 @@ describe("Testando rotas do Supplier", () => {
     expect(response.body).toHaveProperty("message");
   });
 
-  //LIST ALL SUPPLIER
+  //LIST ALL SUPPLIERS
   //Good requests get
 
   test("GET /suppliers - Deve retornar TODOS os SUPPLIERS com a autenticação de adm", async () => {
@@ -255,7 +254,17 @@ describe("Testando rotas do Supplier", () => {
     expect(response.body.email).toEqual(emailExpected);
   });
 
-  //Bad requesst update
+  //Bad request update
+
+  test("UPDATE /suppliers/:id - Deve retornar um erro caso a BODY esteja ERRADA", async () => {
+    const response = await request(app)
+      .patch(`/suppliers/${idSupplier}`)
+      .set("Authorization", `Bearer ${tokenAdm}`)
+      .send(mockedProductUpdateAll);
+
+    expect(response.status).toBe(400);
+    expect(response.body).toHaveProperty("message");
+  });
 
   test("UPDATE /suppliers/:id - Deve retornar um erro caso NÃO tenha TOKEN", async () => {
     const response = await request(app).patch(`/suppliers/${idSupplier}`);
@@ -266,7 +275,8 @@ describe("Testando rotas do Supplier", () => {
   test("UPDATE /suppliers/:id - Deve retornar um erro caso NÃO seja o ADM", async () => {
     const response = await request(app)
       .patch(`/suppliers/${idSupplier}`)
-      .set("Authorization", `Bearer ${tokenNotAdm}`);
+      .set("Authorization", `Bearer ${tokenNotAdm}`)
+      .send(mockedSupplierUpdateAll);
 
     expect(response.status).toBe(401);
     expect(response.body).toHaveProperty("message");
@@ -275,7 +285,8 @@ describe("Testando rotas do Supplier", () => {
   test("UPDATE /suppliers/:id - Deve retornar um erro caso o ID tenha formato inválido", async () => {
     const response = await request(app)
       .patch(`/suppliers/${mockedNotFormattedId}`)
-      .set("Authorization", `Bearer ${tokenAdm}`);
+      .set("Authorization", `Bearer ${tokenAdm}`)
+      .send(mockedSupplierUpdateAll);
 
     expect(response.status).toBe(400);
     expect(response.body).toHaveProperty("message");
@@ -284,7 +295,8 @@ describe("Testando rotas do Supplier", () => {
   test("UPDATE /suppliers/:id - Deve retornar um erro caso não exista o ID na database", async () => {
     const response = await request(app)
       .patch(`/suppliers/${mockedIdNotExist}`)
-      .set("Authorization", `Bearer ${tokenAdm}`);
+      .set("Authorization", `Bearer ${tokenAdm}`)
+      .send(mockedSupplierUpdateAll);
 
     expect(response.status).toBe(404);
     expect(response.body).toHaveProperty("message");

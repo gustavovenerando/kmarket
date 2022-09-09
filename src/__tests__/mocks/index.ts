@@ -11,6 +11,10 @@ import {
   ISupplierRequest,
   ISupplierUpdateRequest,
 } from "../../interfaces/supplier";
+import {
+  ICreateProducts,
+  IUpdateProductsSchema,
+} from "../../interfaces/products";
 
 export const mockedSupplier: ISupplierRequest = {
   name: "Wagner",
@@ -118,7 +122,7 @@ export const mockedCategoryTestCategoryId = {
   name: "Mercearia",
 };
 
-export const mockedProducts = {
+export let mockedProducts: ICreateProducts = {
   name: "Coquinha",
   marketPrice: 8,
   stock: 0,
@@ -126,6 +130,48 @@ export const mockedProducts = {
   discount: 0.1,
   categoryId: "",
 };
+
+export let mockedProductsInvalidDiscount1: ICreateProducts = {
+  name: "Coquinha",
+  marketPrice: 8,
+  stock: 0,
+  description: "coquinha gelada",
+  discount: -2,
+  categoryId: "",
+};
+
+export let mockedProductsInvalidDiscount2: ICreateProducts = {
+  name: "Coquinha",
+  marketPrice: 8,
+  stock: 0,
+  description: "coquinha gelada",
+  discount: 3,
+  categoryId: "",
+};
+
+export let mockedProductUpdateAll: IUpdateProductsSchema = {
+  name: "Coca-cola",
+  marketPrice: 12,
+  stock: 50,
+  description: "coca-cola gelada",
+  discount: 0.2,
+};
+
+export let mockedProductUpdateName: IUpdateProductsSchema = {
+  name: "Coquinha",
+};
+
+export let mockedProductMarketPrice: IUpdateProductsSchema = {
+  marketPrice: 12,
+};
+
+export let mockedProductStock: IUpdateProductsSchema = { stock: 0 };
+
+export let mockedProductDescription: IUpdateProductsSchema = {
+  description: "coquinha gelada",
+};
+
+export let mockedProductDiscount: IUpdateProductsSchema = { discount: 0.1 };
 
 export const mockedSupplierProduct = {
   name: "Coca 350ml",
