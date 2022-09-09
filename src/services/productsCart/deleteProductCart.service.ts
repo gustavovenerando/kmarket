@@ -10,23 +10,30 @@ const deleteProductCartService = async (id: string) => {
   const cartRepository = AppDataSource.getRepository(Cart);
 
   const productCart = await productsCartRepository.findOneBy({
-    id,
+    id: id
   });
-
-  const cart = await cartRepository.findOneBy({
-    id: productCart?.cart.id
-  });
-
+  
   if (!productCart) {
     throw new AppError(404, "Product not found in cart.");
   }
+
+  const cart = await cartRepository.findOne({
+   where: { 
+    productsCart: {
+      id: id
+    }
+   },
+   relations:{
+    productsCart: true
+   }
+  });
 
   if (cart!.sold === true) {
     throw new AppError(409, "Cart already sold.");
   }
 
   const product = await productsRepository.findOneBy({
-    id: productCart?.product.id
+    id: productCart.product.id
   });
 
   if(!product) {
