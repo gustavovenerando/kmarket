@@ -13,11 +13,16 @@ export interface ISupplierUpdateRequest {
 }
 
 export interface ISupplierResponse {
-  id:string;
+  id: string;
   name: string;
   cnpj: string;
   phone: string;
   email: string;
-  createdAt:string;
-  updatedAt:string;
+  createdAt: string;
+  updatedAt: string;
+}
+
+export interface IWrongUpdateObject {
+  test: string;
+  wrongKey: string;
 }

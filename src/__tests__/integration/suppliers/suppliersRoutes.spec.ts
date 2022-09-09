@@ -17,6 +17,7 @@ import {
   mockedSupplierUpdateEmail,
   mockedSupplierUpdateName,
   mockedSupplierUpdatePhone,
+  mockedWrongUpdateObject,
 } from "../../mocks";
 import app from "../../../app";
 import { ISupplierResponse } from "../../../interfaces/supplier";
@@ -260,7 +261,7 @@ describe("Testando rotas do Supplier", () => {
     const response = await request(app)
       .patch(`/suppliers/${idSupplier}`)
       .set("Authorization", `Bearer ${tokenAdm}`)
-      .send(mockedProductUpdateAll);
+      .send(mockedWrongUpdateObject);
 
     expect(response.status).toBe(400);
     expect(response.body).toHaveProperty("message");
