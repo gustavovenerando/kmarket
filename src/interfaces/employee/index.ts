@@ -31,3 +31,11 @@ export interface ICartRequest {
 	employeeId: string;
 	loyaltyCustomerId?: string;
 }
+
+export interface IEmployeeResponse{
+	name?: string;
+	email?: string;
+	password?: string;
+	isAdm?: boolean;
+	isActive?: boolean;
+}

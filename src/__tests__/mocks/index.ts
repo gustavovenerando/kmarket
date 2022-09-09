@@ -1,3 +1,11 @@
+
+import { ILoyaltyCustomerRequest } from '../../interfaces/loyaltyCustomer/index';
+import { ICartRequest, IEmployeeResponse } from "../../interfaces/employee";
+import { IEmployeeRequest } from "../../interfaces/employee";
+import { ISupplierProductsRequest } from '../../interfaces/supplierProducts';
+import { ISupplierRequest } from '../../interfaces/supplier';
+import { AfterInsert } from 'typeorm';
+
 import { IEmployeeLogin } from "../../interfaces/employee";
 import { IEmployeeRequest } from "../../interfaces/employee";
 import { ISupplierRequest, ISupplierUpdateRequest } from "../../interfaces/supplier";
@@ -17,6 +25,7 @@ export const mockedSupliertestSupplierId: ISupplierRequest = {
 };
 
 
+
 export const mockedEmployee: IEmployeeRequest = {
 	name: "Carlos",
 	email: "carlos@carlos.com",
@@ -29,6 +38,7 @@ export const mockedEmployeEmpty :IEmployeeRequest = {
 	email: "",
 	password: "",
 	isAdm: false,
+
 }
 export const mockedSupplierEmailAgain :ISupplierRequest = {
 	name:"Wagner",
@@ -51,15 +61,56 @@ export const mockedAdm: IEmployeeRequest = {
 	isAdm: true,
 };
 
+export const mockedAdmAgain :IEmployeeRequest = {
+	name: "José",
+	email: "jose@mail.com",
+	password: "123",
+	isAdm: true,
+}
+
+
+export const mockedIsActiveFalse :IEmployeeRequest = {
+	name: "José",
+	email: "jose@mail.com",
+	password: "123",
+	isAdm: true
+}
+
+export const mockedUpdateEmployee :IEmployeeRequest = {
+	name: "lima",
+	email: "lima@mail.com",
+	password: "123",
+	isAdm: true
+}
+
+export const mockedIsActiveTrue :IEmployeeRequest = {
+	name: "josias",
+	email: "josias@mail.com",
+	password: "123",
+	isAdm: true,
+	isActive: true
+}
+
 export const mockedLoginAdm : IEmployeeLogin = {
     email: "roberval@roberval.com",
 	password: "123",
 };
 
+
+export const mockedLoginAdmAgain = {
+    email: "jose@mail.com",
+	password: "123",
+}
+
 export const mockedLoginEmployee : IEmployeeLogin = {
     email: "carlos@carlos.com",
 	password: "123",
 };
+
+export const mockedEmployeePatch: IEmployeeResponse = {
+	name: 'Daniel',
+	email: 'daniel@mail.com'
+}
 
 export const mockedCategory = {
 	name: "Bebidas",
