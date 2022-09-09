@@ -84,7 +84,7 @@ describe("Testando rotas do Supplier", () => {
         expect(response.body).toHaveProperty("message")
     })
 
-    //LIST ALL SUPPLIER 
+    //LIST ALL SUPPLIERS 
     //Good requests get
 
     test("GET /suppliers - Deve retornar TODOS os SUPPLIERS com a autenticação de adm", async () => {
