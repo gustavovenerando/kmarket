@@ -1,19 +1,22 @@
+import { ILoyaltyCustomerRequest } from "../../interfaces/loyaltyCustomer/index";
+import { ICartRequest, IEmployeeResponse } from "../../interfaces/employee";
+import { ISupplierProductsRequest } from "../../interfaces/supplierProducts";
+import { AfterInsert } from "typeorm";
 import { IEmployeeLogin } from "../../interfaces/employee";
 import { IEmployeeRequest } from "../../interfaces/employee";
-import { ILoyaltyCustomerRequest } from "../../interfaces/loyaltyCustomer";
 import {
   ISupplierRequest,
   ISupplierUpdateRequest,
 } from "../../interfaces/supplier";
 
-export const mockedSuplier: ISupplierRequest = {
+export const mockedSupplier: ISupplierRequest = {
   name: "Wagner",
   cnpj: "37.572.899/0001-27",
   phone: "(89) 2351-2857",
   email: "wagner@empresa.com",
 };
 
-export const mockedSupliertestSupplierId: ISupplierRequest = {
+export const mockedSuppliertestSupplierId: ISupplierRequest = {
   name: "Walmir",
   cnpj: "37.572.899/0002-22",
   phone: "(89) 2351-2555",
@@ -33,6 +36,7 @@ export const mockedEmployeEmpty: IEmployeeRequest = {
   password: "",
   isAdm: false,
 };
+
 export const mockedSupplierEmailAgain: ISupplierRequest = {
   name: "Wagner",
   cnpj: "37.572.899/0001-20",
@@ -40,7 +44,7 @@ export const mockedSupplierEmailAgain: ISupplierRequest = {
   email: "wagner@empresa.com",
 };
 
-export const mockedSupplierCpnjAgain: ISupplierRequest = {
+export const mockedSupplierCnpjAgain: ISupplierRequest = {
   name: "Wagner",
   cnpj: "37.572.899/0001-27",
   phone: "(89) 2351-2857",
@@ -54,14 +58,53 @@ export const mockedAdm: IEmployeeRequest = {
   isAdm: true,
 };
 
+export const mockedAdmAgain: IEmployeeRequest = {
+  name: "José",
+  email: "jose@mail.com",
+  password: "123",
+  isAdm: true,
+};
+
+export const mockedIsActiveFalse: IEmployeeRequest = {
+  name: "José",
+  email: "jose@mail.com",
+  password: "123",
+  isAdm: true,
+};
+
+export const mockedUpdateEmployee: IEmployeeRequest = {
+  name: "lima",
+  email: "lima@mail.com",
+  password: "123",
+  isAdm: true,
+};
+
+export const mockedIsActiveTrue: IEmployeeRequest = {
+  name: "josias",
+  email: "josias@mail.com",
+  password: "123",
+  isAdm: true,
+  isActive: true,
+};
+
 export const mockedLoginAdm: IEmployeeLogin = {
   email: "roberval@roberval.com",
+  password: "123",
+};
+
+export const mockedLoginAdmAgain = {
+  email: "jose@mail.com",
   password: "123",
 };
 
 export const mockedLoginEmployee: IEmployeeLogin = {
   email: "carlos@carlos.com",
   password: "123",
+};
+
+export const mockedEmployeePatch: IEmployeeResponse = {
+  name: "Daniel",
+  email: "daniel@mail.com",
 };
 
 export const mockedCategory = {

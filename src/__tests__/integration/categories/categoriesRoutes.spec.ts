@@ -64,4 +64,34 @@ describe("/categories", () => {
 		expect(response.body).toHaveProperty("message");
 		expect(response.status).toBe(401);
 	});
+
+	test("GET /categories -  Must be able to list all categories", async () => {
+		const adminLoginResponse = await request(app)
+			.post("/login")
+			.send(mockedLoginAdm);
+		const response = await request(app)
+			.get("/categories")
+			.set("Authorization", `Bearer ${adminLoginResponse.body.token}`);
+
+		expect(response.body).toHaveLength(1);
+		expect(response.status).toBe(200);
+	});
+
+	test("GET /categories/:id/properties -  Must be able to list one category properties", async () => {
+		const adminLoginResponse = await request(app)
+			.post("/login")
+			.send(mockedLoginAdm);
+		const category = await request(app)
+			.get("/categories")
+			.set("Authorization", `Bearer ${adminLoginResponse.body.token}`);
+
+		const response = await request(app)
+			.get(`/categories/${category.body[0].id}/products`)
+			.set("Authorization", `Bearer ${adminLoginResponse.body.token}`);
+
+		expect(response.status).toBe(200);
+		expect(response.body).toHaveProperty("id");
+		expect(response.body).toHaveProperty("name");
+		expect(response.body).toHaveProperty("products");
+	});
 });

@@ -8,24 +8,32 @@ export const updateEmployeesService = async (id:string,{name, email, password, i
 	const employeesRepository = AppDataSource.getRepository(Employee);
 	const employees = await employeesRepository.find();
 
-    const isEmployee = employees.find(employee => employee.id === id)
+    let isEmployee = employees.find(employee => employee.id === id)
+
+    if(!isEmployee?.isActive){
+        throw new AppError(404,'Employee is not active')
+    }
 
     if(!isEmployee){
         throw new AppError(404,'Employee not found')
     }
     
-    if (bcrypt.compareSync(password, isEmployee!.password)) {
-        throw new AppError(400,"Inform a different password.")
+    let newPassword = ''
+    if(password){
+        if(bcrypt.compareSync(password, isEmployee!.password)) {
+            throw new AppError(400,"Inform a different password.")
+        }
+        newPassword = bcrypt.hashSync(password,10)
     }
 
-    const newPassword = bcrypt.hashSync(password,10)
-    
     const employee = new Employee()
-    employee.name = name
-    employee.email = email
-    employee.password = newPassword
-    employee.isAdm = isAdm
+    employee.name = name? name : isEmployee.name
+    employee.email = email? email : isEmployee.email
+    employee.password = password? newPassword : isEmployee.password
+    employee.isAdm = isAdm? isAdm : isEmployee.isAdm
 
     await employeesRepository.update(isEmployee!.id, employee)
-	return employees
+    const employeeUpdate = await employeesRepository.findOneBy({id})
+
+	return employeeUpdate
 };

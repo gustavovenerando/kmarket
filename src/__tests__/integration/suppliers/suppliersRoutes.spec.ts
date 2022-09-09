@@ -9,8 +9,8 @@ import {
   mockedLoginAdm,
   mockedLoginEmployee,
   mockedNotFormattedId,
-  mockedSuplier,
-  mockedSupplierCpnjAgain,
+  mockedSupplier,
+  mockedSupplierCnpjAgain,
   mockedSupplierEmailAgain,
   mockedSupplierUpdateAll,
   mockedSupplierUpdateCnpj,
@@ -62,7 +62,7 @@ describe("Testando rotas do Supplier", () => {
     const response = await request(app)
       .post("/suppliers")
       .set("Authorization", `Bearer ${tokenAdm}`)
-      .send(mockedSuplier);
+      .send(mockedSupplier);
 
     expect(response.status).toBe(201);
     expect(response.body).toHaveProperty("id");
@@ -83,7 +83,7 @@ describe("Testando rotas do Supplier", () => {
     const response = await request(app)
       .post("/suppliers")
       .set("Authorization", `Bearer ${tokenNotAdm}`)
-      .send(mockedSuplier);
+      .send(mockedSupplier);
 
     expect(response.status).toBe(401);
     expect(response.body).toHaveProperty("message");
@@ -103,7 +103,7 @@ describe("Testando rotas do Supplier", () => {
     const response = await request(app)
       .post("/suppliers")
       .set("Authorization", `Bearer ${tokenAdm}`)
-      .send(mockedSupplierCpnjAgain);
+      .send(mockedSupplierCnpjAgain);
 
     expect(response.status).toBe(409);
     expect(response.body).toHaveProperty("message");
@@ -205,7 +205,7 @@ describe("Testando rotas do Supplier", () => {
 
     expect(response.status).toBe(200);
     expect(valuesToCheck).toEqual(mockedSupplierUpdateAll);
-    expect(valuesToCheck).not.toEqual(mockedSuplier);
+    expect(valuesToCheck).not.toEqual(mockedSupplier);
   });
 
   test("UPDATE /suppliers/:id - Deve Alterar corretamente o NOME do SUPPLIER", async () => {
