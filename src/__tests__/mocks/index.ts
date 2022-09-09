@@ -116,6 +116,6 @@ export const mockedSupplierUpdateEmail: ISupplierUpdateRequest = {
   email: "wagner@empresa.com",
 };
 
-export const mockedNotFormatedId: string = "FormatoInválido";
+export const mockedNotFormattedId: string = "FormatoInválido";
 
 export const mockedIdNotExist: string = "00000000-0000-0000-0000-000000000000";
