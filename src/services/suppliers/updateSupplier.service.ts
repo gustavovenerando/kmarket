@@ -19,6 +19,18 @@ const updateSupplierService = async (
 
   const supplier = await supplierRepository.findOneBy({ id: supplierId });
 
+  const checkEmail = await supplierRepository.findOneBy({ email });
+
+  const checkCnpj = await supplierRepository.findOneBy({ cnpj });
+
+  if (email && checkEmail) {
+    throw new AppError(409, "Email already registered.");
+  }
+
+  if (cnpj && checkCnpj) {
+    throw new AppError(409, "Cnpj already registered.");
+  }
+
   if (!supplier) {
     throw new AppError(404, "Supplier not found.");
   }
