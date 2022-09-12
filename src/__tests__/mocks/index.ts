@@ -16,6 +16,7 @@ import {
 	ICreateProducts,
 	IUpdateProductsSchema,
 } from "../../interfaces/products";
+import { IOrderProductsRequest } from "../../interfaces/orderProducts";
 
 export const mockedSupplier: ISupplierRequest = {
 	name: "Wagner",
@@ -231,3 +232,12 @@ export const mockedPatchFailLoyaltyCustomerName: IUpdateLoyaltyCustomerName = {
 export const mockedCategoriesPatch: { name: string } = {
 	name: "limpeza",
 };
+
+export const mockedOrderProducts: IOrderProductsRequest = {
+	quantity: 10,
+	costPrice: 3,
+	deliverySchedule: new Date(2022, 10, 12),
+	isDelivered: false,
+	supplierProductId: "",
+	productId: "",
+}

@@ -72,7 +72,7 @@ describe("Testando rotas do Products", () => {
     })
     //Bad requests get
 
-    test("GET /products - Deve retornar um erro caso NÃO tenha TOKEN", async () => {
+    test("POST /products - Deve retornar um erro caso NÃO tenha TOKEN", async () => {
 
         const response = await request(app).post(`/products`).send(mockedProducts)
 
@@ -262,6 +262,7 @@ describe("Testando rotas do Products", () => {
         expect(response.status).toBe(401)
         expect(response.body).toHaveProperty("message")
     })
+
     test("UPDATE /products/:id - Deve retornar um erro caso NÃO seja o ADM", async () => {
 
         const response = await request(app).patch(`/products/${idProduct}`).set("Authorization", `Bearer ${tokenNotAdm}`)

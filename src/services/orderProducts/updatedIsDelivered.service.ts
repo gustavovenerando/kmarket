@@ -9,6 +9,7 @@ const updateIsDeliveredService = async (
   const orderProductsRepository = AppDataSource.getRepository(
     OrderSuppliersProducts
   );
+  if (orderId.length !== 36) { throw new AppError(400, "Id format not valid.") }
 
   const productRepository = AppDataSource.getRepository(Products);
 
