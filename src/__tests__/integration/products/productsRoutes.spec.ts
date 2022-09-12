@@ -5,7 +5,7 @@ import AppDataSource from "../../../data-source"
 
 import app from "../../../app"
 
-import { mockedAdm, mockedCategory, mockedEmployee, mockedIdNotExist, mockedLoginAdm, mockedLoginEmployee, mockedNotFormattedId, mockedProductDescription, mockedProductDiscount, mockedProductMarketPrice, mockedProducts, mockedProductsInvalidDiscount1, mockedProductsInvalidDiscount2, mockedProductStock, mockedProductUpdateAll, mockedProductUpdateName, mockedSupplierUpdateAll } from "../../mocks"
+import { mockedAdm, mockedCategory, mockedEmployee, mockedIdNotExist, mockedLoginAdm, mockedLoginEmployee, mockedNotFormattedId, mockedProductDescription, mockedProductDiscount, mockedProductMarketPrice, mockedProducts, mockedProductsInvalidDiscount1, mockedProductsInvalidDiscount2, mockedProductStock, mockedProductUpdateAll, mockedProductUpdateName, mockedSupplierUpdateAll, mockedWrongUpdateObject } from "../../mocks"
 import { IProductsResponse } from "../../../interfaces/products"
 
 let productTest: IProductsResponse
@@ -249,7 +249,7 @@ describe("Testando rotas do Products", () => {
 
     test("UPDATE /products/:id - Deve retornar um erro caso a BODY esteja ERRADA", async () => {
 
-        const response = await request(app).patch(`/products/${idProduct}`).set("Authorization", `Bearer ${tokenAdm}`).send(mockedSupplierUpdateAll)
+        const response = await request(app).patch(`/products/${idProduct}`).set("Authorization", `Bearer ${tokenAdm}`).send(mockedWrongUpdateObject)
 
         expect(response.status).toBe(400)
         expect(response.body).toHaveProperty("message")
