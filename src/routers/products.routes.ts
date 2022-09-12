@@ -29,13 +29,13 @@ productsRouter.patch(
 	"/:id",
 	authTokenMiddleware,
 	validationAdmMiddleware,
+	validationSchemaMiddleware(productsUpdateSchema),
 	updateProductsController
 );
 productsRouter.delete(
 	"/:id",
 	authTokenMiddleware,
 	validationAdmMiddleware,
-	validationSchemaMiddleware(productsUpdateSchema),
 	deleteProductsController
 );
 
