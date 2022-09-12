@@ -263,8 +263,6 @@ describe("Testando rotas do Products", () => {
       .set("Authorization", `Bearer ${tokenAdm}`)
       .send(mockedProductStock);
 
-    console.log(response.body);
-
     const stockExpected = mockedProductStock.stock;
 
     expect(response.status).toBe(200);
