@@ -17,6 +17,8 @@ import {
   IUpdateProductsSchema,
 } from "../../interfaces/products";
 import { IOrderProductsRequest } from "../../interfaces/orderProducts";
+import LoyaltyCustomer from "../../entities/loyaltyCustomer.entity";
+import { IProductCartRequest } from "../../interfaces/productsCart";
 
 export const mockedSupplier: ISupplierRequest = {
   name: "Wagner",
@@ -81,6 +83,13 @@ export const mockedIsActiveFalse: IEmployeeRequest = {
   isAdm: true,
 };
 
+export const mockedNotActiveUser: IEmployeeRequest = {
+  name: "Agnaldo",
+  email: "agnaldo@mail.com",
+  password: "123",
+  isAdm: true,
+};
+
 export const mockedUpdateEmployee: IEmployeeRequest = {
   name: "lima",
   email: "lima@mail.com",
@@ -99,6 +108,21 @@ export const mockedIsActiveTrue: IEmployeeRequest = {
 export const mockedLoginAdm: IEmployeeLogin = {
   email: "roberval@roberval.com",
   password: "123",
+};
+
+export const mockedLoginInactiveEmployee: IEmployeeLogin = {
+  email: "agnaldo@mail.com",
+  password: "123",
+};
+
+export const mockedWrongAdmEmail: IEmployeeLogin = {
+  email: "roberval3@roberval.com",
+  password: "123",
+};
+
+export const mockedWrongAdmPassword: IEmployeeLogin = {
+  email: "roberval@roberval.com",
+  password: "1234",
 };
 
 export const mockedLoginAdmAgain = {
@@ -234,10 +258,24 @@ export const mockedCategoriesPatch: { name: string } = {
 };
 
 export const mockedOrderProducts: IOrderProductsRequest = {
-  quantity: 10,
-  costPrice: 3,
-  deliverySchedule: new Date(2022, 10, 12),
-  isDelivered: false,
-  supplierProductId: "",
-  productId: "",
+	quantity: 10,
+	costPrice: 3,
+	deliverySchedule: new Date(2022, 10, 12),
+	isDelivered: false,
+	supplierProductId: "",
+	productId: "",
+}
+
+export const mockedCartEmployeeNoLoyaltyCustomer: ICartRequest = {
+	employeeId: "",
+};
+
+export const mockedCartEmployeeLoyaltyCustomer: ICartRequest = {
+	employeeId: "",
+	loyaltyCustomerId: "",
+};
+
+export const mockedProductCart: IProductCartRequest = {
+	productId: "",
+	quantity: 2
 };
