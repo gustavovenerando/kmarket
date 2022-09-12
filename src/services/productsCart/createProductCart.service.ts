@@ -12,7 +12,6 @@ const createProductCartService = async (
 	const productsRepository = AppDataSource.getRepository(Products);
 	const cartRepository = AppDataSource.getRepository(Cart);
 	const productsCartRepository = AppDataSource.getRepository(ProductsCart);
-	let productCartId: string = "";
 
 	const cart = await cartRepository.findOneBy({
 		id: cartId,
@@ -83,7 +82,7 @@ const createProductCartService = async (
 	});
 
 	const productCartAfterUpdate = await productsCartRepository.findOne({
-		where: { product: { id: productId } },
+		where: { product: { id: productId }, cart: { id: cartId } },
 		relations: { cart: true },
 	});
 
