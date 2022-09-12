@@ -3,6 +3,7 @@ import {
   createLoyaltyCustomerController,
   listLoyaltyCustomerController,
   listLoyaltyCustomersController,
+  resetLoyaltyCustomersController,
   softDeleteLoyaltyCustomerController,
   updateLoyaltyCustomersController,
 } from "../controllers/loyaltyCustomer.controllers";
@@ -29,6 +30,12 @@ loyaltyCustomerRoutes.get(
   authTokenMiddleware,
   validationAdmMiddleware,
   listLoyaltyCustomerController
+);
+loyaltyCustomerRoutes.patch(
+  "/resetfidelity",
+  authTokenMiddleware,
+  validationAdmMiddleware,
+  resetLoyaltyCustomersController
 );
 loyaltyCustomerRoutes.patch(
   "/:id",
