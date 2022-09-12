@@ -5,7 +5,7 @@ import AppDataSource from "../../../data-source"
 
 import app from "../../../app"
 
-import { mockedAdm, mockedCategory, mockedEmployee, mockedIdNotExist, mockedLoginAdm, mockedLoginEmployee, mockedNotFormatedId, mockedProductDescription, mockedProductDiscount, mockedProductMarketPrice, mockedProducts, mockedProductsInvalidDiscount1, mockedProductsInvalidDiscount2, mockedProductStock, mockedProductUpdateAll, mockedProductUpdateName, mockedSupplierUpdateAll } from "../../mocks"
+import { mockedAdm, mockedCategory, mockedEmployee, mockedIdNotExist, mockedLoginAdm, mockedLoginEmployee, mockedNotFormattedId, mockedProductDescription, mockedProductDiscount, mockedProductMarketPrice, mockedProducts, mockedProductsInvalidDiscount1, mockedProductsInvalidDiscount2, mockedProductStock, mockedProductUpdateAll, mockedProductUpdateName, mockedSupplierUpdateAll } from "../../mocks"
 import { IProductsResponse } from "../../../interfaces/products"
 
 let productTest: IProductsResponse
@@ -72,7 +72,7 @@ describe("Testando rotas do Products", () => {
     })
     //Bad requests get
 
-    test("GET /products - Deve retornar um erro caso NÃO tenha TOKEN", async () => {
+    test("POST /products - Deve retornar um erro caso NÃO tenha TOKEN", async () => {
 
         const response = await request(app).post(`/products`).send(mockedProducts)
 
@@ -166,7 +166,7 @@ describe("Testando rotas do Products", () => {
 
     test("GET /products/:id - Deve retornar um erro caso o ID tenha formato inválido", async () => {
 
-        const response = await request(app).get(`/products/${mockedNotFormatedId}`).set("Authorization", `Bearer ${tokenAdm}`)
+        const response = await request(app).get(`/products/${mockedNotFormattedId}`).set("Authorization", `Bearer ${tokenAdm}`)
 
         expect(response.status).toBe(400)
         expect(response.body).toHaveProperty("message")
@@ -262,6 +262,7 @@ describe("Testando rotas do Products", () => {
         expect(response.status).toBe(401)
         expect(response.body).toHaveProperty("message")
     })
+
     test("UPDATE /products/:id - Deve retornar um erro caso NÃO seja o ADM", async () => {
 
         const response = await request(app).patch(`/products/${idProduct}`).set("Authorization", `Bearer ${tokenNotAdm}`)
@@ -272,7 +273,7 @@ describe("Testando rotas do Products", () => {
 
     test("UPDATE /products/:id - Deve retornar um erro caso o ID tenha formato inválido", async () => {
 
-        const response = await request(app).patch(`/products/${mockedNotFormatedId}`).set("Authorization", `Bearer ${tokenAdm}`)
+        const response = await request(app).patch(`/products/${mockedNotFormattedId}`).set("Authorization", `Bearer ${tokenAdm}`)
 
         expect(response.status).toBe(400)
         expect(response.body).toHaveProperty("message")
@@ -318,7 +319,7 @@ describe("Testando rotas do Products", () => {
 
     test("DELETE /products/:id - Deve retornar um erro caso o ID tenha formato inválido", async () => {
 
-        const response = await request(app).delete(`/products/${mockedNotFormatedId}`).set("Authorization", `Bearer ${tokenAdm}`)
+        const response = await request(app).delete(`/products/${mockedNotFormattedId}`).set("Authorization", `Bearer ${tokenAdm}`)
 
         expect(response.status).toBe(400)
         expect(response.body).toHaveProperty("message")
