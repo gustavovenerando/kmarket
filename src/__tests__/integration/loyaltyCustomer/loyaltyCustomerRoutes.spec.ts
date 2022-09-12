@@ -12,6 +12,7 @@ import {
   mockedPatchFailLoyaltyCustomerName,
   mockedUpdateLoyaltyCustomerName,
 } from "../../mocks";
+import LoyaltyCustomer from "../../../entities/loyaltyCustomer.entity";
 
 describe("/loyaltycustomers", () => {
   let connection: DataSource;
@@ -182,6 +183,37 @@ describe("/loyaltycustomers", () => {
     expect(response.body).toHaveProperty("message");
     expect(response.status).toBe(401);
   });
+
+  test("RESET /loyaltycustomers/resetfidelity = Must be reset fidelityPoints from all customers", async () => {
+    const adminLoginResponse = await request(app)
+      .post("/login")
+      .send(mockedLoginAdm);
+
+    const customers = await request(app)
+      .get("/loyaltycustomers")
+      .set("Authorization", `Bearer ${adminLoginResponse.body.token}`);
+
+    let currentCustomer = customers.body[0]
+
+    const loyaltyCustomerRepository = await AppDataSource.getRepository(LoyaltyCustomer)
+
+    currentCustomer.fidelityPoints = 50
+
+    await loyaltyCustomerRepository.save(currentCustomer)
+
+    const response = await request(app)
+      .patch('/loyaltycustomers/resetfidelity')
+      .set("Authorization", `Bearer ${adminLoginResponse.body.token}`);
+
+    expect(response.status).toBe(204)
+
+    const customersUpdated = await request(app)
+      .get("/loyaltycustomers")
+      .set("Authorization", `Bearer ${adminLoginResponse.body.token}`);
+
+    expect(customersUpdated.body[0].fidelityPoints).toEqual(0)
+
+  })
 
   test("DELETE /loyaltycustomers/:id - Must be able to soft delete a Loyalty customer with Adm permission", async () => {
     const adminLoginResponse = await request(app)
