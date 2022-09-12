@@ -5,52 +5,63 @@ import AppError from "../../errors/AppError";
 import { IUpdateProducts } from "../../interfaces/products";
 
 const updateProductsService = async ({
-	id,
-	name,
-	marketPrice,
-	stock,
-	description,
-	discount,
-	categoryId,
+  id,
+  name,
+  marketPrice,
+  stock,
+  description,
+  discount,
+  categoryId,
 }: IUpdateProducts) => {
-	if (id?.length !== 36) { throw new AppError(400, "Id format not valid.") }
+  if (id?.length !== 36) {
+    throw new AppError(400, "Id format not valid.");
+  }
 
-	const productsRepository = AppDataSource.getRepository(Products);
-	const categoryRepository = AppDataSource.getRepository(Category);
-	let categorySelected = null;
+  const productsRepository = AppDataSource.getRepository(Products);
+  const categoryRepository = AppDataSource.getRepository(Category);
+  let categorySelected = null;
 
-	if (categoryId) {
-		categorySelected = await categoryRepository.findOne({
-			where: { id: categoryId },
-		});
+  if (categoryId) {
+    categorySelected = await categoryRepository.findOne({
+      where: { id: categoryId },
+    });
 
-		if (!categorySelected) {
-			throw new AppError(404, "Category not found.");
-		}
-	}
+    if (!categorySelected) {
+      throw new AppError(404, "Category not found.");
+    }
+  }
 
-	const productToUpdate = await productsRepository.findOneBy({ id });
+  const productToUpdate = await productsRepository.findOneBy({ id });
 
-	if (!productToUpdate) {
-		throw new AppError(404, "Product not found");
-	}
+  if (!productToUpdate) {
+    throw new AppError(404, "Product not found");
+  }
 
-	const newProduct = {
-		name: name ? name : productToUpdate?.name,
-		marketPrice: marketPrice ? marketPrice : productToUpdate?.marketPrice,
-		stock: stock ? stock : productToUpdate?.stock,
-		description: description ? description : productToUpdate?.description,
-		discount: discount ? discount : productToUpdate?.discount,
-		category: categorySelected
-			? categorySelected
-			: productToUpdate?.category,
-	};
+  let newProduct = {
+    name: name ? name : productToUpdate?.name,
+    marketPrice: marketPrice ? marketPrice : productToUpdate?.marketPrice,
+    stock: stock ? stock : productToUpdate?.stock,
+    description: description ? description : productToUpdate?.description,
+    discount: discount ? discount : productToUpdate?.discount,
+    category: categorySelected ? categorySelected : productToUpdate?.category,
+  };
 
-	await productsRepository.update(productToUpdate.id, newProduct);
+  if (
+    !name &&
+    !marketPrice &&
+    !stock &&
+    !description &&
+    !discount &&
+    !categoryId
+  ) {
+    throw new AppError(400, "Insert a valid option");
+  }
 
-	const productUpToDate = await productsRepository.findOneBy({ id });
+  await productsRepository.update(productToUpdate.id, newProduct);
 
-	return productUpToDate;
+  const productUpToDate = await productsRepository.findOneBy({ id });
+
+  return productUpToDate;
 };
 
 export default updateProductsService;
