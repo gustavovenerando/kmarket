@@ -37,7 +37,7 @@ const updateProductsService = async ({
     throw new AppError(404, "Product not found");
   }
 
-  const newProduct = {
+  let newProduct = {
     name: name ? name : productToUpdate?.name,
     marketPrice: marketPrice ? marketPrice : productToUpdate?.marketPrice,
     stock: stock ? stock : productToUpdate?.stock,
@@ -45,6 +45,17 @@ const updateProductsService = async ({
     discount: discount ? discount : productToUpdate?.discount,
     category: categorySelected ? categorySelected : productToUpdate?.category,
   };
+
+  if (
+    !name &&
+    !marketPrice &&
+    !stock &&
+    !description &&
+    !discount &&
+    !categoryId
+  ) {
+    throw new AppError(400, "Insert a valid option");
+  }
 
   await productsRepository.update(productToUpdate.id, newProduct);
 
