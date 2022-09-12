@@ -279,3 +279,4 @@ export const mockedProductCart: IProductCartRequest = {
 	productId: "",
 	quantity: 2
 };
+
