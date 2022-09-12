@@ -66,10 +66,19 @@ const createProductCartService = async (
 
 		const cartTotalPrice = cartAfterUpdate!.productsCart.reduce(
 			(acum, currElem) => {
-				return (
-					acum +
-					currElem.quantity * Number(currElem.product.marketPrice)
-				);
+				if (Number(currElem.product.discount) > 0) {
+					return (
+						acum +
+						currElem.quantity *
+							Number(currElem.product.marketPrice) *
+							(1 - Number(currElem.product.discount))
+					);
+				} else {
+					return (
+						acum +
+						currElem.quantity * Number(currElem.product.marketPrice)
+					);
+				}
 			},
 			0
 		);
