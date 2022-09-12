@@ -21,6 +21,12 @@ const updateProductsService = async ({
   const categoryRepository = AppDataSource.getRepository(Category);
   let categorySelected = null;
 
+  if(discount) {
+    if(discount < 0 && discount > 1) {
+      throw new AppError(400, "Discount must be a number between 0 and 1.");
+    }
+  }
+
   if (categoryId) {
     categorySelected = await categoryRepository.findOne({
       where: { id: categoryId },

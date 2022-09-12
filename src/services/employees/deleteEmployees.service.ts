@@ -9,11 +9,11 @@ export const deleteEmployeesService = async (id:string) => {
     const isEmployee = employees.find(employee => employee.id === id)
 
     if(!isEmployee){
-        throw new AppError(404,'Employee not found')
+        throw new AppError(404,'Employee not found.')
     }
 
     if(!isEmployee.isActive){
-        throw new AppError(404,'Employee is not active')
+        throw new AppError(404,'Employee is not active.')
     }
     
     await employeesRepository.update(isEmployee!.id, {isActive: false})

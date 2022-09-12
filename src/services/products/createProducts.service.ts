@@ -24,12 +24,12 @@ const createProductsService = async ({
 	}
 
 	if (Number(discount) > 1 || Number(discount) < 0) {
-		throw new AppError(400, "Discount must be a number between 0 and 1");
+		throw new AppError(400, "Discount must be a number between 0 and 1.");
 	}
 
 	const productExists = await productsRepository.findOneBy({ name })
 	if (productExists) {
-		throw new AppError(409, "Name of product already exists")
+		throw new AppError(409, "Name of product already exists.")
 	}
 
 	const product = productsRepository.create({

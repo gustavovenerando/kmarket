@@ -36,7 +36,7 @@ describe('/employees', () => {
         });
 
         expect(response.body).toHaveProperty("message")
-        expect(response.status).toBe(400)       
+        expect(response.status).toBe(409)       
     })
 
     test("POST /employees -  Required field",async () => {
