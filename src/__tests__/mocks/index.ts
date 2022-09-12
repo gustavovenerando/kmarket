@@ -17,6 +17,8 @@ import {
   IUpdateProductsSchema,
 } from "../../interfaces/products";
 import { IOrderProductsRequest } from "../../interfaces/orderProducts";
+import LoyaltyCustomer from "../../entities/loyaltyCustomer.entity";
+import { IProductCartRequest } from "../../interfaces/productsCart";
 
 export const mockedSupplier: ISupplierRequest = {
   name: "Wagner",
@@ -256,10 +258,24 @@ export const mockedCategoriesPatch: { name: string } = {
 };
 
 export const mockedOrderProducts: IOrderProductsRequest = {
-  quantity: 10,
-  costPrice: 3,
-  deliverySchedule: new Date(2022, 10, 12),
-  isDelivered: false,
-  supplierProductId: "",
-  productId: "",
+	quantity: 10,
+	costPrice: 3,
+	deliverySchedule: new Date(2022, 10, 12),
+	isDelivered: false,
+	supplierProductId: "",
+	productId: "",
+}
+
+export const mockedCartEmployeeNoLoyaltyCustomer: ICartRequest = {
+	employeeId: "",
+};
+
+export const mockedCartEmployeeLoyaltyCustomer: ICartRequest = {
+	employeeId: "",
+	loyaltyCustomerId: "",
+};
+
+export const mockedProductCart: IProductCartRequest = {
+	productId: "",
+	quantity: 2
 };

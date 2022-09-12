@@ -29,7 +29,7 @@ const createCartService = async ({
   }
 
   if (!loyaltyCustomer?.isActive && loyaltyCustomerId) {
-    throw new AppError(404, "Loyalty Customer is not active.");
+    throw new AppError(409, "Loyalty Customer is not active.");
   }
 
   if (!employee) {
