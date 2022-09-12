@@ -31,6 +31,7 @@ export const updateEmployeesService = async (id:string,{name, email, password, i
     employee.email = email? email : isEmployee.email
     employee.password = password? newPassword : isEmployee.password
     employee.isAdm = isAdm? isAdm : isEmployee.isAdm
+    employee.isActive = isAdm? isAdm : isEmployee.isActive
 
     await employeesRepository.update(isEmployee!.id, employee)
     const employeeUpdate = await employeesRepository.findOneBy({id})

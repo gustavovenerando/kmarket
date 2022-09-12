@@ -6,6 +6,8 @@ import { updateEmployeesController } from "../controllers/employees.controllers"
 import { deleteEmployeesController } from "../controllers/employees.controllers";
 import authTokenMiddleware from "../middlewares/authToken.middleware";
 import validationAdmMiddleware from "../middlewares/validationAdm.middleware";
+import validationSchemaMiddleware from "../middlewares/validationSchema.middleware";
+import { employeeSchema, employeeUpdateSchema } from "../schemas/employees";
 
 const employeeRouter = Router();
 
@@ -14,6 +16,7 @@ employeeRouter.get(
 	"",
 	authTokenMiddleware,
 	validationAdmMiddleware,
+	validationSchemaMiddleware(employeeSchema),
 	listEmployeesController
 );
 employeeRouter.get(
@@ -26,6 +29,7 @@ employeeRouter.patch(
 	"/:id",
 	authTokenMiddleware,
 	validationAdmMiddleware,
+	validationSchemaMiddleware(employeeUpdateSchema),
 	updateEmployeesController
 );
 employeeRouter.delete(

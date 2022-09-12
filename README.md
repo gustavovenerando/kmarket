@@ -217,6 +217,7 @@ OBS.: Chaves não presentes no schema serão removidas.
 
 | Código do Erro  | Descrição                                  |
 | --------------- | ------------------------------------------ |
+| 409 conflict    | Name of product already exists.            |
 | 404 not found   | Category not found.                        |
 | 400 bad request | Discount must be a number between 0 and 1. |
 
@@ -390,9 +391,11 @@ OBS.: Chaves não presentes no schema serão removidas.
 
 ### Possíveis Erros:
 
-| Código do Erro | Descrição         |
-| -------------- | ----------------- |
-| 404 Not Found  | Product not found |
+| Código do Erro  | Descrição                                  |
+| --------------- | ------------------------------------------ |
+| 404 Not Found   | Product not found                          |
+| 404 Not Found   | Category not found.                        |
+| 400 Bad Request | Discount must be a number between 0 and 1. |
 
 ---
 
@@ -410,9 +413,9 @@ Content-type: application/json
 
 ### Parâmetros da Requisição:
 
-| Parâmetro  | Tipo   | Descrição                         |
-| ---------- | ------ | --------------------------------- |
-| supplierId | string | Identificador único do fornecedor |
+| Parâmetro | Tipo   | Descrição                      |
+| --------- | ------ | ------------------------------ |
+| productId | string | Identificador único do produto |
 
 ### Corpo da Requisição:
 
@@ -515,10 +518,12 @@ OBS.: Chaves não presentes no schema serão removidas.
 
 ### Possíveis Erros:
 
-| Código do Erro  | Descrição                    |
-| --------------- | ---------------------------- |
-| 400 Bad Request | Incorrect parameters.        |
-| 400 Bad Request | Loyalty Customer not exists. |
+| Código do Erro  | Descrição                       |
+| --------------- | ------------------------------- |
+| 400 Bad Request | Incorrect parameters.           |
+| 404 Not Found   | Loyalty Customer not Found.     |
+| 409 Conflict    | Loyalty Customer is not active. |
+| 404 Not Found   | Employee not found.             |
 
 ---
 
@@ -549,22 +554,48 @@ Vazio
 ```json
 [
   {
-    "id": "9cda28c9-e540-4b2c-bf0c-c90006d32891",
-    "totalPrice": 25,
-    "createdAt": "1995-12-17T03:24:00",
+    "id": "bdd7fc92-f669-4326-8224-d3bfc9ce4710",
+    "totalPrice": "0.00",
     "sold": false,
-    "employee": {Employee obj},
-    "loyaltyCustomerId": {loyaltyCustomer obj},
-	"productsCart": [array de productsCart]
+    "createdAt": "2022-09-09T17:53:13.604Z",
+    "employee": {
+      "id": "5ed80d0c-9f8c-44d2-a9c5-1c72b4a518e0",
+      "name": "gabriel",
+      "email": "gabriel@mail.com",
+      "password": "$2a$10$6J8xHTnmHHPjZjILvSAcyOjuGP5.8idRcYxMUuyMepy6oCpRye.AG",
+      "isAdm": false,
+      "isActive": true,
+      "createdAt": "2022-09-09T13:35:08.021Z",
+      "updatedAt": "2022-09-09T13:35:08.021Z"
+    },
+    "loyaltyCustomer": {
+      "id": "8541c509-69d3-4198-b3c8-08d6351c5cb8",
+      "name": "gabriel",
+      "email": "gabriel@mail.comm",
+      "fidelityPoints": 0,
+      "isActive": false,
+      "createdAt": "2022-09-09T17:52:35.657Z",
+      "updatedAt": "2022-09-12T12:59:49.567Z"
+    },
+    "productsCart": []
   },
   {
-    "id": "9cda28c9-e540-4b2c-bf0c-c90006d32810",
-    "totalPrice": 450,
-    "createdAt": "1995-12-17T03:24:00",
-    "sold": true,
-	"employee": {Employee obj},
-    "loyaltyCustomerId": {loyaltyCustomer obj},
-	"productsCart": [array de productsCart]
+    "id": "7bdedad2-df98-4507-9156-ad2fd99dc657",
+    "totalPrice": "0.00",
+    "sold": false,
+    "createdAt": "2022-09-09T13:36:06.452Z",
+    "employee": {
+      "id": "5ed80d0c-9f8c-44d2-a9c5-1c72b4a518e0",
+      "name": "gabriel",
+      "email": "gabriel@mail.com",
+      "password": "$2a$10$6J8xHTnmHHPjZjILvSAcyOjuGP5.8idRcYxMUuyMepy6oCpRye.AG",
+      "isAdm": false,
+      "isActive": true,
+      "createdAt": "2022-09-09T13:35:08.021Z",
+      "updatedAt": "2022-09-09T13:35:08.021Z"
+    },
+    "loyaltyCustomer": null,
+    "productsCart": []
   }
 ]
 ```
@@ -582,7 +613,7 @@ Nenhum, o máximo que pode acontecer é retornar uma lista vazia.
 ### Exemplo de Request:
 
 ```
-GET /cart/9cda28c9-e540-4b2c-bf0c-c90006d37893
+GET /cart/:id
 Authorization: Bearer token
 Content-type: application/json
 ```
@@ -606,18 +637,32 @@ Vazio
 ```
 
 ```json
-
-
-	{
-    "id": "9cda28c9-e540-4b2c-bf0c-c90006d32810",
-    "totalPrice": 0,
-    "createdAt": "1995-12-17T03:24:00",
-    "sold": true,
-    "employee": {Employee obj},
-    "loyaltyCustomerId": {loyaltyCustomer obj},
-	"productsCart": [array de productsCart]
-  }
-
+{
+  "id": "16d3addf-7efa-451c-9761-0b1f1616017e",
+  "totalPrice": "0.00",
+  "sold": false,
+  "createdAt": "2022-09-08T12:38:33.237Z",
+  "employee": {
+    "id": "4384dc3b-ac35-48aa-bc3c-b15814eaab2f",
+    "name": "gabriel",
+    "email": "gabriel@mail.com",
+    "password": "$2a$10$g1afERSzsk5mvDRmkqSL5uZ0TFFdL5o6/3nQuuXb9INl39FTFzJ0e",
+    "isAdm": true,
+    "isActive": true,
+    "createdAt": "2022-09-07T20:11:30.920Z",
+    "updatedAt": "2022-09-07T20:11:30.920Z"
+  },
+  "loyaltyCustomer": {
+    "id": "70a3a183-64c8-45c8-b6d4-bcc876a7be3a",
+    "name": "gabriel",
+    "email": "gabriel@mail.co",
+    "fidelityPoints": 0,
+    "isActive": false,
+    "createdAt": "2022-09-07T17:39:02.299Z",
+    "updatedAt": "2022-09-07T17:54:36.710Z"
+  },
+  "productsCart": []
+}
 ```
 
 ### Possíveis Erros:
@@ -627,6 +672,8 @@ Vazio
 | 404 Not Found   | Cart not found.      |
 | 400 Bad request | Id format not valid. |
 
+---
+
 ### 2.4 **Vender Carrinho**
 
 ### `/cart/:id`
@@ -634,10 +681,16 @@ Vazio
 ### Exemplo de Request:
 
 ```
-PATCH /cart/9cda28c9-e540-4b2c-bf0c-c90006d37893
+PATCH /cart/:id
 Authorization: Bearer token
 Content-type: application/json
 ```
+
+### Parâmetros da Requisição:
+
+| Parâmetro | Tipo   | Descrição                   |
+| --------- | ------ | --------------------------- |
+| id        | string | Identificador único da Cart |
 
 ### Corpo da Requisição:
 
@@ -655,7 +708,7 @@ Vazio
 
 | Código do Erro  | Descrição           |
 | --------------- | ------------------- |
-| 404 not found   | Cart Id not found.  |
+| 404 not found   | Cart not found.     |
 | 400 bad Request | No product in Cart. |
 | 409 Conflict    | Cart already sold.  |
 
@@ -668,7 +721,7 @@ Vazio
 ### Exemplo de Request:
 
 ```
-DELETE /cart/9cda28c9-e540-4b2c-bf0c-c90006d37893
+DELETE /cart/:id
 Authorization: Bearer token
 Content-type: application/json
 ```
@@ -697,9 +750,10 @@ No body returned for response
 
 ### Possíveis Erros:
 
-| Código do Erro | Descrição       |
-| -------------- | --------------- |
-| 404 Not Found  | Cart not found. |
+| Código do Erro  | Descrição          |
+| --------------- | ------------------ |
+| 404 Not Found   | Cart not found.    |
+| 400 Bad Request | Cart already sold. |
 
 ### 3. /productscart
 
@@ -908,7 +962,9 @@ Vazio
 
 ### Possíveis Erros:
 
-Nenhum, o máximo que pode acontecer é retornar uma lista vazia.
+| Código do Erro | Descrição          |
+| -------------- | ------------------ |
+| 404 Not Found  | Product not found. |
 
 ---
 
@@ -963,9 +1019,10 @@ O objeto employee é definido como:
 
 | Campo     | Tipo    | Descrição                              |
 | --------- | ------- | -------------------------------------- |
-| id        | string  | Identificador único do employee.       |
+| id        | string  | Identificador único do funcionário.    |
 | name      | string  | Nome do funcionário.                   |
 | email     | string  | Email do funcionário.                  |
+| password  | string  | senha do funcionário.                  |
 | isAdm     | boolean | Se o funcionário é adiministrador.     |
 | isActive  | string  | Se o funcinário é ativo.               |
 | createdAt | Date    | Data que o funcionário foi cadastrado. |
@@ -1040,7 +1097,7 @@ OBS.: Chaves não presentes no schema serão removidas.
 
 | Código do Erro  | Descrição                 |
 | --------------- | ------------------------- |
-| 400 Bad Request | Email already registered. |
+| 409 Conflict    | Email already registered. |
 | 400 Bad Request | Required field.           |
 
 ---
@@ -1098,7 +1155,7 @@ Nenhum, o máximo que pode acontecer é retornar uma lista vazia.
 ### Exemplo de Request:
 
 ```
-GET /suppliers/:id
+GET /employees/:id
 Host:
 Authorization: Bearer token
 Content-type: application/json
@@ -1106,9 +1163,9 @@ Content-type: application/json
 
 ### Parâmetros da Requisição:
 
-| Parâmetro | Tipo   | Descrição                         |
-| --------- | ------ | --------------------------------- |
-| id        | string | Identificador único do fornecedor |
+| Parâmetro | Tipo   | Descrição                          |
+| --------- | ------ | ---------------------------------- |
+| id        | string | Identificador único do funcionário |
 
 ### Corpo da Requisição:
 
@@ -1124,15 +1181,14 @@ Vazio
 
 ```json
 {
-	"id": "6067c01f-380b-4879-8685-52a408bf5a71",
-	"name": "Daniel Josias",
-	"email": "danieljosias@kenzie.com",
-	"isAdm": true,
-	"isActive": true,
-	"createdAt": "2022-09-07T19:46:12.280Z",
-	"updatedAt": "2022-09-07T19:46:12.280Z"
-} "updatedAt": "2022-09-07T18:18:53.684Z"
-
+  "id": "6067c01f-380b-4879-8685-52a408bf5a71",
+  "name": "Daniel Josias",
+  "email": "danieljosias@kenzie.com",
+  "isAdm": true,
+  "isActive": true,
+  "createdAt": "2022-09-07T19:46:12.280Z",
+  "updatedAt": "2022-09-07T19:46:12.280Z"
+}
 ```
 
 ### Possíveis Erros:
@@ -1158,9 +1214,9 @@ Content-type: application/json
 
 ### Parâmetros da Requisição:
 
-| Parâmetro | Tipo   | Descrição                         |
-| --------- | ------ | --------------------------------- |
-| id        | string | Identificador único do fornecedor |
+| Parâmetro | Tipo   | Descrição                          |
+| --------- | ------ | ---------------------------------- |
+| id        | string | Identificador único do funcionário |
 
 ### Corpo da Requisição:
 
@@ -1205,7 +1261,7 @@ OBS.: Chaves não presentes no schema serão removidas.
 
 | Código do Erro | Descrição          |
 | -------------- | ------------------ |
-| 404 Not Found  | Supplier not found |
+| 404 Not Found  | Employee not found |
 
 ---
 
@@ -1224,9 +1280,9 @@ Content-type: application/json
 
 ### Parâmetros da Requisição:
 
-| Parâmetro | Tipo   | Descrição                         |
-| --------- | ------ | --------------------------------- |
-| id        | string | Identificador único do fornecedor |
+| Parâmetro | Tipo   | Descrição                          |
+| --------- | ------ | ---------------------------------- |
+| id        | string | Identificador único do funcionario |
 
 ### Corpo da Requisição:
 
@@ -1246,9 +1302,10 @@ No body returned for response
 
 ### Possíveis Erros:
 
-| Código do Erro | Descrição            |
-| -------------- | -------------------- |
-| 404 Not Found  | Employees not found. |
+| Código do Erro | Descrição               |
+| -------------- | ----------------------- |
+| 404 Not Found  | Employees not found.    |
+| 409 Not Found  | Employee is not active. |
 
 ---
 
