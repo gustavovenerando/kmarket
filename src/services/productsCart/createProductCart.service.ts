@@ -12,7 +12,6 @@ const createProductCartService = async (
 	const productsRepository = AppDataSource.getRepository(Products);
 	const cartRepository = AppDataSource.getRepository(Cart);
 	const productsCartRepository = AppDataSource.getRepository(ProductsCart);
-	let productCartId: string = "";
 
 	const cart = await cartRepository.findOneBy({
 		id: cartId,
@@ -37,56 +36,57 @@ const createProductCartService = async (
 	const newStock = product.stock - quantity;
 	await productsRepository.update(product.id, { stock: newStock });
 
-	cart.productsCart.map(async (elem) => {
-		if (elem.product.id === productId) {
-			productCartId = elem.id;
-		}
+	const productAlreadyExists = await productsCartRepository.findOne({
+		where: { product: { id: productId }, cart: { id: cartId } },
 	});
 
-	if (productCartId === "") {
+	if (!productAlreadyExists) {
 		const newProductCart = productsCartRepository.create({
 			quantity,
 			product: product,
 			cart: cart,
 		});
 		await productsCartRepository.save(newProductCart);
-		return newProductCart;
 	} else {
-		const productCart = await productsCartRepository.findOneBy({
-			id: productCartId,
-		});
-		const newQuantity = productCart!.quantity + quantity;
-		await productsCartRepository.update(productCart!.id, {
+		const newQuantity = productAlreadyExists!.quantity + quantity;
+		await productsCartRepository.update(productAlreadyExists!.id, {
 			quantity: newQuantity,
 		});
-
-		const cartAfterUpdate = await cartRepository.findOneBy({
-			id: cartId,
-		});
-
-		const cartTotalPrice = cartAfterUpdate!.productsCart.reduce(
-			(acum, currElem) => {
-				if (Number(currElem.product.discount) > 0) {
-					return (
-						acum +
-						currElem.quantity *
-							Number(currElem.product.marketPrice) *
-							(1 - Number(currElem.product.discount))
-					);
-				} else {
-					return (
-						acum +
-						currElem.quantity * Number(currElem.product.marketPrice)
-					);
-				}
-			},
-			0
-		);
-
-		await cartRepository.update(cart!.id, { totalPrice: cartTotalPrice });
-
-		return productCart!;
 	}
+
+	const cartAfterUpdate = await cartRepository.findOneBy({
+		id: cartId,
+	});
+
+	const cartTotalPrice = cartAfterUpdate!.productsCart.reduce(
+		(acum, currElem) => {
+			if (Number(currElem.product.discount) > 0) {
+				return (
+					acum +
+					currElem.quantity *
+						Number(currElem.product.marketPrice) *
+						(1 - Number(currElem.product.discount))
+				);
+			} else {
+				return (
+					acum +
+					currElem.quantity * Number(currElem.product.marketPrice)
+				);
+			}
+		},
+		0
+	);
+
+	await cartRepository.update(cartAfterUpdate!.id, {
+		totalPrice: cartTotalPrice,
+	});
+
+	const productCartAfterUpdate = await productsCartRepository.findOne({
+		where: { product: { id: productId }, cart: { id: cartId } },
+		relations: { cart: true },
+	});
+
+	return productCartAfterUpdate!;
 };
 
 export default createProductCartService;
