@@ -81,6 +81,13 @@ export const mockedIsActiveFalse: IEmployeeRequest = {
   isAdm: true,
 };
 
+export const mockedNotActiveUser: IEmployeeRequest = {
+  name: "Agnaldo",
+  email: "agnaldo@mail.com",
+  password: "123",
+  isAdm: true,
+};
+
 export const mockedUpdateEmployee: IEmployeeRequest = {
   name: "lima",
   email: "lima@mail.com",
@@ -99,6 +106,21 @@ export const mockedIsActiveTrue: IEmployeeRequest = {
 export const mockedLoginAdm: IEmployeeLogin = {
   email: "roberval@roberval.com",
   password: "123",
+};
+
+export const mockedLoginInactiveEmployee: IEmployeeLogin = {
+  email: "agnaldo@mail.com",
+  password: "123",
+};
+
+export const mockedWrongAdmEmail: IEmployeeLogin = {
+  email: "roberval3@roberval.com",
+  password: "123",
+};
+
+export const mockedWrongAdmPassword: IEmployeeLogin = {
+  email: "roberval@roberval.com",
+  password: "1234",
 };
 
 export const mockedLoginAdmAgain = {

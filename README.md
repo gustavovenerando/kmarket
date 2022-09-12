@@ -1258,6 +1258,13 @@ No body returned for response
 | ------ | ------ | ----------------------------------- | ----------- | --- |
 | POST   | /login | Faz login do employee e gera token. |             |     |
 
+### Possíveis Erros:
+
+| Código do Erro  | Descrição                   |
+| --------------- | --------------------------- |
+| 400 Bad Request | "Invalid employee"          |
+| 403 Forbidden   | "Invalid email or password" |
+
 ### 6. /loyaltycustomers
 
 O objeto loyaltyCustomer é definido como:
