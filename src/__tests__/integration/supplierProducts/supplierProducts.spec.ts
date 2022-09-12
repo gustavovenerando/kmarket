@@ -9,8 +9,8 @@ import {
   mockedEmployee,
   mockedLoginAdm,
   mockedProducts,
-  mockedSuplier,
-  mockedSupliertestSupplierId,
+  mockedSupplier,
+  mockedSuppliertestSupplierId,
   mockedSupplierProduct,
 } from "../../mocks";
 
@@ -45,7 +45,7 @@ describe("/supplierproducts", () => {
     const supplierResponse = await request(app)
       .post("/suppliers")
       .set("Authorization", `Bearer ${adminLoginResponse.body.token}`)
-      .send(mockedSuplier);
+      .send(mockedSupplier);
     mockedSupplierProduct.categoryId = categoryResponse.body.id;
     mockedSupplierProduct.supplierId = supplierResponse.body.id;
     const response = await request(app)
@@ -71,7 +71,7 @@ describe("/supplierproducts", () => {
     const supplierResponse = await request(app)
       .post("/suppliers")
       .set("Authorization", `Bearer ${notAdminLoginResponse.body.token}`)
-      .send(mockedSuplier);
+      .send(mockedSupplier);
     mockedSupplierProduct.categoryId = categoryResponse.body.id;
     mockedSupplierProduct.supplierId = supplierResponse.body.id;
     const response = await request(app)
@@ -99,14 +99,13 @@ describe("/supplierproducts", () => {
     const supplierResponse = await request(app)
       .post("/suppliers")
       .set("Authorization", `Bearer ${adminLoginResponse.body.token}`)
-      .send(mockedSupliertestSupplierId);
+      .send(mockedSuppliertestSupplierId);
     mockedSupplierProduct.supplierId = supplierResponse.body.id;
     mockedSupplierProduct.categoryId = "8f9ae6ce-e36c-4d9d-9bd7-b4c98cb4e4f4";
     const response = await request(app)
       .post("/supplierproducts")
       .set("Authorization", `Bearer ${adminLoginResponse.body.token}`)
       .send(mockedSupplierProduct);
-    console.log(mockedSupplierProduct, supplierResponse.body);
     expect(response.body).toHaveProperty("message");
     expect(response.status).toBe(404);
   });
