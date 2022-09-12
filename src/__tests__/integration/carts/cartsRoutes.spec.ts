@@ -31,9 +31,9 @@ describe("/cart", () => {
 				console.error("Error during Data Source initialization", err);
 			});
 
-			const mockedAdmResponse =  await request(app).post("/employees").send(mockedEmployee);
+			const mockedAdmResponse =  await request(app).post("/employees").send(mockedAdm);
 			mockedAdmId = mockedAdmResponse.body.id;
-			const mockedEmployeeResponse = await request(app).post("/employees").send(mockedAdm);
+			const mockedEmployeeResponse = await request(app).post("/employees").send(mockedEmployee);
 			mockedEmployeeId = mockedEmployeeResponse.body.id;
 			const adminLoginResponse = await request(app)
 				.post("/login")
