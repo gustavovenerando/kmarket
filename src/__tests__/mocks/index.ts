@@ -97,12 +97,38 @@ export const mockedUpdateEmployee: IEmployeeRequest = {
   isAdm: true,
 };
 
+export const mockedSoftDeleteEmployee: IEmployeeRequest = {
+  name: "nascimento",
+  email: "nascimento@mail.com",
+  password: "123",
+  isAdm: true,
+  isActive: true
+};
+
+export const mockedLoginSoftDeleteEmployee: IEmployeeLogin = {
+  email: "nascimento@mail.com",
+  password: "123",
+};
+
+
 export const mockedIsActiveTrue: IEmployeeRequest = {
   name: "josias",
   email: "josias@mail.com",
   password: "123",
   isAdm: true,
   isActive: true,
+};
+
+export const mockedListEmployees: IEmployeeRequest = {
+  name: "dn",
+  email: "dn@mail.com",
+  password: "123",
+  isAdm: true
+};
+
+export const mockedLoginListEmployees: IEmployeeLogin = {
+  email: "dn@mail.com",
+  password: "123"
 };
 
 export const mockedLoginAdm: IEmployeeLogin = {

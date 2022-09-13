@@ -7,7 +7,7 @@ export const employeeSchema: SchemaOf<IEmployeeRequest> = yup.object().shape({
 	email: yup.string().required(),
 	password: yup.string().required(),
 	isAdm: yup.boolean().required(),
-	isActive: yup.boolean().required()
+	isActive: yup.boolean()
 
 });
 
