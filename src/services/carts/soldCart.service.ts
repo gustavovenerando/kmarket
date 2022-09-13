@@ -36,12 +36,18 @@ const soldCartService = async (id: string) => {
 
     let fidelityDiscount = 0;
 
+    let tierMessage =
+      "Você ainda não possui pontos suficentes obter desconto nas suas compras na Kmarket";
+
     if (totalFidelityPoints >= goldTierPoints) {
       fidelityDiscount = 0.15;
+      tierMessage = "Seu nível atual é Ouro";
     } else if (totalFidelityPoints >= silverTierPoints) {
       fidelityDiscount = 0.1;
+      tierMessage = "Seu nível atual é Prata";
     } else if (totalFidelityPoints >= bronzeTierPoints) {
       fidelityDiscount = 0.05;
+      tierMessage = "Seu nível atual é Bronze";
     }
 
     const totalPrice = cart.productsCart.reduce(
@@ -71,9 +77,9 @@ const soldCartService = async (id: string) => {
       totalFidelityPoints + fidelityPointsToGive
     );
 
-    const subject = "Compra no KMARKET";
+    const subject = "Compra na KMARKET";
 
-    let text = `Parabéns pela compra, agora você tem ${newFidelityPoints} pontos de fidelidade, nessa compra você economizou ${formattedPrice}. `;
+    let text = `Obrigado por comprar na Kmarket, agora você tem ${newFidelityPoints} pontos de fidelidade, nessa compra você economizou ${formattedPrice}. ${tierMessage}, continue comprando para subir seu nível!`;
 
     let to = loyaltyCustomer!.email;
 
