@@ -10,7 +10,7 @@ import {
 import authTokenMiddleware from "../middlewares/authToken.middleware";
 import validationAdmMiddleware from "../middlewares/validationAdm.middleware";
 import validationSchemaMiddleware from "../middlewares/validationSchema.middleware";
-import { loyaltyCustomerSchema } from "../schemas/loyaltyCustomer.schema";
+import { loyaltyCustomerSchema, loyaltyCustomerUpdateSchema } from "../schemas/loyaltyCustomer.schema";
 
 const loyaltyCustomerRoutes = Router();
 
@@ -41,7 +41,7 @@ loyaltyCustomerRoutes.patch(
   "/:id",
   authTokenMiddleware,
   validationAdmMiddleware,
-  validationSchemaMiddleware(loyaltyCustomerSchema),
+  validationSchemaMiddleware(loyaltyCustomerUpdateSchema),
   updateLoyaltyCustomersController
 );
 loyaltyCustomerRoutes.delete(

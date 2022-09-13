@@ -44,8 +44,8 @@ export const updateLoyaltyCustomersController = async (
 ) => {
 
   const id = req.params.id
-  const { email, name, fidelityPoints }: ILoyaltyCustomerUpdateRequest = req.body
-  const updatedLoyaltyCustomer = await updateLoyaltyCustomerService(id, { email, name, fidelityPoints })
+  const { email, name, fidelityPoints, isActive }: ILoyaltyCustomerUpdateRequest = req.body
+  const updatedLoyaltyCustomer = await updateLoyaltyCustomerService(id, { email, name, fidelityPoints, isActive })
   return res.status(200).json(instanceToPlain(updatedLoyaltyCustomer));
 };
 
