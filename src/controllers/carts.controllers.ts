@@ -26,7 +26,7 @@ const listCartByIdController = async (req: Request, res: Response) => {
 const soldCartController = async (req: Request, res: Response) => {
   const { id } = req.params;
   const response = await soldCartService(id);
-  return res.status(200).json(response);
+  return res.status(204).json(response);
 };
 
 const deleteCartController = async (req: Request, res: Response) => {
