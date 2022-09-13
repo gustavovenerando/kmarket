@@ -1,4 +1,8 @@
-import { mockedCartEmployeeLoyaltyCustomer, mockedCategory, mockedProductCart } from "./../../mocks/index";
+import {
+  mockedCartEmployeeLoyaltyCustomer,
+  mockedCategory,
+  mockedProductCart,
+} from "./../../mocks/index";
 import { DataSource } from "typeorm";
 import AppDataSource from "../../../data-source";
 import request from "supertest";
@@ -99,5 +103,61 @@ describe("/supplierproducts", () => {
       .send(mockedProductCart);
     expect(response.body).toHaveProperty("message");
     expect(response.status).toBe(400);
+  });
+
+  test("GET /productscart - Must be able to get all products cart with adm token", async () => {
+    const response = await request(app)
+      .get("/productscart")
+      .set("Authorization", `Bearer ${tokenAdm}`);
+    expect(response.status).toBe(200);
+    expect(response.body[0].product.name).toEqual(mockedProducts.name);
+  });
+
+  test("GET /productscart - Must not be able to get all products cart without adm token", async () => {
+    const response = await request(app).get("/productscart");
+    expect(response.status).toBe(401);
+    expect(response.body).toHaveProperty("message");
+  });
+
+  test("GET /productscart/:id - Must be able to get all products cart with adm token", async () => {
+    const product = await request(app)
+      .get("/productscart")
+      .set("Authorization", `Bearer ${tokenAdm}`);
+
+    const productId = product.body[0].product.id;
+
+    const response = await request(app)
+      .get(`/productscart/${productId}`)
+      .set("Authorization", `Bearer ${tokenAdm}`);
+    expect(response.status).toBe(200);
+    expect(response.body).toBeInstanceOf(Array);
+    expect(response.body[0]).toHaveProperty("id");
+    expect(response.body[0]).toHaveProperty("quantity");
+    expect(response.body[0]).toHaveProperty("product");
+  });
+
+  test("GET /productscart/:id - Must not be able to get all products cart without adm token", async () => {
+    const product = await request(app)
+      .get("/productscart")
+      .set("Authorization", `Bearer ${tokenAdm}`);
+
+    const productId = product.body[0].product.id;
+
+    const response = await request(app).get(`/productscart/${productId}`);
+    expect(response.status).toBe(401);
+    expect(response.body).toHaveProperty("message");
+  });
+
+  test("DELETE /productscart/:id - Must be able to delete a product from cart", async () => {
+    const product = await request(app)
+      .get("/productscart")
+      .set("Authorization", `Bearer ${tokenAdm}`);
+
+    const productCartId = product.body[0].id;
+
+    const response = await request(app)
+      .delete(`/productscart/${productCartId}`)
+      .set("Authorization", `Bearer ${tokenAdm}`);
+    expect(response.status).toBe(204);
   });
 });
