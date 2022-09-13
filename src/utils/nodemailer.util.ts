@@ -1,12 +1,12 @@
 import { createTransport } from "nodemailer";
 import { IEmailRequest } from "../interfaces/email";
 import "dotenv/config";
+import AppError from "../errors/AppError";
 
 const sendEmailUtil = async ({ subject, text, to }: IEmailRequest) => {
   const transporter = createTransport({
-    service: "gmail",
-    host: "smtp.gmail.com",
-    port: 465,
+    host: "smtp-mail.outlook.com",
+    port: 587,
     secure: false,
     auth: {
       user: process.env.SMTP_USER,
@@ -25,7 +25,7 @@ const sendEmailUtil = async ({ subject, text, to }: IEmailRequest) => {
       return "Email sent with success";
     })
     .catch((err) => {
-      return `Email not sent. ${err}`;
+      throw new AppError(400, `Deu ruim ${err}`);
     });
 };
 

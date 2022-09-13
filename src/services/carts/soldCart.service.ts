@@ -4,6 +4,10 @@ import LoyaltyCustomer from "../../entities/loyaltyCustomer.entity";
 import AppError from "../../errors/AppError";
 import sendEmailUtil from "../../utils/nodemailer.util";
 
+const bronzeTierPoints = 200;
+const silverTierPoints = 1000;
+const goldTierPoints = 5000;
+
 const soldCartService = async (id: string) => {
   const cartRepository = AppDataSource.getRepository(Cart);
   const loyaltyCustomerRepository =
@@ -32,16 +36,28 @@ const soldCartService = async (id: string) => {
 
     let fidelityDiscount = 0;
 
-    if (totalFidelityPoints >= 5000) {
+    if (totalFidelityPoints >= goldTierPoints) {
       fidelityDiscount = 0.15;
-    } else if (totalFidelityPoints >= 1000) {
+    } else if (totalFidelityPoints >= silverTierPoints) {
       fidelityDiscount = 0.1;
-    } else if (totalFidelityPoints >= 200) {
+    } else if (totalFidelityPoints >= bronzeTierPoints) {
       fidelityDiscount = 0.05;
     }
 
+    const totalPrice = cart.productsCart.reduce(
+      (a, b) => a + b.product.marketPrice * b.quantity,
+      0
+    );
+
     const totalPriceAfterDiscount =
       Number(cart.totalPrice) * (1 - fidelityDiscount);
+
+    const priceOff = totalPrice - totalPriceAfterDiscount;
+
+    const formattedPrice = priceOff.toLocaleString("pt-BR", {
+      style: "currency",
+      currency: "BRL",
+    });
 
     await cartRepository.update(cart!.id, {
       totalPrice: totalPriceAfterDiscount,
@@ -57,7 +73,7 @@ const soldCartService = async (id: string) => {
 
     const subject = "Compra no KMARKET";
 
-    let text = `Parabéns pela compra, agora você tem ${newFidelityPoints} pontos de fidelidade!`;
+    let text = `Parabéns pela compra, agora você tem ${newFidelityPoints} pontos de fidelidade, nessa compra você economizou ${formattedPrice}. `;
 
     let to = loyaltyCustomer!.email;
 
@@ -65,16 +81,9 @@ const soldCartService = async (id: string) => {
       fidelityPoints: newFidelityPoints,
     });
 
-    try {
-      const response = await sendEmailUtil({ subject, text, to });
+    const response = await sendEmailUtil({ subject, text, to });
 
-      console.log("chegou aquiiiiiiiiiiiiiiiii");
-
-      return response;
-    } catch (error) {
-      if (error instanceof Error)
-        throw new AppError(400, `Deu ruim ${error.message}`);
-    }
+    return response;
   } else {
     await cartRepository.update(cart!.id, {
       sold: true,
