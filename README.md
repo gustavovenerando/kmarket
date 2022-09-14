@@ -12,7 +12,7 @@ Visão geral do projeto, um pouco das tecnologias usadas.
 - [Yup](https://www.npmjs.com/package/yup)
 
 A URL base da aplicação:
-http://suaapi.com/v1
+https://api-kmarket.herokuapp.com/
 
 ---
 
