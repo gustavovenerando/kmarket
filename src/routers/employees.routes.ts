@@ -16,8 +16,8 @@ employeeRouter.get(
 	"",
 	authTokenMiddleware,
 	validationAdmMiddleware,
-	validationSchemaMiddleware(employeeSchema),
 	listEmployeesController
+
 );
 employeeRouter.get(
 	"/:id",
