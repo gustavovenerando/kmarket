@@ -7,14 +7,16 @@ import AppError from "../../errors/AppError";
 const deleteCartService = async (id: string): Promise<boolean> => {
   const cartRepository = AppDataSource.getRepository(Cart);
 
-  const productCartRepository = AppDataSource.getRepository(ProductsCart);
-
   const productsRepository = AppDataSource.getRepository(Products);
 
   const cart = await cartRepository.findOneBy({ id });
 
   if (!cart) {
     throw new AppError(404, "Cart not found.");
+  }
+
+  if (cart.sold) {
+    throw new AppError(400, "Cart already sold.");
   }
 
   cart.productsCart.forEach(async (item) => {

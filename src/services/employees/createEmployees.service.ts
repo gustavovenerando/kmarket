@@ -20,7 +20,7 @@ export const createEmployeesService = async ({
 	);
 
 	if (emailAlreadyExists) {
-		throw new AppError(400, "Email already exists");
+		throw new AppError(409, "Email already exists.");
 	}
 
 	if (
@@ -29,7 +29,7 @@ export const createEmployeesService = async ({
 		password === undefined ||
 		isAdm === undefined
 	) {
-		throw new AppError(400, "Required field");
+		throw new AppError(400, "Required field.");
 	}
 
 	if (
@@ -38,7 +38,7 @@ export const createEmployeesService = async ({
 		password === "" ||
 		isAdm === null
 	) {
-		throw new AppError(400, "Required field");
+		throw new AppError(400, "Required field.");
 	}
 
 	const hashPassword = await hash(password, 10);

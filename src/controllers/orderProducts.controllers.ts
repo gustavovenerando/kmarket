@@ -6,57 +6,55 @@ import listOrdersProductsService from "../services/orderProducts/listOrdersProdu
 import updateIsDeliveredService from "../services/orderProducts/updatedIsDelivered.service";
 
 export const createOrderProductController = async (
-  req: Request,
-  res: Response
+	req: Request,
+	res: Response
 ) => {
-  const {
-    costPrice,
-    deliverySchedule,
-    productId,
-    quantity,
-    supplierProductId,
-    isDelivered,
-  }: IOrderProductsRequest = req.body;
+	const {
+		deliverySchedule,
+		productId,
+		quantity,
+		supplierProductId,
+		isDelivered,
+	}: IOrderProductsRequest = req.body;
 
-  const newOrder = await createOrderProductService({
-    costPrice,
-    deliverySchedule,
-    productId,
-    quantity,
-    supplierProductId,
-    isDelivered,
-  });
+	const newOrder = await createOrderProductService({
+		deliverySchedule,
+		productId,
+		quantity,
+		supplierProductId,
+		isDelivered,
+	});
 
-  return res.status(201).json(newOrder);
+	return res.status(201).json(newOrder);
 };
 
 export const listOrdersProductController = async (
-  req: Request,
-  res: Response
+	req: Request,
+	res: Response
 ) => {
-  const orders = await listOrdersProductsService();
+	const orders = await listOrdersProductsService();
 
-  return res.status(200).json(orders);
+	return res.status(200).json(orders);
 };
 
 export const updateIsDeliveredController = async (
-  req: Request,
-  res: Response
+	req: Request,
+	res: Response
 ) => {
-  const { id } = req.params;
+	const { id } = req.params;
 
-  const isDelivered = await updateIsDeliveredService(id);
+	const isDelivered = await updateIsDeliveredService(id);
 
-  return res.status(200).json(isDelivered);
+	return res.status(200).json(isDelivered);
 };
 
 export const deleteOrderProductController = async (
-  req: Request,
-  res: Response
+	req: Request,
+	res: Response
 ) => {
-  const { id } = req.params;
+	const { id } = req.params;
 
-  const deletedOrder = await deleteOrderProductService(id);
+	const deletedOrder = await deleteOrderProductService(id);
 
-  return res.status(204).json(deletedOrder);
+	return res.status(204).json(deletedOrder);
 };

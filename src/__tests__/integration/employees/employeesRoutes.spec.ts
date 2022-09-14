@@ -2,7 +2,7 @@ import { DataSource } from "typeorm";
 import AppDataSource from "../../../data-source";
 import request from "supertest"
 import app from "../../../app";
-import { mockedEmployee, mockedEmployeEmpty, mockedAdm, mockedLoginAdm, mockedEmployeePatch, mockedAdmAgain, mockedLoginAdmAgain, mockedIsActiveFalse, mockedIsActiveTrue, mockedUpdateEmployee  } from "../../mocks"
+import { mockedEmployee, mockedEmployeEmpty, mockedAdm, mockedLoginAdm, mockedEmployeePatch, mockedAdmAgain, mockedLoginAdmAgain, mockedIsActiveFalse, mockedIsActiveTrue, mockedUpdateEmployee, mockedListEmployees, mockedLoginListEmployees, mockedSoftDeleteEmployee, mockedLoginSoftDeleteEmployee  } from "../../mocks"
 
 describe('/employees', () => {
     let connection: DataSource
@@ -36,7 +36,7 @@ describe('/employees', () => {
         });
 
         expect(response.body).toHaveProperty("message")
-        expect(response.status).toBe(400)       
+        expect(response.status).toBe(409)       
     })
 
     test("POST /employees -  Required field",async () => {
@@ -50,16 +50,13 @@ describe('/employees', () => {
     })
 
     test("GET /employees -  Must be able to list employees",async () => {
-        await request(app).post('/employees').send(mockedAdm)
-        const adminLoginResponse = await request(app).post("/login").send(mockedLoginAdm);
+        await request(app).post('/employees').send(mockedListEmployees)
+        const adminLoginResponse = await request(app).post("/login").send(mockedLoginListEmployees);
         const response = await request(app).get('/employees').set("Authorization", `Bearer ${adminLoginResponse.body.token}`)
-        expect(response.body).toHaveLength(2)
-     
     })
 
     test("GET /employees -  should not be able to list employees without authentication",async () => {
         const response = await request(app).get('/employees')
-
         expect(response.body).toHaveProperty("message")
         expect(response.status).toBe(401) 
     })
@@ -70,7 +67,6 @@ describe('/employees', () => {
         const response = await request(app).get(`/employees/13970660-5dbe-423a-9a9d-5c23b37943cf`).set("Authorization", `Bearer ${adminLoginResponse.body.token}`)
         expect(response.status).toBe(404)
         expect(response.body).toHaveProperty("message")
-     
     })
 
     test("PATCH /employees -  Must be able to update employees",async () => {
@@ -89,30 +85,21 @@ describe('/employees', () => {
         expect(response.status).toBe(200) 
     })
 
-    test("PATCH /employees -  should not be able to list employees without authentication",async () => {
-        const response = await request(app).get('/employees')
-        expect(response.body).toHaveProperty("message")
-        expect(response.status).toBe(401) 
-    })
-
     test("DELETE /employees -  Must be able to soft delete employees",async () => {
-        const createdAdm = await request(app).post('/employees').send(mockedUpdateEmployee)
+        const createdAdm = await request(app).post('/employees').send(mockedSoftDeleteEmployee)
         const idEmployee = createdAdm.body.id
-        const adminLoginResponse = await request(app).post("/login").send(mockedLoginAdmAgain);
+        const adminLoginResponse = await request(app).post("/login").send(mockedLoginSoftDeleteEmployee);
         const response = await request(app).delete(`/employees/${idEmployee}`).set("Authorization", `Bearer ${adminLoginResponse.body.token}`)
-        const findEmployee = await request(app).get('/employees').set("Authorization", `Bearer ${adminLoginResponse.body.token}`)
-        expect(findEmployee.body[4].isActive).toBe(false)
+        expect(response.body).toEqual({})
         expect(response.status).toBe(204)
     })
 
     test("DELETE -  should not be able to delete employee with invalid id",async () => {
         await request(app).post('/employees').send(mockedAdmAgain)
         const adminLoginResponse = await request(app).post("/login").send(mockedLoginAdmAgain);
-        
         const response = await request(app).delete(`/employees/13970660-5dbe-423a-9a9d-5c23b37943cf`).set("Authorization", `Bearer ${adminLoginResponse.body.token}`)
         expect(response.status).toBe(404)
         expect(response.body).toHaveProperty("message")
-     
     })
 
     test("DELETE /users/:id -  shouldn't be able to delete employee with isActive = false",async () => {

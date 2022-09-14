@@ -4,31 +4,40 @@ import Products from "../../entities/products.entity";
 import AppError from "../../errors/AppError";
 
 const updateIsDeliveredService = async (
-  orderId: string
+	orderId: string
 ): Promise<OrderSuppliersProducts> => {
-  const orderProductsRepository = AppDataSource.getRepository(
-    OrderSuppliersProducts
-  );
+	const orderProductsRepository = AppDataSource.getRepository(
+		OrderSuppliersProducts
+	);
+	if (orderId.length !== 36) {
+		throw new AppError(400, "Id format not valid.");
+	}
 
-  const productRepository = AppDataSource.getRepository(Products);
+	const productRepository = AppDataSource.getRepository(Products);
 
-  const order = await orderProductsRepository.findOneBy({ id: orderId });
+	const order = await orderProductsRepository.findOneBy({ id: orderId });
 
-  if (!order) {
-    throw new AppError(404, "Purchase order not found.");
-  }
+	if (!order) {
+		throw new AppError(404, "Purchase order not found.");
+	}
 
-  const product = await productRepository.findOneBy({ id: order?.product.id });
+	const product = await productRepository.findOneBy({
+		id: order?.product.id,
+	});
 
-  product!.stock += order.quantity;
+	product!.stock += order.quantity;
 
-  order.isDelivered = true;
+	order.isDelivered = true;
 
-  await productRepository.save(product!);
+	await productRepository.save(product!);
 
-  await orderProductsRepository.save(order);
+	await orderProductsRepository.save(order);
 
-  return order;
+	const updatedOrder = await orderProductsRepository.findOneBy({
+		id: orderId,
+	});
+
+	return updatedOrder!;
 };
 
 export default updateIsDeliveredService;

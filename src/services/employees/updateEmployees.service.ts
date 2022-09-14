@@ -4,15 +4,11 @@ import { IEmployeeRequest } from "../../interfaces/employee";
 import bcrypt from 'bcryptjs'
 import AppError from "../../errors/AppError";
 
-export const updateEmployeesService = async (id:string,{name, email, password, isAdm}:IEmployeeRequest) => {
+export const updateEmployeesService = async (id:string,{name, email, password, isAdm, isActive}:IEmployeeRequest) => {
 	const employeesRepository = AppDataSource.getRepository(Employee);
 	const employees = await employeesRepository.find();
 
     let isEmployee = employees.find(employee => employee.id === id)
-
-    if(!isEmployee?.isActive){
-        throw new AppError(404,'Employee is not active')
-    }
 
     if(!isEmployee){
         throw new AppError(404,'Employee not found')
@@ -31,6 +27,7 @@ export const updateEmployeesService = async (id:string,{name, email, password, i
     employee.email = email? email : isEmployee.email
     employee.password = password? newPassword : isEmployee.password
     employee.isAdm = isAdm? isAdm : isEmployee.isAdm
+    employee.isActive = isAdm? isAdm : isEmployee.isActive
 
     await employeesRepository.update(isEmployee!.id, employee)
     const employeeUpdate = await employeesRepository.findOneBy({id})

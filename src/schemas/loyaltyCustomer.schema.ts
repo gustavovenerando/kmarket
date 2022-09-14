@@ -13,5 +13,6 @@ export const loyaltyCustomerUpdateSchema: SchemaOf<ILoyaltyCustomerUpdateRequest
   .shape({
     name: yup.string(),
     email: yup.string().email(),
-    fidelityPoints: yup.number()
+    fidelityPoints: yup.number(),
+    isActive: yup.boolean()
   });

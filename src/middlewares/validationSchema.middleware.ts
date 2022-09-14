@@ -14,7 +14,7 @@ const validationSchemaMiddleware =
 
         next();
       } catch (error: any) {
-        throw new AppError(400, error.errors?.join(", "))
+        throw new AppError(400, error.errors?.join(", "));
       }
     };
 

@@ -3,6 +3,8 @@ import OrderSuppliersProducts from "../../entities/orderSuppliersProducts.entity
 import AppError from "../../errors/AppError";
 
 const deleteOrderProductService = async (orderId: string): Promise<boolean> => {
+  if (orderId.length !== 36) { throw new AppError(400, "Id format not valid.") }
+
   const orderProductsRepository = AppDataSource.getRepository(
     OrderSuppliersProducts
   );
