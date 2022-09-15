@@ -25,7 +25,10 @@ const sendEmailUtil = async ({ subject, text, to }: IEmailRequest) => {
       return "Email sent with success";
     })
     .catch((err) => {
-      throw new AppError(400, `Deu ruim ${err}`);
+      throw new AppError(
+        400,
+        `Something went wrong sending the email, check if the customer received the email`
+      );
     });
 };
 
